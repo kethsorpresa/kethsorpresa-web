@@ -27,41 +27,57 @@
 // ============================================================
 const PRODUCTOS_RESPALDO = [
   {
-    "id": "vaso-sorpresa",
-    "nombre": "Vaso Sorpresa con tapa",
+    "id": "vaso-glitter",
+    "nombre": "Vaso glitter personalizado",
     "categoria": "Vasos",
-    "descripcion": "Vaso con tapa y sorbete. Elegí el color de la tapa y agregá el nombre o texto que quieras.",
+    "descripcion": "Vaso de acrílico con glitter, tapa y sorbete. Elegí el color y el estilo de letra, y contanos qué nombre o frase querés (ej. Martu · Mis XV).",
     "precio": 2500,
-    "imagen": "assets/products/vaso-rosa.svg",
+    "imagen": "assets/products/vaso-glitter-rosa.webp",
     "destacado": true,
     "agotado": false,
     "personalizable": true,
-    "textoEtiqueta": "Nombre o texto para el vaso",
-    "textoMax": 12,
+    "textoEtiqueta": "Nombre o frase (ej. Martu · Mis XV)",
+    "textoMax": 24,
     "precioPersonalizacion": 0,
     "variantes": [
       {
-        "nombre": "Tapa",
+        "nombre": "Color",
         "opciones": [
           {
             "valor": "Rosa",
-            "color": "#ffb3c3",
-            "imagen": "assets/products/vaso-rosa.svg"
+            "color": "#f4a6bd",
+            "imagen": "assets/products/vaso-glitter-rosa.webp"
           },
           {
-            "valor": "Celeste",
-            "color": "#8ecae6",
-            "imagen": "assets/products/vaso-celeste.svg"
+            "valor": "Violeta",
+            "color": "#a35fd6",
+            "imagen": "assets/products/vaso-glitter-violeta.webp"
           },
           {
             "valor": "Azul",
-            "color": "#5b8def",
-            "imagen": "assets/products/vaso-azul.svg"
+            "color": "#2d4fd6",
+            "imagen": "assets/products/vaso-glitter-azul.webp"
           },
           {
-            "valor": "Lila",
-            "color": "#c8b6ff",
-            "imagen": "assets/products/vaso-lila.svg"
+            "valor": "Plateado",
+            "color": "#c9c9cf",
+            "imagen": "assets/products/vaso-glitter-plateado.webp"
+          },
+          {
+            "valor": "Negro",
+            "color": "#2b2b2e",
+            "imagen": "assets/products/vaso-glitter-negro.webp"
+          }
+        ]
+      },
+      {
+        "nombre": "Letra",
+        "opciones": [
+          {
+            "valor": "Cursiva"
+          },
+          {
+            "valor": "Imprenta"
           }
         ]
       }
