@@ -50,6 +50,9 @@
   .badge.amar{background:#fff3cd;color:#8a6d1a}
   .toggles{display:flex;gap:12px;font-size:.8rem;color:var(--ink-2);flex-wrap:wrap}
   .toggles label{display:flex;align-items:center;gap:5px;cursor:pointer}
+  .stock{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--ink-2)}
+  .stock input{width:64px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;text-align:center;font-size:.9rem}
+  .stock .nota-stock{font-size:.72rem;color:var(--ink-3)}
   .acciones{display:flex;gap:6px;margin-top:auto;flex-wrap:wrap}
   .acciones .btn{flex:1;justify-content:center;padding:8px;font-size:.8rem}
   .orden{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:2px}
@@ -110,10 +113,10 @@
   <div class="caja">
     <img src="assets/logo/logo-redondo.webp" alt="">
     <h1>Admin Keth Sorpresa</h1>
-    <p>Ingresá la contraseña para editar tu catálogo</p>
-    <input type="password" id="loginPass" placeholder="Contraseña" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()">
+    <p id="loginHelp">Ingresá tu clave de acceso para editar la tienda</p>
+    <input type="password" id="loginPass" placeholder="Clave de acceso" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()">
     <button class="btn btn-p" onclick="login()">Entrar</button>
-    <div class="cfg">Conectado a: <span id="apiInfo"></span> · <a onclick="configurarApi()">cambiar</a></div>
+    <div class="cfg"><span id="apiInfo"></span></div>
   </div>
 </div>
 
@@ -124,8 +127,10 @@
     <div class="sub" id="modoInfo">Catálogo de la web</div>
   </div>
   <div class="acc">
-    <button class="btn btn-w" onclick="recargar()">↻ Recargar</button>
+    <button class="btn btn-w" onclick="abrirAjustes()">⚙ Ajustes de la tienda</button>
     <button class="btn btn-w" onclick="nuevoProducto()">+ Nuevo producto</button>
+    <button class="btn btn-w" onclick="recargar()" title="Volver a cargar lo publicado">↻</button>
+    <button class="btn btn-w" onclick="salir()" title="Cerrar sesión">Salir</button>
   </div>
 </header>
 
@@ -135,7 +140,8 @@
     <li><b>+ Nuevo producto</b>: cargás nombre, categoría, precio, descripción y foto.</li>
     <li><b>Variantes</b>: si el producto viene en colores o modelos (ej. tapa celeste/rosa/azul), agregá un grupo "Tapa" y sus opciones. Cada opción puede tener su color y su propia foto (cambia al elegirla). El precio es el mismo para todas.</li>
     <li><b>Personalización</b>: si el cliente puede escribir un texto (nombre, edad, frase), activala y poné el límite de caracteres. Podés cobrar un extra o dejarlo en $0.</li>
-    <li><b>Destacado</b> lo muestra arriba de todo. <b>Agotado</b> lo deja visible pero sin poder pedirlo.</li>
+    <li><b>Stock</b>: si cargás una cantidad, la web no deja pedir más que eso y al llegar a 0 muestra "Agotado". Si lo dejás vacío, no controla stock. <b>Agotado</b> lo deja visible pero sin poder pedirlo. <b>Destacado</b> lo muestra arriba de todo.</li>
+    <li><b>Ajustes de la tienda</b>: el aviso de arriba de la página (promos, envíos), los textos de portada, WhatsApp e Instagram.</li>
     <li>Cuando termines, tocá <b>Guardar y publicar</b>. La web se actualiza en 1 o 2 minutos.</li>
   </ol>
 </details>
@@ -165,6 +171,9 @@
     </div>
     <div class="fila">
       <div class="campo"><label>Precio ($) *</label><input id="f_precio" type="number" min="0" inputmode="numeric" placeholder="2500"></div>
+      <div class="campo"><label>Stock</label><input id="f_stock" type="number" min="0" inputmode="numeric" placeholder="vacío = sin control"></div>
+    </div>
+    <div class="fila">
       <div class="campo"><label>Estado</label>
         <div style="display:flex;gap:14px;padding-top:8px">
           <label class="check"><input type="checkbox" id="f_destacado"> ⭐ Destacado</label>
@@ -211,23 +220,49 @@
 </div>
 </div>
 
+<div class="overlay" id="ovAjustes">
+  <div class="modal">
+    <h2>Ajustes de la tienda</h2>
+    <div class="campo"><label>Aviso arriba de la página (promos, envíos, feriados)</label><input id="a_promo" placeholder="Ej: Envíos a todo Quilmes · 10% off pagando por transferencia"><div class="nota">Vacío = no se muestra.</div></div>
+    <div class="campo"><label>Título de portada</label><input id="a_heroTitulo" placeholder="El regalo *ideal*, con tu nombre."><div class="nota">Lo que va entre *asteriscos* sale en cursiva rosa.</div></div>
+    <div class="campo"><label>Texto de portada</label><textarea id="a_heroTexto"></textarea></div>
+    <div class="fila">
+      <div class="campo"><label>WhatsApp</label><input id="a_whatsapp" inputmode="numeric" placeholder="5491127118602"><div class="nota">Con 54 9 adelante, sin + ni espacios.</div></div>
+      <div class="campo"><label>Instagram</label><input id="a_instagram" placeholder="kethsorpresa"></div>
+    </div>
+    <div class="acc-modal">
+      <button class="btn btn-c" onclick="cerrarAjustes()">Cancelar</button>
+      <button class="btn btn-p" onclick="guardarAjustes()">Aplicar</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 // ============================================================
-// CONFIGURACIÓN
-// URL del backend (Vercel) que guarda el catálogo. Ver README.
-// Si el admin corre en la PC con INICIAR-ADMIN.command, usa /api solo.
+// CONFIGURACIÓN — dónde se guarda la tienda
+// Modo GitHub (recomendado, sin servidores): el admin escribe directo en el
+// repo que publica la web. La "clave de acceso" es un token de GitHub con
+// permiso de escritura SOLO en ese repo (ver README).
+// Modo Vercel (opcional): si completás BACKEND_URL, usa ese backend con contraseña.
+// Modo local: si abrís el admin con INICIAR-ADMIN.command, guarda en la PC.
 // ============================================================
-const BACKEND_URL = "https://CAMBIAR-POR-TU-BACKEND.vercel.app/api/admin";
+const GITHUB_REPO = "NicolasDerito/kethsorpresa-web";
+const GITHUB_BRANCH = "main";
+const BACKEND_URL = "";
 // ============================================================
 
-const LOCAL = ["localhost", "127.0.0.1"].includes(location.hostname);
-const API_BASE = (LOCAL ? "/api" : (localStorage.getItem("keth_adminApi") || BACKEND_URL)).replace(/\/$/, "");
+let LOCAL = ["localhost", "127.0.0.1"].includes(location.hostname); // se confirma al arrancar (¿responde server.js?)
+let MODO = LOCAL ? "local" : (BACKEND_URL ? "vercel" : "github");
+let API_BASE = (LOCAL ? "/api" : BACKEND_URL).replace(/\/$/, "");
 
 let PRODUCTOS = [];
 let ORIGINAL = [];
+let AJUSTES = {};
+let AJUSTES_ORIG = {};
 let TOKEN = localStorage.getItem("keth_adminToken") || "";
+const SHAS = {};                // path -> sha (modo github)
 let catFiltro = "";
 let fotosPendientes = [];      // [{filename, dataBase64}] se suben al guardar
 const previews = {};           // path -> dataURL (para ver fotos nuevas antes de publicar)
@@ -240,48 +275,123 @@ const slug = s => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u03
 const src = path => previews[path] || path;
 function toast(msg, ms = 3000){ const t = $("toast"); t.textContent = msg; t.style.display = "block"; clearTimeout(t._h); t._h = setTimeout(() => t.style.display = "none", ms); }
 
+// ---------- Transporte: local / vercel / github ----------
 async function api(path, opts){
   const r = await fetch(API_BASE + path, opts);
   const data = await r.json().catch(() => ({}));
   if (!r.ok && !data.ok) throw new Error(data.error || ("Error " + r.status));
   return data;
 }
-function configurarApi(){
-  const v = prompt("URL del backend (ej: https://tu-proyecto.vercel.app/api/admin)", localStorage.getItem("keth_adminApi") || BACKEND_URL);
-  if (v === null) return;
-  if (v.trim()) localStorage.setItem("keth_adminApi", v.trim()); else localStorage.removeItem("keth_adminApi");
-  location.reload();
+const GH = {
+  h(){ return { Authorization: "Bearer " + TOKEN, Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" }; },
+  async check(){
+    const r = await fetch(`https://api.github.com/repos/${GITHUB_REPO}`, { headers: this.h(), cache: "no-store" });
+    if (r.status === 401) throw new Error("Clave incorrecta o vencida");
+    if (r.status === 404) throw new Error("La clave no tiene acceso al repo " + GITHUB_REPO);
+    if (!r.ok) throw new Error("GitHub " + r.status);
+    const d = await r.json();
+    if (!(d.permissions && d.permissions.push)) throw new Error("La clave no tiene permiso de escritura (Contents: Read and write)");
+    return true;
+  },
+  async get(path){
+    const r = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${path}?ref=${GITHUB_BRANCH}&t=${Date.now()}`, { headers: this.h(), cache: "no-store" });
+    if (r.status === 404) return null;
+    if (!r.ok) throw new Error("GitHub " + r.status + " al leer " + path);
+    const d = await r.json(); SHAS[path] = d.sha;
+    const bytes = Uint8Array.from(atob(d.content.replace(/\n/g, "")), c => c.charCodeAt(0));
+    return new TextDecoder().decode(bytes);
+  },
+  async put(path, base64, message){
+    const body = { message, branch: GITHUB_BRANCH, content: base64 };
+    if (SHAS[path]) body.sha = SHAS[path];
+    let r = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${path}`, { method: "PUT", headers: { ...this.h(), "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    if (r.status === 409 || r.status === 422){ // sha desactualizado: releer y reintentar una vez
+      await this.get(path); if (SHAS[path]) body.sha = SHAS[path];
+      r = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${path}`, { method: "PUT", headers: { ...this.h(), "Content-Type": "application/json" }, body: JSON.stringify(body) });
+    }
+    if (!r.ok) throw new Error("GitHub " + r.status + " al guardar " + path + ": " + (await r.text()).slice(0, 120));
+    const d = await r.json(); SHAS[path] = d.content && d.content.sha;
+  },
+  b64(str){ return btoa(String.fromCharCode(...new TextEncoder().encode(str))); }
+};
+const store = {
+  async login(pass){
+    if (MODO === "local") return "local";
+    if (MODO === "vercel"){ const r = await api("/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: pass }) }); return r.token; }
+    TOKEN = pass.trim(); await GH.check(); return TOKEN;
+  },
+  async check(){
+    if (MODO === "local"){ await api("/load"); return true; }
+    if (MODO === "vercel"){ const r = await api("/check?token=" + encodeURIComponent(TOKEN)); return !!r.ok; }
+    await GH.check(); return true;
+  },
+  async load(){
+    if (MODO === "github"){
+      const [p, a] = await Promise.all([GH.get("productos.json"), GH.get("ajustes.json")]);
+      return { productos: p ? JSON.parse(p) : [], ajustes: a ? JSON.parse(a) : {} };
+    }
+    const r = await api("/load"); return { productos: r.productos || [], ajustes: r.ajustes || {} };
+  },
+  async save({ productos, ajustes, fotos }){
+    if (MODO === "github"){
+      for (const f of fotos){ SHAS["assets/products/" + f.filename] = null; await GH.put("assets/products/" + f.filename, f.dataBase64, "Admin: foto " + f.filename); }
+      await GH.put("productos.json", GH.b64(JSON.stringify(productos, null, 2)), "Admin: catálogo (" + productos.length + " productos)");
+      await GH.put("ajustes.json", GH.b64(JSON.stringify(ajustes, null, 2)), "Admin: ajustes");
+      return { ok: true };
+    }
+    return api("/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: TOKEN, productos, ajustes, fotos }) });
+  }
+};
+function pintarModo(){
+  $("apiInfo").textContent = MODO === "local" ? "Modo local: guarda en la carpeta web/ de esta PC" : MODO === "vercel" ? "Backend: " + API_BASE.replace(/^https?:\/\//, "").split("/")[0] : "Publica directo en la web (" + GITHUB_REPO + ")";
+  if (MODO === "github") $("loginHelp").textContent = "Pegá tu clave de acceso (token de GitHub del repo de la tienda)";
 }
-$("apiInfo").textContent = LOCAL ? "esta PC (modo local)" : API_BASE.replace(/^https?:\/\//, "").split("/")[0];
 
 async function login(){
   const pass = $("loginPass").value;
-  if (!pass && !LOCAL) return toast("Escribí la contraseña");
+  if (!pass && !LOCAL) return toast("Escribí la clave");
   try{
-    const r = await api("/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: pass }) });
-    TOKEN = r.token; localStorage.setItem("keth_adminToken", TOKEN);
+    TOKEN = await store.login(pass); localStorage.setItem("keth_adminToken", TOKEN);
     entrar();
-  }catch(e){ toast("Error: " + e.message); }
+  }catch(e){ toast("Error: " + e.message, 6000); }
 }
+function salir(){ if (hayCambios() && !confirm("Hay cambios sin publicar. ¿Salir igual?")) return; localStorage.removeItem("keth_adminToken"); location.reload(); }
 function entrar(){
   $("login").classList.add("hidden"); $("app").classList.remove("hidden");
-  $("modoInfo").textContent = LOCAL ? "Modo local: guarda en la carpeta web/ de esta PC" : "Publica en la web al guardar";
+  $("modoInfo").textContent = MODO === "local" ? "Modo local: guarda en la carpeta web/ de esta PC" : "Publica en la web al guardar";
   recargar();
 }
 
 async function recargar(){
   if (hayCambios() && !confirm("Hay cambios sin guardar. ¿Recargar igual?")) return;
   try{
-    const r = await api("/load");
+    const r = await store.load();
     PRODUCTOS = (r.productos || []).map(normalizar);
     ORIGINAL = JSON.parse(JSON.stringify(PRODUCTOS));
+    AJUSTES = Object.assign({ promo: "", heroTitulo: "", heroTexto: "", whatsapp: "", instagram: "" }, r.ajustes || {});
+    AJUSTES_ORIG = JSON.parse(JSON.stringify(AJUSTES));
     fotosPendientes = [];
     renderChips(); render();
-    toast("Catálogo cargado: " + PRODUCTOS.length + " productos");
+    toast("Cargado: " + PRODUCTOS.length + " productos");
   }catch(e){ toast("No se pudo cargar: " + e.message, 6000); }
 }
+
+// ---------- Ajustes de la tienda ----------
+function abrirAjustes(){
+  ["promo", "heroTitulo", "heroTexto", "whatsapp", "instagram"].forEach(k => $("a_" + k).value = AJUSTES[k] || "");
+  $("ovAjustes").classList.add("open");
+}
+function cerrarAjustes(){ $("ovAjustes").classList.remove("open"); }
+function guardarAjustes(){
+  const wa = $("a_whatsapp").value.replace(/\D/g, "");
+  if (wa && !/^\d{10,15}$/.test(wa)) return toast("El WhatsApp tiene que ser solo números, ej. 5491127118602");
+  AJUSTES = { promo: $("a_promo").value.trim(), heroTitulo: $("a_heroTitulo").value.trim(), heroTexto: $("a_heroTexto").value.trim(), whatsapp: wa, instagram: $("a_instagram").value.trim().replace(/^@/, "") };
+  cerrarAjustes(); render(); toast("Ajustes aplicados. Recordá “Guardar y publicar”.");
+}
+$("ovAjustes").addEventListener("click", e => { if (e.target === $("ovAjustes")) cerrarAjustes(); });
 function normalizar(p){
-  return Object.assign({ id: "", nombre: "", categoria: "Otros", descripcion: "", precio: 0, imagen: "", destacado: false, agotado: false, personalizable: false, textoEtiqueta: "", textoMax: 12, precioPersonalizacion: 0, variantes: [] }, p, {
+  const stock = (p.stock === null || p.stock === undefined || p.stock === "") ? null : Math.max(0, parseInt(p.stock) || 0);
+  return Object.assign({ id: "", nombre: "", categoria: "Otros", descripcion: "", precio: 0, imagen: "", destacado: false, agotado: false, stock: null, personalizable: false, textoEtiqueta: "", textoMax: 12, precioPersonalizacion: 0, variantes: [] }, p, { stock,
     variantes: Array.isArray(p.variantes) ? p.variantes.map(v => ({ nombre: v.nombre || "Opción", opciones: (v.opciones || []).map(o => ({ valor: o.valor || "", ...(o.color ? { color: o.color } : {}), ...(o.imagen ? { imagen: o.imagen } : {}) })) })) : []
   });
 }
@@ -292,7 +402,7 @@ function renderChips(){
     cats.map(c => `<button class="chip ${catFiltro === c ? "on" : ""}" data-c="${esc(c)}" onclick="catFiltro=this.dataset.c;renderChips();render()">${esc(c)}</button>`).join("");
   $("catsList").innerHTML = cats.map(c => `<option value="${esc(c)}">`).join("");
 }
-function hayCambios(){ return JSON.stringify(PRODUCTOS) !== JSON.stringify(ORIGINAL) || fotosPendientes.length > 0; }
+function hayCambios(){ return JSON.stringify(PRODUCTOS) !== JSON.stringify(ORIGINAL) || JSON.stringify(AJUSTES) !== JSON.stringify(AJUSTES_ORIG) || fotosPendientes.length > 0; }
 
 function render(){
   const q = ($("busqueda").value || "").toLowerCase();
@@ -306,20 +416,27 @@ function render(){
 function card(p){
   const idx = PRODUCTOS.indexOf(p);
   const nVar = (p.variantes || []).reduce((s, v) => s + (v.opciones || []).length, 0);
-  return `<div class="card ${p.agotado ? "agotado" : ""}">
+  const sinStock = p.agotado || p.stock === 0;
+  return `<div class="card ${sinStock ? "agotado" : ""}">
     <div class="orden"><button title="Subir" onclick="mover('${esc(p.id)}',-1)" ${idx === 0 ? "disabled" : ""}>▲</button><button title="Bajar" onclick="mover('${esc(p.id)}',1)" ${idx === PRODUCTOS.length - 1 ? "disabled" : ""}>▼</button></div>
     <div class="foto">${p.imagen ? `<img src="${esc(src(p.imagen))}" alt="" onerror="this.outerHTML='🎁'">` : "🎁"}</div>
     <div class="nombre">${esc(p.nombre)}</div>
     <div class="meta"><span>${esc(p.categoria)}</span><span class="precio">${fmt(p.precio)}</span></div>
     <div class="badges">
       ${p.destacado ? `<span class="badge amar">⭐ Destacado</span>` : ""}
-      ${p.agotado ? `<span class="badge rojo">Agotado</span>` : ""}
+      ${sinStock ? `<span class="badge rojo">Agotado</span>` : ""}
       ${p.personalizable ? `<span class="badge">✏️ Personalizable (${p.textoMax})</span>` : ""}
       ${nVar ? `<span class="badge gris">${nVar} opciones</span>` : ""}
     </div>
     <div class="toggles">
       <label><input type="checkbox" ${p.destacado ? "checked" : ""} onchange="setCampo('${esc(p.id)}','destacado',this.checked)"> Destacado</label>
       <label><input type="checkbox" ${p.agotado ? "checked" : ""} onchange="setCampo('${esc(p.id)}','agotado',this.checked)"> Agotado</label>
+    </div>
+    <div class="stock">Stock:
+      <button class="btn btn-c btn-sm" onclick="cambiarStock('${esc(p.id)}',-1)" ${p.stock === null ? "disabled" : ""}>−</button>
+      <input type="number" min="0" value="${p.stock === null ? "" : p.stock}" placeholder="∞" onchange="setStock('${esc(p.id)}',this.value)">
+      <button class="btn btn-c btn-sm" onclick="cambiarStock('${esc(p.id)}',1)">+</button>
+      <span class="nota-stock">${p.stock === null ? "sin control" : (p.stock === 0 ? "agotado" : p.stock + " disp.")}</span>
     </div>
     <div class="acciones">
       <button class="btn btn-c" onclick="editarProducto('${esc(p.id)}')">✏️ Editar</button>
@@ -329,6 +446,8 @@ function card(p){
   </div>`;
 }
 function setCampo(id, campo, val){ const p = PRODUCTOS.find(x => x.id === id); if (!p) return; p[campo] = !!val; render(); }
+function setStock(id, v){ const p = PRODUCTOS.find(x => x.id === id); if (!p) return; p.stock = (v === "" || v === null) ? null : Math.max(0, parseInt(v) || 0); render(); }
+function cambiarStock(id, d){ const p = PRODUCTOS.find(x => x.id === id); if (!p) return; p.stock = Math.max(0, (p.stock === null ? 0 : p.stock) + d); render(); }
 function mover(id, d){
   const i = PRODUCTOS.findIndex(x => x.id === id); const j = i + d;
   if (i < 0 || j < 0 || j >= PRODUCTOS.length) return;
@@ -337,7 +456,7 @@ function mover(id, d){
 
 // ---------- Editor ----------
 function limpiarForm(){
-  ["f_id", "f_nombre", "f_cat", "f_desc", "f_img", "f_persoEt"].forEach(i => $(i).value = "");
+  ["f_id", "f_nombre", "f_cat", "f_desc", "f_img", "f_persoEt", "f_stock"].forEach(i => $(i).value = "");
   $("f_precio").value = ""; $("f_destacado").checked = false; $("f_agotado").checked = false;
   $("f_perso").checked = false; $("f_persoMax").value = 12; $("f_persoExtra").value = 0; togglePerso();
   setFotoPreview("");
@@ -354,7 +473,7 @@ function editarProducto(id){
   const p = PRODUCTOS.find(x => x.id === id); if (!p) return;
   limpiarForm();
   $("f_id").value = p.id; $("f_nombre").value = p.nombre; $("f_cat").value = p.categoria;
-  $("f_precio").value = p.precio; $("f_desc").value = p.descripcion || "";
+  $("f_precio").value = p.precio; $("f_desc").value = p.descripcion || ""; $("f_stock").value = p.stock === null || p.stock === undefined ? "" : p.stock;
   $("f_destacado").checked = !!p.destacado; $("f_agotado").checked = !!p.agotado;
   $("f_perso").checked = !!p.personalizable; $("f_persoEt").value = p.textoEtiqueta || ""; $("f_persoMax").value = p.textoMax || 12; $("f_persoExtra").value = p.precioPersonalizacion || 0; togglePerso();
   setFotoPreview(p.imagen || "");
@@ -446,6 +565,7 @@ function guardarProducto(){
     id, nombre, categoria: cat, precio, descripcion: $("f_desc").value.trim(),
     imagen: $("f_img").value || (variantes[0] && variantes[0].opciones.find(o => o.imagen) || {}).imagen || "",
     destacado: $("f_destacado").checked, agotado: $("f_agotado").checked,
+    stock: $("f_stock").value === "" ? null : Math.max(0, parseInt($("f_stock").value) || 0),
     personalizable: $("f_perso").checked,
     textoEtiqueta: $("f_persoEt").value.trim() || "Escribí tu texto",
     textoMax: Math.min(200, Math.max(1, parseInt($("f_persoMax").value) || 12)),
@@ -478,18 +598,18 @@ async function guardar(){
   const btn = $("btnGuardar"); btn.disabled = true; $("estado").textContent = "Publicando…";
   try{
     const fotos = fotosUsadas();
-    const r = await api("/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: TOKEN, productos: PRODUCTOS, fotos }) });
+    const r = await store.save({ productos: PRODUCTOS, ajustes: AJUSTES, fotos });
     if (r.ok){
-      ORIGINAL = JSON.parse(JSON.stringify(PRODUCTOS)); fotosPendientes = []; render();
+      ORIGINAL = JSON.parse(JSON.stringify(PRODUCTOS)); AJUSTES_ORIG = JSON.parse(JSON.stringify(AJUSTES)); fotosPendientes = []; render();
       toast(LOCAL ? "✅ Guardado en la carpeta web/" : "✅ Publicado. La web se actualiza en 1-2 minutos", 5000);
     }
   }catch(e){
-    toast("Error: " + e.message + (/Sesión|token/i.test(e.message) ? " — recargá la página y volvé a entrar." : ""), 7000);
-    if (/Sesión|token/i.test(e.message)) localStorage.removeItem("keth_adminToken");
+    toast("Error: " + e.message + (/Sesión|token|Clave|401/i.test(e.message) ? " — recargá la página y volvé a entrar." : ""), 8000);
+    if (/Sesión|Clave|401/i.test(e.message)) localStorage.removeItem("keth_adminToken");
   }
   btn.disabled = false; render();
 }
-function descartar(){ if (!hayCambios() || !confirm("¿Descartar todos los cambios sin publicar?")) return; PRODUCTOS = JSON.parse(JSON.stringify(ORIGINAL)); fotosPendientes = []; renderChips(); render(); }
+function descartar(){ if (!hayCambios() || !confirm("¿Descartar todos los cambios sin publicar?")) return; PRODUCTOS = JSON.parse(JSON.stringify(ORIGINAL)); AJUSTES = JSON.parse(JSON.stringify(AJUSTES_ORIG)); fotosPendientes = []; renderChips(); render(); }
 function exportar(){
   const a = document.createElement("a"); a.href = "data:application/json;charset=utf-8," + encodeURIComponent(JSON.stringify(PRODUCTOS, null, 2)); a.download = "productos-keth-" + new Date().toISOString().slice(0, 10) + ".json"; a.click();
 }
@@ -497,8 +617,12 @@ window.addEventListener("beforeunload", e => { if (hayCambios()){ e.preventDefau
 
 // auto-login: local no pide contraseña; remoto usa el token guardado
 (async () => {
-  if (LOCAL){ try{ await api("/load"); entrar(); return; }catch{} }
-  if (TOKEN){ try{ const r = await api("/check?token=" + encodeURIComponent(TOKEN)); if (r.ok){ entrar(); return; } }catch{} localStorage.removeItem("keth_adminToken"); TOKEN = ""; }
+  if (LOCAL){
+    try{ const r = await fetch("/api/check", { cache: "no-store" }); if (r.ok){ pintarModo(); entrar(); return; } }catch{}
+    LOCAL = false; MODO = BACKEND_URL ? "vercel" : "github"; API_BASE = BACKEND_URL.replace(/\/$/, "");
+  }
+  pintarModo();
+  if (TOKEN){ try{ if (await store.check()){ entrar(); return; } }catch{} localStorage.removeItem("keth_adminToken"); TOKEN = ""; }
   $("login").classList.remove("hidden");
 })();
 </script>

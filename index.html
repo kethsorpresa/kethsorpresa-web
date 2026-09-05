@@ -139,6 +139,10 @@
   .foot-links{display:flex;gap:20px}
   .foot-links a,.foot-links button{color:var(--ink-2);font-weight:600;transition:color .2s}
   .foot-links a:hover,.foot-links button:hover{color:var(--ink)}
+  .foot-admin{font-size:.78rem;color:var(--ink-3);text-align:center;margin-top:18px}
+  .foot-admin a:hover{color:var(--ink)}
+  .topbar{background:var(--marca-suave);color:var(--ink);text-align:center;font-size:.82rem;font-weight:600;padding:9px 16px;border-bottom:1px solid var(--line)}
+  .topbar[hidden]{display:none}
 
   /* WhatsApp */
   .wa-float{position:fixed;bottom:22px;right:22px;z-index:55;background:var(--wa);color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.15);transition:transform .2s}
@@ -251,6 +255,7 @@
 </head>
 <body>
 
+<div class="topbar" id="topbar" hidden></div>
 <header id="header">
   <div class="nav">
     <a class="brand" href="#" aria-label="Keth Sorpresa — inicio">
@@ -274,7 +279,7 @@
 <div class="hero-wrap"><section class="hero" aria-labelledby="heroTitle">
   <img src="assets/logo/logo-redondo.webp" alt="Keth Sorpresa" width="96" height="96">
   <h1 id="heroTitle">El regalo <em>ideal</em>, con tu nombre.</h1>
-  <p>Vasos y tazas personalizadas, cotillón y decoración. Elegí el color, escribí el texto y pedí por WhatsApp.</p>
+  <p id="heroText">Vasos y tazas personalizadas, cotillón y decoración. Elegí el color, escribí el texto y pedí por WhatsApp.</p>
   <a href="#catalogo" class="hero-cta ios-press">Ver catálogo →</a>
 </section></div>
 
@@ -316,6 +321,7 @@
       <a href="https://www.instagram.com/kethsorpresa" target="_blank" rel="noopener" id="igFoot">Instagram</a>
     </div>
   </div>
+  <div class="foot-admin"><a href="admin.html">Administrar tienda</a></div>
 </footer>
 
 <button class="wa-float ios-press" onclick="waConsulta()" aria-label="Escribinos por WhatsApp">
@@ -361,8 +367,8 @@
 // ============================================================
 // CONFIGURACIÓN DEL NEGOCIO (editar acá)
 // ============================================================
-const WHATSAPP = "5491127118602";     // número con código de país, sin + ni espacios (11 2711-8602)
-const INSTAGRAM = "kethsorpresa";     // usuario de Instagram, sin @
+let WHATSAPP = "5491127118602";     // número con código de país, sin + ni espacios (11 2711-8602)
+let INSTAGRAM = "kethsorpresa";     // usuario de Instagram, sin @
 const TIENDA = "Keth Sorpresa";
 // ============================================================
 
@@ -382,6 +388,8 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 const fmt = n => "$" + Math.round(Number(n) || 0).toLocaleString("es-AR");
 const slug = s => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 const activos = () => PRODUCTOS.filter(p => p && p.id && p.nombre && p.activo !== false);
+const stockDe = p => (p.stock === null || p.stock === undefined || p.stock === "") ? Infinity : Math.max(0, Number(p.stock) || 0);
+const agotadoDe = p => !!p.agotado || stockDe(p) <= 0;
 const reducedMotion = () => window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches;
 
 function imagenDe(p, sel){
@@ -425,7 +433,7 @@ function filtrados(){
 }
 
 function cardHTML(p){
-  const agotado = !!p.agotado;
+  const agotado = agotadoDe(p);
   const dots = (p.variantes || []).flatMap(v => (v.opciones || []).map(o =>
     o.color ? `<span class="dot" style="background:${esc(o.color)}" title="${esc(o.valor)}"></span>`
             : `<span class="dot txt">${esc(o.valor)}</span>`)).slice(0, 8).join("");
@@ -447,7 +455,7 @@ function cardHTML(p){
 }
 
 function renderDestacados(){
-  const lista = activos().filter(p => p.destacado && !p.agotado);
+  const lista = activos().filter(p => p.destacado && !agotadoDe(p));
   const sec = $("destacados");
   if (!lista.length || busqueda || catSel !== "Todas"){ sec.style.display = "none"; return; }
   sec.style.display = "";
@@ -525,7 +533,7 @@ function renderModal(){
       ${p.descripcion ? `<p class="modal-desc">${esc(p.descripcion)}</p>` : ""}
       <div class="modal-price">${fmt(p.precio)}${p.personalizable && extra > 0 ? `<small>+ ${fmt(extra)} si lo personalizás</small>` : ""}</div>
       ${vars}${perso}
-      <button class="modal-add ios-press" id="modalAdd" ${p.agotado ? "disabled" : ""}>${p.agotado ? "Sin stock por ahora" : "Agregar al pedido"}</button>
+      <button class="modal-add ios-press" id="modalAdd" ${agotadoDe(p) ? "disabled" : ""}>${agotadoDe(p) ? "Sin stock por ahora" : "Agregar al pedido"}</button>
     </div>`;
   $("modalBox").querySelectorAll(".swatch").forEach(b => b.addEventListener("click", () => {
     modalSel.sel[b.dataset.var] = b.dataset.val;
@@ -551,14 +559,17 @@ function cerrarModal(e){
 
 // ---------- Carrito ----------
 function agregar(p, sel, texto){
-  if (p.agotado){ toast("Ese producto está agotado"); return; }
+  if (agotadoDe(p)){ toast("Ese producto está agotado"); return; }
   const clave = p.id + "|" + JSON.stringify(sel || {}) + "|" + (texto || "");
+  const enCarrito = Object.values(carrito).filter(i => i.id === p.id).reduce((s, i) => s + i.qty, 0);
+  if (enCarrito + 1 > stockDe(p)){ toast(`Solo quedan ${stockDe(p)} de este producto`); return; }
   if (carrito[clave]) carrito[clave].qty++;
   else carrito[clave] = { id: p.id, nombre: p.nombre, precio: precioUnit(p, texto), img: imagenDe(p, sel), sel: sel || {}, texto: texto || "", qty: 1 };
   volarAlCarrito(); actualizar(); toast(p.nombre + " agregado");
 }
 function cambiar(clave, d){
   const it = carrito[clave]; if (!it) return;
+  if (d > 0){ const p = PRODUCTOS.find(x => x.id === it.id); const enCarrito = Object.values(carrito).filter(i => i.id === it.id).reduce((s, i) => s + i.qty, 0); if (p && enCarrito + d > stockDe(p)){ toast(`Solo quedan ${stockDe(p)} de este producto`); return; } }
   it.qty += d; if (it.qty <= 0) delete carrito[clave];
   actualizar();
 }
@@ -670,6 +681,17 @@ arrancar();
 fetch("productos.json", {cache: "no-cache"}).then(r => r.ok ? r.json() : null).then(lista => {
   if (Array.isArray(lista) && lista.length){ PRODUCTOS = lista; arrancar(); }
 }).catch(() => {});
+// Ajustes del negocio: ajustes.json (textos, promo, WhatsApp, Instagram; se editan desde admin.html)
+function aplicarAjustes(a){
+  if (!a || typeof a !== "object") return;
+  const tb = $("topbar"); if (a.promo && String(a.promo).trim()){ tb.textContent = a.promo; tb.hidden = false; } else tb.hidden = true;
+  if (a.heroTitulo) $("heroTitle").innerHTML = esc(a.heroTitulo).replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  if (a.heroTexto) $("heroText").textContent = a.heroTexto;
+  if (a.whatsapp && /^\d{10,15}$/.test(String(a.whatsapp).replace(/\D/g, ""))) WHATSAPP = String(a.whatsapp).replace(/\D/g, "");
+  if (a.instagram){ INSTAGRAM = String(a.instagram).replace(/^@/, ""); $("igLink").href = $("igFoot").href = "https://www.instagram.com/" + INSTAGRAM; }
+  document.documentElement.style.setProperty("--header-h", $("header").getBoundingClientRect().height + "px");
+}
+fetch("ajustes.json", {cache: "no-cache"}).then(r => r.ok ? r.json() : null).then(aplicarAjustes).catch(() => {});
 </script>
 </body>
 </html>
