@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin · Keth Sorpresa</title>
+<link rel="icon" type="image/png" href="assets/logo/icon-192.png">
+<style>
+  :root{--marca:#ffcfd8;--chicle:#ffa3b8;--chicle-dark:#e8547e;--chicle-deep:#c23664;--rosa-bebe:#fff0f3;--bg:#fff6f8;--line:#ffd9e1;--ink:#3a1f2b;--ink-2:#7a5566;--ink-3:#b08a99;--ok:#1f9d5a;--err:#c0392b}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);padding-bottom:110px;line-height:1.45}
+  button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  input,select,textarea{font:inherit;color:inherit}
+  header{background:var(--chicle-deep);color:#fff;padding:14px 22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;position:sticky;top:0;z-index:10}
+  header h1{font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:10px}
+  header h1 img{width:34px;height:34px;border-radius:50%;border:2px solid #fff}
+  header .sub{font-size:.75rem;opacity:.85}
+  header .acc{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{padding:10px 16px;border-radius:10px;font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;gap:6px;transition:.15s}
+  .btn:active{transform:scale(.97)}
+  .btn-p{background:var(--chicle-dark);color:#fff}.btn-p:hover{background:#d93d84}
+  .btn-w{background:#fff;color:var(--chicle-deep);border:1px solid #fff}
+  .btn-c{background:#fff;border:1px solid var(--line);color:var(--ink)}.btn-c:hover{background:var(--rosa-bebe)}
+  .btn-d{background:#fff;border:1px solid #efc4c4;color:var(--err)}.btn-d:hover{background:#fdeeee}
+  .btn-ok{background:var(--ok);color:#fff}
+  .btn-sm{padding:6px 10px;font-size:.8rem;border-radius:8px}
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;padding:14px 22px 6px;align-items:center}
+  .toolbar input[type=search]{flex:1;min-width:200px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;background:#fff}
+  .chips{display:flex;gap:6px;padding:0 22px 8px;flex-wrap:wrap}
+  .chip{padding:6px 12px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:.8rem;font-weight:600;color:var(--ink-2)}
+  .chip.on{background:var(--chicle-deep);color:#fff;border-color:var(--chicle-deep)}
+  .stats{padding:0 22px 8px;font-size:.78rem;color:var(--ink-3)}
+  .ayuda{margin:0 22px 10px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;font-size:.85rem;color:var(--ink-2)}
+  .ayuda summary{cursor:pointer;font-weight:700;color:var(--chicle-deep)}
+  .ayuda ol{padding-left:20px;margin-top:8px}
+  .ayuda li{margin-bottom:4px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px;padding:8px 22px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px;position:relative}
+  .card.agotado{opacity:.75}
+  .card .foto{width:100%;height:160px;border-radius:10px;background:var(--rosa-bebe);display:flex;align-items:center;justify-content:center;font-size:2.5rem;overflow:hidden}
+  .card .foto img{width:100%;height:100%;object-fit:cover}
+  .card .nombre{font-weight:800;font-size:.98rem}
+  .card .meta{font-size:.8rem;color:var(--ink-2);display:flex;justify-content:space-between;gap:6px;flex-wrap:wrap}
+  .card .precio{font-weight:800;color:var(--chicle-deep);font-size:1rem}
+  .badges{display:flex;gap:5px;flex-wrap:wrap}
+  .badge{border-radius:999px;padding:3px 9px;font-size:.68rem;font-weight:700;background:var(--rosa-bebe);color:var(--chicle-deep)}
+  .badge.gris{background:#f1eef0;color:var(--ink-2)}
+  .badge.rojo{background:#fbe9ea;color:var(--err)}
+  .badge.amar{background:#fff3cd;color:#8a6d1a}
+  .toggles{display:flex;gap:12px;font-size:.8rem;color:var(--ink-2);flex-wrap:wrap}
+  .toggles label{display:flex;align-items:center;gap:5px;cursor:pointer}
+  .acciones{display:flex;gap:6px;margin-top:auto;flex-wrap:wrap}
+  .acciones .btn{flex:1;justify-content:center;padding:8px;font-size:.8rem}
+  .orden{position:absolute;top:10px;right:10px;display:flex;flex-direction:column;gap:2px}
+  .orden button{width:26px;height:22px;background:rgba(255,255,255,.92);border:1px solid var(--line);border-radius:6px;font-size:.7rem}
+  .overlay{position:fixed;inset:0;background:rgba(58,31,43,.5);display:none;align-items:center;justify-content:center;z-index:50;padding:16px}
+  .overlay.open{display:flex}
+  .modal{background:#fff;border-radius:18px;max-width:640px;width:100%;max-height:92vh;overflow-y:auto;padding:22px}
+  .modal h2{font-size:1.15rem;margin-bottom:14px;color:var(--chicle-deep)}
+  .campo{margin-bottom:12px}
+  .campo label{display:block;font-size:.78rem;font-weight:700;margin-bottom:4px;color:var(--ink-2)}
+  .campo input,.campo select,.campo textarea{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:#fff}
+  .campo input:focus,.campo textarea:focus{outline:none;border-color:var(--chicle)}
+  .campo textarea{min-height:64px;resize:vertical}
+  .campo .nota{font-size:.72rem;color:var(--ink-3);margin-top:3px}
+  .fila{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .fila3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .check{display:flex;align-items:center;gap:8px;font-size:.9rem;font-weight:600;margin-bottom:10px;cursor:pointer}
+  .check input{width:18px;height:18px;accent-color:var(--chicle-dark)}
+  .seccion{border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:12px;background:#fffafc}
+  .seccion h3{font-size:.85rem;font-weight:800;color:var(--chicle-deep);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+  .seccion .desc{font-size:.76rem;color:var(--ink-3);margin-bottom:8px}
+  .drop{border:2px dashed var(--line);border-radius:12px;padding:14px;text-align:center;color:var(--ink-3);font-size:.82rem;cursor:pointer;background:#fff;position:relative}
+  .drop.over{border-color:var(--chicle);background:var(--rosa-bebe)}
+  .drop img{max-height:130px;border-radius:8px;margin:8px auto 0;display:block}
+  .drop .quitar{position:absolute;top:6px;right:6px;background:#fff;border:1px solid var(--line);border-radius:999px;font-size:.7rem;padding:3px 8px;color:var(--err)}
+  .grupo{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px;background:#fff}
+  .grupo .g-head{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .grupo .g-head input{flex:1;padding:8px 10px;border:1px solid var(--line);border-radius:8px}
+  .opcion{display:grid;grid-template-columns:1fr auto auto auto;gap:6px;align-items:center;margin-bottom:6px}
+  .opcion input[type=text]{padding:7px 10px;border:1px solid var(--line);border-radius:8px;min-width:0}
+  .opcion .color{display:flex;align-items:center;gap:4px;font-size:.72rem;color:var(--ink-2)}
+  .opcion input[type=color]{width:34px;height:30px;border:1px solid var(--line);border-radius:8px;padding:2px;background:#fff;cursor:pointer}
+  .opcion .mini{width:34px;height:30px;border:1px dashed var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem;cursor:pointer;overflow:hidden;background:#fff;position:relative}
+  .opcion .mini img{width:100%;height:100%;object-fit:cover}
+  .opcion .mini input{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .opcion .x{color:var(--err);font-weight:800;padding:4px 8px}
+  .modal .acc-modal{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
+  .toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:12px;font-size:.9rem;z-index:100;display:none;box-shadow:0 4px 16px rgba(0,0,0,.3);max-width:90%;text-align:center}
+  .barra{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);padding:12px 22px;display:flex;gap:10px;align-items:center;justify-content:flex-end;z-index:20;flex-wrap:wrap}
+  .barra .estado{font-size:.82rem;color:var(--ink-3);margin-right:auto}
+  .barra .estado.cambios{color:#8a6d1a;font-weight:700}
+  #login{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:100;padding:16px}
+  #login .caja{background:#fff;border-radius:18px;padding:30px;max-width:380px;width:100%;text-align:center;box-shadow:0 8px 30px rgba(194,54,100,.12);border:1px solid var(--line)}
+  #login img{width:90px;height:90px;border-radius:50%;margin:0 auto 12px;display:block}
+  #login h1{font-size:1.25rem;margin-bottom:6px;color:var(--chicle-deep)}
+  #login p{font-size:.85rem;color:var(--ink-2);margin-bottom:18px}
+  #login input{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;font-size:1rem;margin-bottom:12px}
+  #login .btn{width:100%;justify-content:center}
+  #login .cfg{margin-top:14px;font-size:.72rem;color:var(--ink-3)}
+  #login .cfg a{color:var(--chicle-deep);cursor:pointer;text-decoration:underline}
+  .hidden{display:none!important}
+  @media(max-width:600px){.fila,.fila3{grid-template-columns:1fr}.grid{padding:8px 12px}.toolbar,.chips,.stats,.ayuda{padding-left:12px;padding-right:12px}.ayuda{margin:0 12px 10px}.acciones .btn{flex:1 1 40%}}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <div class="caja">
+    <img src="assets/logo/logo-redondo.webp" alt="">
+    <h1>Admin Keth Sorpresa</h1>
+    <p>Ingresá la contraseña para editar tu catálogo</p>
+    <input type="password" id="loginPass" placeholder="Contraseña" autocomplete="current-password" onkeydown="if(event.key==='Enter')login()">
+    <button class="btn btn-p" onclick="login()">Entrar</button>
+    <div class="cfg">Conectado a: <span id="apiInfo"></span> · <a onclick="configurarApi()">cambiar</a></div>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+<header>
+  <div>
+    <h1><img src="assets/logo/logo-redondo.webp" alt="">Admin Keth Sorpresa</h1>
+    <div class="sub" id="modoInfo">Catálogo de la web</div>
+  </div>
+  <div class="acc">
+    <button class="btn btn-w" onclick="recargar()">↻ Recargar</button>
+    <button class="btn btn-w" onclick="nuevoProducto()">+ Nuevo producto</button>
+  </div>
+</header>
+
+<details class="ayuda" style="margin-top:14px">
+  <summary>¿Cómo se usa? (leer una vez)</summary>
+  <ol>
+    <li><b>+ Nuevo producto</b>: cargás nombre, categoría, precio, descripción y foto.</li>
+    <li><b>Variantes</b>: si el producto viene en colores o modelos (ej. tapa celeste/rosa/azul), agregá un grupo "Tapa" y sus opciones. Cada opción puede tener su color y su propia foto (cambia al elegirla). El precio es el mismo para todas.</li>
+    <li><b>Personalización</b>: si el cliente puede escribir un texto (nombre, edad, frase), activala y poné el límite de caracteres. Podés cobrar un extra o dejarlo en $0.</li>
+    <li><b>Destacado</b> lo muestra arriba de todo. <b>Agotado</b> lo deja visible pero sin poder pedirlo.</li>
+    <li>Cuando termines, tocá <b>Guardar y publicar</b>. La web se actualiza en 1 o 2 minutos.</li>
+  </ol>
+</details>
+
+<div class="toolbar">
+  <input type="search" id="busqueda" placeholder="Buscar producto…" oninput="render()">
+  <button class="btn btn-c" onclick="exportar()">⬇ Descargar copia</button>
+</div>
+<div class="chips" id="chips"></div>
+<div class="stats" id="stats"></div>
+<div class="grid" id="grid"></div>
+
+<div class="barra">
+  <span class="estado" id="estado">Sin cambios</span>
+  <button class="btn btn-c" onclick="descartar()">Descartar</button>
+  <button class="btn btn-p" id="btnGuardar" onclick="guardar()">💾 Guardar y publicar</button>
+</div>
+
+<!-- Editor -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h2 id="modalTitulo">Nuevo producto</h2>
+    <input type="hidden" id="f_id">
+    <div class="fila">
+      <div class="campo"><label>Nombre *</label><input id="f_nombre" placeholder="Ej: Vaso Sorpresa con tapa"></div>
+      <div class="campo"><label>Categoría *</label><input id="f_cat" list="catsList" placeholder="Ej: Vasos"><datalist id="catsList"></datalist></div>
+    </div>
+    <div class="fila">
+      <div class="campo"><label>Precio ($) *</label><input id="f_precio" type="number" min="0" inputmode="numeric" placeholder="2500"></div>
+      <div class="campo"><label>Estado</label>
+        <div style="display:flex;gap:14px;padding-top:8px">
+          <label class="check"><input type="checkbox" id="f_destacado"> ⭐ Destacado</label>
+          <label class="check"><input type="checkbox" id="f_agotado"> Agotado</label>
+        </div>
+      </div>
+    </div>
+    <div class="campo"><label>Descripción</label><textarea id="f_desc" placeholder="Descripción corta que ve el cliente…"></textarea></div>
+    <div class="campo">
+      <label>Foto principal</label>
+      <div class="drop" id="drop" onclick="if(event.target.tagName!=='BUTTON')document.getElementById('f_file').click()">
+        <span id="dropText">📷 Tocá acá o arrastrá una foto (JPG/PNG/WebP). Se achica sola.</span>
+        <img id="fotoPreview" style="display:none" alt="">
+        <button type="button" class="quitar" id="fotoQuitar" style="display:none" onclick="quitarFotoPrincipal()">quitar</button>
+        <input type="file" id="f_file" accept="image/*" style="display:none" onchange="seleccionarFoto(this.files[0])">
+      </div>
+      <input type="hidden" id="f_img">
+    </div>
+
+    <div class="seccion">
+      <h3>Variantes (colores / modelos) <button type="button" class="btn btn-c btn-sm" onclick="agregarGrupo()">+ Agregar grupo</button></h3>
+      <div class="desc">Ej. grupo "Tapa" con opciones Rosa, Celeste, Azul. Mismo precio para todas. La foto de cada opción es opcional.</div>
+      <div id="grupos"></div>
+    </div>
+
+    <div class="seccion">
+      <h3>Personalización con texto</h3>
+      <label class="check"><input type="checkbox" id="f_perso" onchange="togglePerso()"> El cliente puede escribir un texto (nombre, edad, frase)</label>
+      <div id="persoCampos" style="display:none">
+        <div class="fila3">
+          <div class="campo"><label>Texto de ayuda</label><input id="f_persoEt" placeholder="Nombre o texto para el vaso"></div>
+          <div class="campo"><label>Máx. caracteres</label><input id="f_persoMax" type="number" min="1" max="200" value="12"></div>
+          <div class="campo"><label>Costo extra ($)</label><input id="f_persoExtra" type="number" min="0" value="0"><div class="nota">0 = sin costo</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="acc-modal">
+      <button class="btn btn-c" onclick="cerrarModal()">Cancelar</button>
+      <button class="btn btn-d" id="btnEliminar" style="display:none" onclick="eliminarProducto()">🗑 Eliminar</button>
+      <button class="btn btn-p" onclick="guardarProducto()">Guardar producto</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CONFIGURACIÓN
+// URL del backend (Vercel) que guarda el catálogo. Ver README.
+// Si el admin corre en la PC con INICIAR-ADMIN.command, usa /api solo.
+// ============================================================
+const BACKEND_URL = "https://CAMBIAR-POR-TU-BACKEND.vercel.app/api/admin";
+// ============================================================
+
+const LOCAL = ["localhost", "127.0.0.1"].includes(location.hostname);
+const API_BASE = (LOCAL ? "/api" : (localStorage.getItem("keth_adminApi") || BACKEND_URL)).replace(/\/$/, "");
+
+let PRODUCTOS = [];
+let ORIGINAL = [];
+let TOKEN = localStorage.getItem("keth_adminToken") || "";
+let catFiltro = "";
+let fotosPendientes = [];      // [{filename, dataBase64}] se suben al guardar
+const previews = {};           // path -> dataURL (para ver fotos nuevas antes de publicar)
+let editGrupos = [];           // variantes en edición: [{nombre, opciones:[{valor,color,imagen}]}]
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = n => "$" + Math.round(Number(n) || 0).toLocaleString("es-AR");
+const slug = s => String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+const src = path => previews[path] || path;
+function toast(msg, ms = 3000){ const t = $("toast"); t.textContent = msg; t.style.display = "block"; clearTimeout(t._h); t._h = setTimeout(() => t.style.display = "none", ms); }
+
+async function api(path, opts){
+  const r = await fetch(API_BASE + path, opts);
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok && !data.ok) throw new Error(data.error || ("Error " + r.status));
+  return data;
+}
+function configurarApi(){
+  const v = prompt("URL del backend (ej: https://tu-proyecto.vercel.app/api/admin)", localStorage.getItem("keth_adminApi") || BACKEND_URL);
+  if (v === null) return;
+  if (v.trim()) localStorage.setItem("keth_adminApi", v.trim()); else localStorage.removeItem("keth_adminApi");
+  location.reload();
+}
+$("apiInfo").textContent = LOCAL ? "esta PC (modo local)" : API_BASE.replace(/^https?:\/\//, "").split("/")[0];
+
+async function login(){
+  const pass = $("loginPass").value;
+  if (!pass && !LOCAL) return toast("Escribí la contraseña");
+  try{
+    const r = await api("/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ password: pass }) });
+    TOKEN = r.token; localStorage.setItem("keth_adminToken", TOKEN);
+    entrar();
+  }catch(e){ toast("Error: " + e.message); }
+}
+function entrar(){
+  $("login").classList.add("hidden"); $("app").classList.remove("hidden");
+  $("modoInfo").textContent = LOCAL ? "Modo local: guarda en la carpeta web/ de esta PC" : "Publica en la web al guardar";
+  recargar();
+}
+
+async function recargar(){
+  if (hayCambios() && !confirm("Hay cambios sin guardar. ¿Recargar igual?")) return;
+  try{
+    const r = await api("/load");
+    PRODUCTOS = (r.productos || []).map(normalizar);
+    ORIGINAL = JSON.parse(JSON.stringify(PRODUCTOS));
+    fotosPendientes = [];
+    renderChips(); render();
+    toast("Catálogo cargado: " + PRODUCTOS.length + " productos");
+  }catch(e){ toast("No se pudo cargar: " + e.message, 6000); }
+}
+function normalizar(p){
+  return Object.assign({ id: "", nombre: "", categoria: "Otros", descripcion: "", precio: 0, imagen: "", destacado: false, agotado: false, personalizable: false, textoEtiqueta: "", textoMax: 12, precioPersonalizacion: 0, variantes: [] }, p, {
+    variantes: Array.isArray(p.variantes) ? p.variantes.map(v => ({ nombre: v.nombre || "Opción", opciones: (v.opciones || []).map(o => ({ valor: o.valor || "", ...(o.color ? { color: o.color } : {}), ...(o.imagen ? { imagen: o.imagen } : {}) })) })) : []
+  });
+}
+
+function renderChips(){
+  const cats = [...new Set(PRODUCTOS.map(p => p.categoria || "Otros"))];
+  $("chips").innerHTML = `<button class="chip ${catFiltro === "" ? "on" : ""}" onclick="catFiltro='';renderChips();render()">Todas</button>` +
+    cats.map(c => `<button class="chip ${catFiltro === c ? "on" : ""}" data-c="${esc(c)}" onclick="catFiltro=this.dataset.c;renderChips();render()">${esc(c)}</button>`).join("");
+  $("catsList").innerHTML = cats.map(c => `<option value="${esc(c)}">`).join("");
+}
+function hayCambios(){ return JSON.stringify(PRODUCTOS) !== JSON.stringify(ORIGINAL) || fotosPendientes.length > 0; }
+
+function render(){
+  const q = ($("busqueda").value || "").toLowerCase();
+  const lista = PRODUCTOS.filter(p => (!catFiltro || (p.categoria || "Otros") === catFiltro) && (!q || (p.nombre + " " + p.categoria + " " + p.descripcion).toLowerCase().includes(q)));
+  $("stats").textContent = `${lista.length} de ${PRODUCTOS.length} productos` + (fotosPendientes.length ? ` · ${fotosPendientes.length} foto(s) nueva(s) sin publicar` : "");
+  $("grid").innerHTML = lista.map(card).join("") || `<div style="padding:40px;text-align:center;color:var(--ink-3)">No hay productos. Tocá "+ Nuevo producto".</div>`;
+  const cambios = hayCambios();
+  $("estado").textContent = cambios ? "⚠️ Hay cambios sin publicar" : "Sin cambios";
+  $("estado").classList.toggle("cambios", cambios);
+}
+function card(p){
+  const idx = PRODUCTOS.indexOf(p);
+  const nVar = (p.variantes || []).reduce((s, v) => s + (v.opciones || []).length, 0);
+  return `<div class="card ${p.agotado ? "agotado" : ""}">
+    <div class="orden"><button title="Subir" onclick="mover('${esc(p.id)}',-1)" ${idx === 0 ? "disabled" : ""}>▲</button><button title="Bajar" onclick="mover('${esc(p.id)}',1)" ${idx === PRODUCTOS.length - 1 ? "disabled" : ""}>▼</button></div>
+    <div class="foto">${p.imagen ? `<img src="${esc(src(p.imagen))}" alt="" onerror="this.outerHTML='🎁'">` : "🎁"}</div>
+    <div class="nombre">${esc(p.nombre)}</div>
+    <div class="meta"><span>${esc(p.categoria)}</span><span class="precio">${fmt(p.precio)}</span></div>
+    <div class="badges">
+      ${p.destacado ? `<span class="badge amar">⭐ Destacado</span>` : ""}
+      ${p.agotado ? `<span class="badge rojo">Agotado</span>` : ""}
+      ${p.personalizable ? `<span class="badge">✏️ Personalizable (${p.textoMax})</span>` : ""}
+      ${nVar ? `<span class="badge gris">${nVar} opciones</span>` : ""}
+    </div>
+    <div class="toggles">
+      <label><input type="checkbox" ${p.destacado ? "checked" : ""} onchange="setCampo('${esc(p.id)}','destacado',this.checked)"> Destacado</label>
+      <label><input type="checkbox" ${p.agotado ? "checked" : ""} onchange="setCampo('${esc(p.id)}','agotado',this.checked)"> Agotado</label>
+    </div>
+    <div class="acciones">
+      <button class="btn btn-c" onclick="editarProducto('${esc(p.id)}')">✏️ Editar</button>
+      <button class="btn btn-c" onclick="duplicarProducto('${esc(p.id)}')">⧉ Duplicar</button>
+      <button class="btn btn-d" onclick="borrarRapido('${esc(p.id)}')">🗑</button>
+    </div>
+  </div>`;
+}
+function setCampo(id, campo, val){ const p = PRODUCTOS.find(x => x.id === id); if (!p) return; p[campo] = !!val; render(); }
+function mover(id, d){
+  const i = PRODUCTOS.findIndex(x => x.id === id); const j = i + d;
+  if (i < 0 || j < 0 || j >= PRODUCTOS.length) return;
+  [PRODUCTOS[i], PRODUCTOS[j]] = [PRODUCTOS[j], PRODUCTOS[i]]; render();
+}
+
+// ---------- Editor ----------
+function limpiarForm(){
+  ["f_id", "f_nombre", "f_cat", "f_desc", "f_img", "f_persoEt"].forEach(i => $(i).value = "");
+  $("f_precio").value = ""; $("f_destacado").checked = false; $("f_agotado").checked = false;
+  $("f_perso").checked = false; $("f_persoMax").value = 12; $("f_persoExtra").value = 0; togglePerso();
+  setFotoPreview("");
+  editGrupos = []; renderGrupos();
+}
+function nuevoProducto(){
+  limpiarForm();
+  $("modalTitulo").textContent = "Nuevo producto";
+  $("btnEliminar").style.display = "none";
+  $("overlay").classList.add("open");
+  setTimeout(() => $("f_nombre").focus(), 50);
+}
+function editarProducto(id){
+  const p = PRODUCTOS.find(x => x.id === id); if (!p) return;
+  limpiarForm();
+  $("f_id").value = p.id; $("f_nombre").value = p.nombre; $("f_cat").value = p.categoria;
+  $("f_precio").value = p.precio; $("f_desc").value = p.descripcion || "";
+  $("f_destacado").checked = !!p.destacado; $("f_agotado").checked = !!p.agotado;
+  $("f_perso").checked = !!p.personalizable; $("f_persoEt").value = p.textoEtiqueta || ""; $("f_persoMax").value = p.textoMax || 12; $("f_persoExtra").value = p.precioPersonalizacion || 0; togglePerso();
+  setFotoPreview(p.imagen || "");
+  editGrupos = JSON.parse(JSON.stringify(p.variantes || [])); renderGrupos();
+  $("modalTitulo").textContent = "Editar: " + p.nombre;
+  $("btnEliminar").style.display = "";
+  $("overlay").classList.add("open");
+}
+function togglePerso(){ $("persoCampos").style.display = $("f_perso").checked ? "" : "none"; }
+function setFotoPreview(path){
+  $("f_img").value = path || "";
+  if (path){ $("fotoPreview").src = src(path); $("fotoPreview").style.display = ""; $("dropText").style.display = "none"; $("fotoQuitar").style.display = ""; }
+  else { $("fotoPreview").style.display = "none"; $("dropText").style.display = ""; $("fotoQuitar").style.display = "none"; }
+}
+function quitarFotoPrincipal(){ setFotoPreview(""); }
+
+// Variantes
+function renderGrupos(){
+  $("grupos").innerHTML = editGrupos.map((g, gi) => `
+    <div class="grupo">
+      <div class="g-head"><span style="font-size:.75rem;color:var(--ink-3)">Grupo</span><input placeholder="Ej: Tapa, Color, Tamaño" value="${esc(g.nombre)}" oninput="editGrupos[${gi}].nombre=this.value">
+        <button type="button" class="btn btn-d btn-sm" onclick="editGrupos.splice(${gi},1);renderGrupos()">Quitar grupo</button></div>
+      ${(g.opciones || []).map((o, oi) => `
+        <div class="opcion">
+          <input type="text" placeholder="Opción (ej: Rosa)" value="${esc(o.valor)}" oninput="editGrupos[${gi}].opciones[${oi}].valor=this.value">
+          <span class="color"><input type="color" value="${esc(o.color || "#ffcfd8")}" title="Color de la muestra" oninput="editGrupos[${gi}].opciones[${oi}].color=this.value"><button type="button" title="${o.color ? "Quitar color" : "Sin color (solo texto)"}" style="font-size:.7rem;color:${o.color ? "var(--err)" : "var(--ink-3)"}" onclick="toggleColor(${gi},${oi})">${o.color ? "×" : "sin color"}</button></span>
+          <label class="mini" title="Foto de esta opción (opcional)">${o.imagen ? `<img src="${esc(src(o.imagen))}" alt="">` : "📷"}<input type="file" accept="image/*" onchange="fotoOpcion(${gi},${oi},this.files[0])"></label>
+          <button type="button" class="x" title="Quitar opción" onclick="editGrupos[${gi}].opciones.splice(${oi},1);renderGrupos()">×</button>
+        </div>`).join("")}
+      <button type="button" class="btn btn-c btn-sm" onclick="editGrupos[${gi}].opciones.push({valor:'',color:'#ffcfd8'});renderGrupos()">+ Agregar opción</button>
+    </div>`).join("") || `<div style="font-size:.8rem;color:var(--ink-3)">Sin variantes. Este producto se pide tal cual.</div>`;
+}
+function agregarGrupo(){ editGrupos.push({ nombre: editGrupos.length ? "" : "Color", opciones: [{ valor: "", color: "#ffcfd8" }] }); renderGrupos(); }
+function toggleColor(gi, oi){ const o = editGrupos[gi].opciones[oi]; if (o.color) delete o.color; else o.color = "#ffcfd8"; renderGrupos(); }
+async function fotoOpcion(gi, oi, file){
+  if (!file) return;
+  try{ const path = await procesarFoto(file, ($("f_nombre").value || "opcion") + "-" + (editGrupos[gi].opciones[oi].valor || oi)); editGrupos[gi].opciones[oi].imagen = path; renderGrupos(); toast("Foto lista — se publica al guardar"); }
+  catch(e){ toast("No pude procesar la foto: " + e.message); }
+}
+
+// Fotos: se achican a máx 1200px y se convierten a WebP antes de subir
+function procesarFoto(file, nombreBase){
+  return new Promise((resolve, reject) => {
+    if (!file.type.startsWith("image/")) return reject(new Error("no es una imagen"));
+    if (file.size > 25 * 1024 * 1024) return reject(new Error("más de 25MB"));
+    const img = new Image(); const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const MAX = 1200; let w = img.width, h = img.height;
+      if (w > MAX || h > MAX){ const r = Math.min(MAX / w, MAX / h); w = Math.round(w * r); h = Math.round(h * r); }
+      const c = document.createElement("canvas"); c.width = w; c.height = h;
+      const ctx = c.getContext("2d"); ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, w, h); ctx.drawImage(img, 0, 0, w, h);
+      let dataUrl = c.toDataURL("image/webp", 0.86); let ext = "webp";
+      if (!dataUrl.startsWith("data:image/webp")){ dataUrl = c.toDataURL("image/jpeg", 0.86); ext = "jpg"; }
+      const filename = (slug(nombreBase) || "foto") + "-" + Date.now().toString(36) + "." + ext;
+      const path = "assets/products/" + filename;
+      fotosPendientes.push({ filename, dataBase64: dataUrl.split(",")[1] });
+      previews[path] = dataUrl;
+      resolve(path);
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("no se pudo leer la imagen")); };
+    img.src = url;
+  });
+}
+async function seleccionarFoto(file){
+  if (!file) return;
+  try{ const path = await procesarFoto(file, $("f_nombre").value || "producto"); setFotoPreview(path); toast("Foto lista — se publica al guardar"); }
+  catch(e){ toast("No pude procesar la foto: " + e.message); }
+}
+const drop = $("drop");
+drop.addEventListener("dragover", e => { e.preventDefault(); drop.classList.add("over"); });
+drop.addEventListener("dragleave", () => drop.classList.remove("over"));
+drop.addEventListener("drop", e => { e.preventDefault(); drop.classList.remove("over"); seleccionarFoto(e.dataTransfer.files[0]); });
+
+function nuevoId(nombre){
+  let base = slug(nombre) || "producto", id = base, n = 2;
+  while (PRODUCTOS.some(p => p.id === id)) id = base + "-" + n++;
+  return id;
+}
+function guardarProducto(){
+  const nombre = $("f_nombre").value.trim(), cat = $("f_cat").value.trim();
+  if (!nombre || !cat) return toast("Nombre y categoría son obligatorios");
+  const precio = Math.max(0, parseInt($("f_precio").value) || 0);
+  if (!precio) return toast("Poné un precio");
+  const variantes = editGrupos.map(g => ({ nombre: (g.nombre || "").trim() || "Opción", opciones: (g.opciones || []).map(o => ({ valor: (o.valor || "").trim(), ...(o.color ? { color: o.color } : {}), ...(o.imagen ? { imagen: o.imagen } : {}) })).filter(o => o.valor) })).filter(g => g.opciones.length);
+  const id = $("f_id").value || nuevoId(nombre);
+  const existente = PRODUCTOS.find(x => x.id === id);
+  const obj = normalizar(Object.assign({}, existente || {}, {
+    id, nombre, categoria: cat, precio, descripcion: $("f_desc").value.trim(),
+    imagen: $("f_img").value || (variantes[0] && variantes[0].opciones.find(o => o.imagen) || {}).imagen || "",
+    destacado: $("f_destacado").checked, agotado: $("f_agotado").checked,
+    personalizable: $("f_perso").checked,
+    textoEtiqueta: $("f_persoEt").value.trim() || "Escribí tu texto",
+    textoMax: Math.min(200, Math.max(1, parseInt($("f_persoMax").value) || 12)),
+    precioPersonalizacion: Math.max(0, parseInt($("f_persoExtra").value) || 0),
+    variantes
+  }));
+  if (!existente) PRODUCTOS.push(obj); else PRODUCTOS[PRODUCTOS.indexOf(existente)] = obj;
+  cerrarModal(); renderChips(); render();
+  toast("Producto guardado. Recordá “Guardar y publicar”.");
+}
+function duplicarProducto(id){
+  const p = PRODUCTOS.find(x => x.id === id); if (!p) return;
+  const copia = JSON.parse(JSON.stringify(p)); copia.nombre = p.nombre + " (copia)"; copia.id = nuevoId(copia.nombre); copia.destacado = false;
+  PRODUCTOS.splice(PRODUCTOS.indexOf(p) + 1, 0, copia); render(); toast("Duplicado");
+}
+function borrarRapido(id){ const p = PRODUCTOS.find(x => x.id === id); if (!p || !confirm(`¿Eliminar "${p.nombre}"?`)) return; PRODUCTOS = PRODUCTOS.filter(x => x.id !== id); renderChips(); render(); }
+function eliminarProducto(){ const id = $("f_id").value; if (!id) return; const p = PRODUCTOS.find(x => x.id === id); if (!confirm(`¿Eliminar "${p ? p.nombre : id}" definitivamente?`)) return; PRODUCTOS = PRODUCTOS.filter(x => x.id !== id); cerrarModal(); renderChips(); render(); }
+function cerrarModal(){ $("overlay").classList.remove("open"); }
+$("overlay").addEventListener("click", e => { if (e.target === $("overlay")) cerrarModal(); });
+document.addEventListener("keydown", e => { if (e.key === "Escape") cerrarModal(); });
+
+// ---------- Guardar / publicar ----------
+function fotosUsadas(){
+  const usadas = new Set();
+  PRODUCTOS.forEach(p => { if (p.imagen) usadas.add(p.imagen); (p.variantes || []).forEach(v => (v.opciones || []).forEach(o => { if (o.imagen) usadas.add(o.imagen); })); });
+  return fotosPendientes.filter(f => usadas.has("assets/products/" + f.filename));
+}
+async function guardar(){
+  if (!hayCambios()) return toast("No hay cambios para publicar");
+  const btn = $("btnGuardar"); btn.disabled = true; $("estado").textContent = "Publicando…";
+  try{
+    const fotos = fotosUsadas();
+    const r = await api("/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ token: TOKEN, productos: PRODUCTOS, fotos }) });
+    if (r.ok){
+      ORIGINAL = JSON.parse(JSON.stringify(PRODUCTOS)); fotosPendientes = []; render();
+      toast(LOCAL ? "✅ Guardado en la carpeta web/" : "✅ Publicado. La web se actualiza en 1-2 minutos", 5000);
+    }
+  }catch(e){
+    toast("Error: " + e.message + (/Sesión|token/i.test(e.message) ? " — recargá la página y volvé a entrar." : ""), 7000);
+    if (/Sesión|token/i.test(e.message)) localStorage.removeItem("keth_adminToken");
+  }
+  btn.disabled = false; render();
+}
+function descartar(){ if (!hayCambios() || !confirm("¿Descartar todos los cambios sin publicar?")) return; PRODUCTOS = JSON.parse(JSON.stringify(ORIGINAL)); fotosPendientes = []; renderChips(); render(); }
+function exportar(){
+  const a = document.createElement("a"); a.href = "data:application/json;charset=utf-8," + encodeURIComponent(JSON.stringify(PRODUCTOS, null, 2)); a.download = "productos-keth-" + new Date().toISOString().slice(0, 10) + ".json"; a.click();
+}
+window.addEventListener("beforeunload", e => { if (hayCambios()){ e.preventDefault(); e.returnValue = ""; } });
+
+// auto-login: local no pide contraseña; remoto usa el token guardado
+(async () => {
+  if (LOCAL){ try{ await api("/load"); entrar(); return; }catch{} }
+  if (TOKEN){ try{ const r = await api("/check?token=" + encodeURIComponent(TOKEN)); if (r.ok){ entrar(); return; } }catch{} localStorage.removeItem("keth_adminToken"); TOKEN = ""; }
+  $("login").classList.remove("hidden");
+})();
+</script>
+</body>
+</html>

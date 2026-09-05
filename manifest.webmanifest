@@ -1,0 +1,14 @@
+{
+  "name": "Keth Sorpresa",
+  "short_name": "Keth Sorpresa",
+  "description": "Cotillón, vasos personalizados y regalos para tu fiesta.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#fff6f8",
+  "theme_color": "#ffcfd8",
+  "lang": "es-AR",
+  "icons": [
+    { "src": "assets/logo/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/logo/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
