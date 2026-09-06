@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Keth Sorpresa · Cotillón, vasos personalizados y regalos</title>
-<meta name="description" content="Keth Sorpresa · El regalo ideal. Vasos y tazas personalizadas, cotillón, globos y decoración para tu fiesta. Elegí, personalizá y pedí por WhatsApp.">
-<meta property="og:title" content="Keth Sorpresa · El regalo ideal">
+<title>KethSorpresa · Cotillón, vasos personalizados y regalos</title>
+<meta name="description" content="KethSorpresa · El regalo ideal. Vasos y tazas personalizadas, cotillón, globos y decoración para tu fiesta. Elegí, personalizá y pedí por WhatsApp.">
+<meta property="og:title" content="KethSorpresa · El regalo ideal">
 <meta property="og:description" content="Vasos personalizados, cotillón y decoración para tu fiesta. Pedí por WhatsApp.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="es_AR">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Store","name":"Keth Sorpresa","description":"Cotillón, vasos personalizados y regalos para fiestas.","image":"assets/logo/logo.jpg","sameAs":["https://www.instagram.com/kethsorpresa"],"areaServed":"AR","priceRange":"$$"}
+{"@context":"https://schema.org","@type":"Store","name":"KethSorpresa","description":"Cotillón, vasos personalizados y regalos para fiestas.","image":"assets/logo/logo.jpg","sameAs":["https://www.instagram.com/kethsorpresa"],"areaServed":"AR","priceRange":"$$"}
 </script>
 <style>
   :root{
@@ -270,15 +270,15 @@
 <div class="topbar" id="topbar" hidden></div>
 <header id="header">
   <div class="nav">
-    <a class="brand" href="#" aria-label="Keth Sorpresa — inicio">
+    <a class="brand" href="#" aria-label="KethSorpresa — inicio">
       <img src="assets/logo/logo-redondo.webp" alt="" width="36" height="36">
-      <span>Keth Sorpresa</span>
+      <span>KethSorpresa</span>
     </a>
     <div class="search">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input type="search" id="search" placeholder="Buscar" aria-label="Buscar productos" autocomplete="off">
     </div>
-    <a class="ig-btn" id="igLink" href="https://www.instagram.com/kethsorpresa" target="_blank" rel="noopener" aria-label="Instagram de Keth Sorpresa">
+    <a class="ig-btn" id="igLink" href="https://www.instagram.com/kethsorpresa" target="_blank" rel="noopener" aria-label="Instagram de KethSorpresa">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
     </a>
     <button class="cart-btn ios-press" onclick="abrirCarrito()" aria-label="Abrir mi pedido">
@@ -289,7 +289,7 @@
 </header>
 
 <div class="hero-wrap"><section class="hero" aria-labelledby="heroTitle">
-  <img src="assets/logo/logo-redondo.webp" alt="Keth Sorpresa" width="96" height="96">
+  <img src="assets/logo/logo-redondo.webp" alt="KethSorpresa" width="96" height="96">
   <h1 id="heroTitle">El regalo <em>ideal</em>, con tu nombre.</h1>
   <p id="heroText">Vasos y tazas personalizadas, cotillón y decoración. Elegí el color, escribí el texto y pedí por WhatsApp.</p>
   <a href="#catalogo" class="hero-cta ios-press">Ver catálogo →</a>
@@ -327,7 +327,7 @@
 
 <footer>
   <div class="foot-inner">
-    <div><b>Keth Sorpresa</b> · El regalo ideal · © <span id="anio"></span></div>
+    <div><b>KethSorpresa</b> · El regalo ideal · © <span id="anio"></span></div>
     <div class="foot-links">
       <button type="button" onclick="waConsulta()">WhatsApp</button>
       <a href="https://www.instagram.com/kethsorpresa" target="_blank" rel="noopener" id="igFoot">Instagram</a>
@@ -392,7 +392,7 @@
 // ============================================================
 let WHATSAPP = "5491127118602";     // número con código de país, sin + ni espacios (11 2711-8602)
 let INSTAGRAM = "kethsorpresa";     // usuario de Instagram, sin @
-const TIENDA = "Keth Sorpresa";
+const TIENDA = "KethSorpresa";
 // ============================================================
 
 // ---------- Estado ----------
@@ -545,7 +545,7 @@ function renderModal(){
   const perso = p.personalizable ? `
     <div class="perso">
       <label class="var-label" for="persoInput"><span>Detalles de tu personalización</span></label>
-      <textarea id="persoInput" rows="3" placeholder="${esc(p.textoEtiqueta || "Escribí tu texto")}. Si son varios textos o colores, contalo con detalle, ej: Martu en negro, XB en plateado. ¿Imprenta o cursiva?" autocomplete="off" autocapitalize="sentences">${esc(modalSel.texto)}</textarea>
+      <textarea id="persoInput" rows="3" placeholder="${esc(p.textoEtiqueta || "Escribí tu texto")}. Si son varios textos o colores, contalo con detalle, ej: Martu en negro, XV en plateado. ¿Imprenta o cursiva?" autocomplete="off" autocapitalize="sentences">${esc(modalSel.texto)}</textarea>
       <div class="hint"><span>${extra > 0 ? "+ " + fmt(extra) + " por personalizar" : "Sin costo extra"} · Aclará colores y si es imprenta o cursiva</span></div>
     </div>` : "";
   $("modalBox").innerHTML = `
