@@ -52,8 +52,8 @@
   header.scrolled{border-bottom-color:var(--line)}
   .nav{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
   .brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
-  .brand img{width:36px;height:36px;border-radius:50%;object-fit:cover}
-  .brand span{font-family:'Fraunces';font-size:1.15rem;color:var(--ink);font-style:italic;white-space:nowrap;letter-spacing:.01em}
+  .brand img{width:56px;height:56px;border-radius:50%;object-fit:cover}
+  .brand span{font-family:'Fraunces';font-size:1.45rem;color:var(--ink);font-style:italic;white-space:nowrap;letter-spacing:.01em}
   .search{flex:1;max-width:360px;margin:0 auto;position:relative}
   .search input{width:100%;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px 9px 38px;font:inherit;font-size:.9rem;color:var(--ink);outline:none;transition:border-color .2s}
   .search input:focus{border-color:var(--acento)}
@@ -68,13 +68,13 @@
   /* Hero */
   .hero-wrap{background:var(--marca)}
   .hero{max-width:1080px;margin:0 auto;padding:64px 20px 60px;text-align:center}
-  .hero .hero-logo{display:block;width:min(100%,920px);height:auto;border-radius:0;object-fit:contain;margin:0 auto 26px;opacity:0;animation:fade .7s .05s forwards}
+
   .hero h1{font-size:clamp(1.9rem,4.5vw,3rem);line-height:1.1;margin:0 auto 12px;max-width:18ch;opacity:0;animation:fade .7s .15s forwards}
   .hero h1 em{font-style:italic;color:var(--acento-deep)}
   .hero p{font-size:1rem;color:var(--ink-2);max-width:44ch;margin:0 auto 26px;opacity:0;animation:fade .7s .25s forwards}
   .hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;font-weight:600;font-size:.92rem;padding:13px 26px;border-radius:999px;transition:transform .18s,opacity .2s;opacity:0;animation:fade .7s .35s forwards}
   .hero-cta:hover{transform:translateY(-1px)}
-  .hero .hero-logo,.hero h1,.hero p,.hero-cta{transform:translateY(10px)}
+  .hero h1,.hero p,.hero-cta{transform:translateY(10px)}
   @keyframes fade{to{opacity:1;transform:translateY(0)}}
 
   /* Categorías */
@@ -275,12 +275,13 @@
     :root{--header-h:108px}
     .nav{flex-wrap:wrap;gap:8px;padding:12px 16px}
     .search{flex:1 1 100%;order:3;max-width:none;margin:0}
-    .brand span{font-size:1.05rem}
+    .brand img{width:44px;height:44px}
+    .brand span{font-size:1.15rem}
     .ig-btn{width:34px;height:34px}
     .ig-btn svg{width:17px;height:17px}
     .cart-btn{margin-left:auto}
     .hero{padding:44px 20px 44px}
-    .hero .hero-logo{width:min(100%,460px);margin-bottom:18px}
+
     .como-in{grid-template-columns:1fr;gap:28px}
     .modal{display:flex;flex-direction:column;max-height:92vh}
     .modal-img{flex:0 0 auto;min-height:0;height:38vh}
@@ -290,7 +291,7 @@
   }
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
-    .hero .hero-logo,.hero h1,.hero p,.hero-cta{opacity:1;transform:none}
+    .hero h1,.hero p,.hero-cta{opacity:1;transform:none}
   }
 </style>
 </head>
@@ -321,7 +322,6 @@
 </header>
 
 <div class="hero-wrap"><section class="hero" aria-labelledby="heroTitle">
-  <img class="hero-logo" src="assets/logo/logo-banner.webp" alt="KethSorpresa" width="1247" height="699">
   <h1 id="heroTitle">El regalo <em>ideal</em>, con tu nombre.</h1>
   <p id="heroText">Vasos y tazas personalizadas, cotillón y decoración. Elegí el color, escribí el texto y pedí por WhatsApp.</p>
   <a href="#catalogo" class="hero-cta ios-press">Ver catálogo →</a>
