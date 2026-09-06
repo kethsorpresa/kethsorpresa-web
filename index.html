@@ -341,7 +341,7 @@
     </div>
   </div>
   <div class="faq">
-    <details><summary>¿Cómo pago?</summary><p>Por transferencia bancaria. Cuando nos mandás el pedido por WhatsApp te pasamos los datos y coordinamos.</p></details>
+    <details><summary>¿Cómo pago?</summary><p>Por transferencia bancaria: alias <strong>Kethsorpresa</strong>, titular <strong>Rossimar Marcano</strong>. Envianos el comprobante por WhatsApp para confirmar tu pedido.</p></details>
     <details><summary>¿Cuánto tarda un producto personalizado?</summary><p>Depende del producto y la cantidad. Te confirmamos el tiempo de entrega por WhatsApp apenas recibimos el pedido.</p></details>
     <details><summary>¿Hacen envíos?</summary><p>Sí, coordinamos envío o retiro por WhatsApp según tu zona. También podés retirar por el local: <strong>Av. Mitre 6469, Wilde</strong>.</p></details>
     <details><summary>¿Puedo pedir algo que no está en el catálogo?</summary><p>Sí. Escribinos por WhatsApp o Instagram y lo vemos.</p></details>
@@ -373,7 +373,7 @@
     <div class="items" id="items"></div>
     <div class="datos" id="datos">
       <h4>Forma de pago</h4>
-      <p class="pay-fijo">Transferencia bancaria — te pasamos los datos cuando confirmamos tu pedido.</p>
+      <p class="pay-fijo">Transferencia bancaria a alias <strong>Kethsorpresa</strong> (titular: Rossimar Marcano). Envianos el comprobante por WhatsApp para confirmar tu pedido.</p>
       <h4>¿Cómo lo recibís?</h4>
       <label class="entrega-opt"><input type="radio" name="entrega" value="envio" checked onchange="toggleEntrega()"> Envío a domicilio</label>
       <label class="entrega-opt"><input type="radio" name="entrega" value="retiro" onchange="toggleEntrega()"> Retiro por el local</label>
@@ -777,7 +777,9 @@ function enviarPedido(){
   if (cuponAplicado && descuento > 0){
     msg += `\nSubtotal: ${fmt(subtotal)}\nCupón ${cuponAplicado.codigo}: −${fmt(descuento)}\n`;
   }
-  msg += `\n*Total: ${fmt(total)}*${retiro ? "" : " (sin envío)"}\nPago: transferencia bancaria\n\n`;
+  msg += `\n*Total: ${fmt(total)}*${retiro ? "" : " (sin envío)"}\n\n`;
+  msg += `Datos para transferir:\nAlias: Kethsorpresa\nTitular: Rossimar Marcano\n\n`;
+  msg += `Después de pagar, envianos el comprobante por este WhatsApp para confirmar tu pedido.\n\n`;
   if (retiro){
     msg += `Retiro por el local: Av. Mitre 6469, Wilde\n\n`;
   } else {
