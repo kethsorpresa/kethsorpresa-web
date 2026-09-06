@@ -81,7 +81,8 @@
   .grupo{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px;background:#fff}
   .grupo .g-head{display:flex;gap:8px;align-items:center;margin-bottom:8px}
   .grupo .g-head input{flex:1;padding:8px 10px;border:1px solid var(--line);border-radius:8px}
-  .opcion{display:grid;grid-template-columns:1fr auto auto auto;gap:6px;align-items:center;margin-bottom:6px}
+  .opcion{display:grid;grid-template-columns:1fr auto auto auto auto;gap:6px;align-items:center;margin-bottom:6px}
+  .opcion .stock input{width:56px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;font-size:.85rem;text-align:center;background:#fff}
   .opcion input[type=text]{padding:7px 10px;border:1px solid var(--line);border-radius:8px;min-width:0}
   .opcion .color{display:flex;align-items:center;gap:4px;font-size:.72rem;color:var(--ink-2)}
   .opcion input[type=color]{width:34px;height:30px;border:1px solid var(--line);border-radius:8px;padding:2px;background:#fff;cursor:pointer}
@@ -138,7 +139,7 @@
   <summary>¿Cómo se usa? (leer una vez)</summary>
   <ol>
     <li><b>+ Nuevo producto</b>: cargás nombre, categoría, precio, descripción y foto.</li>
-    <li><b>Variantes</b>: si el producto viene en colores o modelos (ej. tapa celeste/rosa/azul), agregá un grupo "Tapa" y sus opciones. Cada opción puede tener su color y su propia foto (cambia al elegirla). El precio es el mismo para todas.</li>
+    <li><b>Variantes</b>: si el producto viene en colores o modelos (ej. tapa celeste/rosa/azul), agregá un grupo "Tapa" y sus opciones. Cada opción puede tener su color, su propia foto (cambia al elegirla) y <b>su propio stock</b> (vacío = sin control). El precio es el mismo para todas.</li>
     <li><b>Personalización</b>: si el cliente puede escribir un texto (nombre, edad, frase), activala y poné el límite de caracteres. Podés cobrar un extra o dejarlo en $0.</li>
     <li><b>Stock</b>: si cargás una cantidad, la web no deja pedir más que eso y al llegar a 0 muestra "Agotado". Si lo dejás vacío, no controla stock. <b>Agotado</b> lo deja visible pero sin poder pedirlo. <b>Destacado</b> lo muestra arriba de todo.</li>
     <li><b>Ajustes de la tienda</b>: el aviso de arriba de la página (promos, envíos), los textos de portada, WhatsApp e Instagram.</li>
@@ -229,6 +230,9 @@
     <div class="fila">
       <div class="campo"><label>WhatsApp</label><input id="a_whatsapp" inputmode="numeric" placeholder="5491127118602"><div class="nota">Con 54 9 adelante, sin + ni espacios.</div></div>
       <div class="campo"><label>Instagram</label><input id="a_instagram" placeholder="kethsorpresa"></div>
+    </div>
+    <div class="fila">
+      <div class="campo"><label>TikTok</label><input id="a_tiktok" placeholder="kethsorpresa"></div>
     </div>
     <div class="seccion" style="margin-top:16px">
       <h3>Cupones de descuento <button type="button" class="btn btn-c btn-sm" onclick="agregarCupon()">+ Agregar cupón</button></h3>
@@ -378,7 +382,7 @@ async function recargar(){
     const r = await store.load();
     PRODUCTOS = (r.productos || []).map(normalizar);
     ORIGINAL = JSON.parse(JSON.stringify(PRODUCTOS));
-    AJUSTES = Object.assign({ promo: "", heroTitulo: "", heroTexto: "", whatsapp: "", instagram: "", cupones: [], banners: [] }, r.ajustes || {});
+    AJUSTES = Object.assign({ promo: "", heroTitulo: "", heroTexto: "", whatsapp: "", instagram: "", tiktok: "", cupones: [], banners: [] }, r.ajustes || {});
     AJUSTES_ORIG = JSON.parse(JSON.stringify(AJUSTES));
     fotosPendientes = [];
     renderChips(); render();
@@ -388,7 +392,7 @@ async function recargar(){
 
 // ---------- Ajustes de la tienda ----------
 function abrirAjustes(){
-  ["promo", "heroTitulo", "heroTexto", "whatsapp", "instagram"].forEach(k => $("a_" + k).value = AJUSTES[k] || "");
+  ["promo", "heroTitulo", "heroTexto", "whatsapp", "instagram", "tiktok"].forEach(k => $("a_" + k).value = AJUSTES[k] || "");
   if (!Array.isArray(AJUSTES.cupones)) AJUSTES.cupones = [];
   if (!Array.isArray(AJUSTES.banners)) AJUSTES.banners = [];
   renderCupones();
@@ -464,14 +468,14 @@ function guardarAjustes(){
     valor: Math.max(0, Number(c.valor) || 0),
     activo: c.activo !== false
   }));
-  AJUSTES = { promo: $("a_promo").value.trim(), heroTitulo: $("a_heroTitulo").value.trim(), heroTexto: $("a_heroTexto").value.trim(), whatsapp: wa, instagram: $("a_instagram").value.trim().replace(/^@/, ""), cupones, banners: (AJUSTES.banners || []).filter(b => b && b.imagen) };
+  AJUSTES = { promo: $("a_promo").value.trim(), heroTitulo: $("a_heroTitulo").value.trim(), heroTexto: $("a_heroTexto").value.trim(), whatsapp: wa, instagram: $("a_instagram").value.trim().replace(/^@/, ""), tiktok: $("a_tiktok").value.trim().replace(/^@/, ""), cupones, banners: (AJUSTES.banners || []).filter(b => b && b.imagen) };
   cerrarAjustes(); render(); toast("Ajustes aplicados. Recordá “Guardar y publicar”.");
 }
 $("ovAjustes").addEventListener("click", e => { if (e.target === $("ovAjustes")) cerrarAjustes(); });
 function normalizar(p){
   const stock = (p.stock === null || p.stock === undefined || p.stock === "") ? null : Math.max(0, parseInt(p.stock) || 0);
   return Object.assign({ id: "", nombre: "", categoria: "Otros", descripcion: "", precio: 0, imagen: "", destacado: false, agotado: false, stock: null, personalizable: false, textoEtiqueta: "", textoMax: 12, precioPersonalizacion: 0, variantes: [] }, p, { stock,
-    variantes: Array.isArray(p.variantes) ? p.variantes.map(v => ({ nombre: v.nombre || "Opción", opciones: (v.opciones || []).map(o => ({ valor: o.valor || "", ...(o.color ? { color: o.color } : {}), ...(o.imagen ? { imagen: o.imagen } : {}) })) })) : []
+    variantes: Array.isArray(p.variantes) ? p.variantes.map(v => ({ nombre: v.nombre || "Opción", opciones: (v.opciones || []).map(o => ({ valor: o.valor || "", ...(o.color ? { color: o.color } : {}), ...(o.imagen ? { imagen: o.imagen } : {}), ...(o.stock !== null && o.stock !== undefined && o.stock !== "" ? { stock: Math.max(0, parseInt(o.stock) || 0) } : {}) })) })) : []
   });
 }
 
@@ -578,14 +582,15 @@ function renderGrupos(){
       ${(g.opciones || []).map((o, oi) => `
         <div class="opcion">
           <input type="text" placeholder="Opción (ej: Rosa)" value="${esc(o.valor)}" oninput="editGrupos[${gi}].opciones[${oi}].valor=this.value">
+          <span class="stock" title="Stock de esta opción (vacío = sin control)"><input type="number" min="0" placeholder="∞" value="${o.stock === null || o.stock === undefined || o.stock === "" ? "" : o.stock}" oninput="editGrupos[${gi}].opciones[${oi}].stock = this.value === '' ? null : Math.max(0, parseInt(this.value) || 0)"></span>
           <span class="color"><input type="color" value="${esc(o.color || "#ffcfd8")}" title="Color de la muestra" oninput="editGrupos[${gi}].opciones[${oi}].color=this.value"><button type="button" title="${o.color ? "Quitar color" : "Sin color (solo texto)"}" style="font-size:.7rem;color:${o.color ? "var(--err)" : "var(--ink-3)"}" onclick="toggleColor(${gi},${oi})">${o.color ? "×" : "sin color"}</button></span>
           <label class="mini" title="Foto de esta opción (opcional)">${o.imagen ? `<img src="${esc(src(o.imagen))}" alt="">` : "📷"}<input type="file" accept="image/*" onchange="fotoOpcion(${gi},${oi},this.files[0])"></label>
           <button type="button" class="x" title="Quitar opción" onclick="editGrupos[${gi}].opciones.splice(${oi},1);renderGrupos()">×</button>
         </div>`).join("")}
-      <button type="button" class="btn btn-c btn-sm" onclick="editGrupos[${gi}].opciones.push({valor:'',color:'#ffcfd8'});renderGrupos()">+ Agregar opción</button>
+      <button type="button" class="btn btn-c btn-sm" onclick="editGrupos[${gi}].opciones.push({valor:'',color:'#ffcfd8',stock:null});renderGrupos()">+ Agregar opción</button>
     </div>`).join("") || `<div style="font-size:.8rem;color:var(--ink-3)">Sin variantes. Este producto se pide tal cual.</div>`;
 }
-function agregarGrupo(){ editGrupos.push({ nombre: editGrupos.length ? "" : "Color", opciones: [{ valor: "", color: "#ffcfd8" }] }); renderGrupos(); }
+function agregarGrupo(){ editGrupos.push({ nombre: editGrupos.length ? "" : "Color", opciones: [{ valor: "", color: "#ffcfd8", stock: null }] }); renderGrupos(); }
 function toggleColor(gi, oi){ const o = editGrupos[gi].opciones[oi]; if (o.color) delete o.color; else o.color = "#ffcfd8"; renderGrupos(); }
 async function fotoOpcion(gi, oi, file){
   if (!file) return;
@@ -638,7 +643,7 @@ function guardarProducto(){
   if (!nombre || !cat) return toast("Nombre y categoría son obligatorios");
   const precio = Math.max(0, parseInt($("f_precio").value) || 0);
   if (!precio) return toast("Poné un precio");
-  const variantes = editGrupos.map(g => ({ nombre: (g.nombre || "").trim() || "Opción", opciones: (g.opciones || []).map(o => ({ valor: (o.valor || "").trim(), ...(o.color ? { color: o.color } : {}), ...(o.imagen ? { imagen: o.imagen } : {}) })).filter(o => o.valor) })).filter(g => g.opciones.length);
+  const variantes = editGrupos.map(g => ({ nombre: (g.nombre || "").trim() || "Opción", opciones: (g.opciones || []).map(o => ({ valor: (o.valor || "").trim(), ...(o.color ? { color: o.color } : {}), ...(o.imagen ? { imagen: o.imagen } : {}), ...(o.stock !== null && o.stock !== undefined && o.stock !== "" ? { stock: Math.max(0, parseInt(o.stock) || 0) } : {}) })).filter(o => o.valor) })).filter(g => g.opciones.length);
   const id = $("f_id").value || nuevoId(nombre);
   const existente = PRODUCTOS.find(x => x.id === id);
   const obj = normalizar(Object.assign({}, existente || {}, {
