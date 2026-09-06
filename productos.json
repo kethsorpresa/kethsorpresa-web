@@ -182,6 +182,16 @@
             "valor": "Negro",
             "color": "#0a0002",
             "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-negro-mtqg7d4j.webp"
+          },
+          {
+            "valor": "Verde",
+            "color": "#58f320",
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-verde-mtqghf96.webp"
+          },
+          {
+            "valor": "Verde Agua",
+            "color": "#03fcdf",
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-verde-pastel-mtqghmqu.webp"
           }
         ]
       }
