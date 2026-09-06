@@ -167,6 +167,21 @@
             "valor": "Azul",
             "color": "#22107a",
             "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-5-mtqg0fgh.webp"
+          },
+          {
+            "valor": "Violeta",
+            "color": "#9725b6",
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-violeta-mtqg6s2j.webp"
+          },
+          {
+            "valor": "Dorado",
+            "color": "#d5b930",
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-dorado-mtqg75cj.webp"
+          },
+          {
+            "valor": "Negro",
+            "color": "#0a0002",
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-negro-mtqg7d4j.webp"
           }
         ]
       }
