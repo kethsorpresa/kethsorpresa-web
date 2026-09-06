@@ -68,13 +68,13 @@
   /* Hero */
   .hero-wrap{background:var(--marca)}
   .hero{max-width:1080px;margin:0 auto;padding:64px 20px 60px;text-align:center}
-  .hero img{width:96px;height:96px;border-radius:50%;object-fit:cover;margin:0 auto 22px;opacity:0;animation:fade .7s .05s forwards}
+  .hero .hero-logo{display:block;width:min(100%,920px);height:auto;border-radius:0;object-fit:contain;margin:0 auto 26px;opacity:0;animation:fade .7s .05s forwards}
   .hero h1{font-size:clamp(1.9rem,4.5vw,3rem);line-height:1.1;margin:0 auto 12px;max-width:18ch;opacity:0;animation:fade .7s .15s forwards}
   .hero h1 em{font-style:italic;color:var(--acento-deep)}
   .hero p{font-size:1rem;color:var(--ink-2);max-width:44ch;margin:0 auto 26px;opacity:0;animation:fade .7s .25s forwards}
   .hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;font-weight:600;font-size:.92rem;padding:13px 26px;border-radius:999px;transition:transform .18s,opacity .2s;opacity:0;animation:fade .7s .35s forwards}
   .hero-cta:hover{transform:translateY(-1px)}
-  .hero img,.hero h1,.hero p,.hero-cta{transform:translateY(10px)}
+  .hero .hero-logo,.hero h1,.hero p,.hero-cta{transform:translateY(10px)}
   @keyframes fade{to{opacity:1;transform:translateY(0)}}
 
   /* Categorías */
@@ -280,7 +280,7 @@
     .ig-btn svg{width:17px;height:17px}
     .cart-btn{margin-left:auto}
     .hero{padding:44px 20px 44px}
-    .hero img{width:80px;height:80px;margin-bottom:16px}
+    .hero .hero-logo{width:min(100%,460px);margin-bottom:18px}
     .como-in{grid-template-columns:1fr;gap:28px}
     .modal{display:flex;flex-direction:column;max-height:92vh}
     .modal-img{flex:0 0 auto;min-height:0;height:38vh}
@@ -290,7 +290,7 @@
   }
   @media (prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important}
-    .hero img,.hero h1,.hero p,.hero-cta{opacity:1;transform:none}
+    .hero .hero-logo,.hero h1,.hero p,.hero-cta{opacity:1;transform:none}
   }
 </style>
 </head>
@@ -321,7 +321,7 @@
 </header>
 
 <div class="hero-wrap"><section class="hero" aria-labelledby="heroTitle">
-  <img src="assets/logo/logo-redondo.webp" alt="KethSorpresa" width="96" height="96">
+  <img class="hero-logo" src="assets/logo/logo-banner.webp" alt="KethSorpresa" width="1247" height="699">
   <h1 id="heroTitle">El regalo <em>ideal</em>, con tu nombre.</h1>
   <p id="heroText">Vasos y tazas personalizadas, cotillón y decoración. Elegí el color, escribí el texto y pedí por WhatsApp.</p>
   <a href="#catalogo" class="hero-cta ios-press">Ver catálogo →</a>
