@@ -372,6 +372,9 @@
   <div class="drawer-body">
     <div class="items" id="items"></div>
     <div class="datos" id="datos">
+      <h4>Tus datos</h4>
+      <input id="cliNombre" placeholder="Tu nombre" aria-label="Tu nombre" autocomplete="name" autocapitalize="words">
+      <input id="cliTel" placeholder="Tu WhatsApp (11 1234-5678)" aria-label="Tu WhatsApp" inputmode="tel" autocomplete="tel">
       <h4>Forma de pago</h4>
       <p class="pay-fijo">Transferencia bancaria a alias <strong>Kethsorpresa</strong> (titular: Rossimar Marcano). Envianos el comprobante por WhatsApp para confirmar tu pedido.</p>
       <h4>¿Cómo lo recibís?</h4>
@@ -755,14 +758,20 @@ function enviarPedido(){
   if (!items.length) return toast("Agregá algo al pedido primero");
   if (!/^\d{10,15}$/.test(WHATSAPP)){ toast("Falta configurar el número de WhatsApp"); return; }
   const retiro = document.querySelector('input[name=entrega]:checked')?.value === 'retiro';
+  const cli = { nombre: $("cliNombre").value.trim(), tel: $("cliTel").value.replace(/[^\d+]/g, "") };
   const dir = { calle: $("dirCalle").value.trim(), cp: $("dirCp").value.trim(), ciudad: $("dirCiudad").value.trim(), provincia: $("dirProvincia").value.trim() };
   let falta = false;
+  [[$("cliNombre"), cli.nombre], [$("cliTel"), cli.tel]].forEach(([el, v]) => {
+    if (!v){ el.classList.add("err"); falta = true; } else el.classList.remove("err");
+  });
+  if (cli.tel && !/^\+?\d{8,15}$/.test(cli.tel)){ $("cliTel").classList.add("err"); falta = true; toast("El WhatsApp no parece válido"); return; }
   if (!retiro){
     [[$("dirCalle"), dir.calle], [$("dirCp"), dir.cp], [$("dirCiudad"), dir.ciudad], [$("dirProvincia"), dir.provincia]].forEach(([el, v]) => {
       if (!v){ el.classList.add("err"); falta = true; } else el.classList.remove("err");
     });
-    if (falta) return toast("Completá calle, código postal, ciudad y provincia");
+    if (falta) return toast("Completá tu nombre, WhatsApp y los datos de envío");
   }
+  if (falta) return toast("Completá tu nombre y WhatsApp");
   const subtotal = items.reduce((s, i) => s + i.qty * i.precio, 0);
   const descuento = cuponAplicado ? descuentoDe(subtotal) : 0;
   const total = subtotal - descuento;
@@ -778,6 +787,7 @@ function enviarPedido(){
     msg += `\nSubtotal: ${fmt(subtotal)}\nCupón ${cuponAplicado.codigo}: −${fmt(descuento)}\n`;
   }
   msg += `\n*Total: ${fmt(total)}*${retiro ? "" : " (sin envío)"}\n\n`;
+  msg += `Soy: ${cli.nombre} — ${cli.tel}\n\n`;
   msg += `Datos para transferir:\nAlias: Kethsorpresa\nTitular: Rossimar Marcano\n\n`;
   msg += `Después de pagar, envianos el comprobante por este WhatsApp para confirmar tu pedido.\n\n`;
   if (retiro){
@@ -800,6 +810,7 @@ function enviarPedido(){
         items,
         descuento,
         cupon: cuponAplicado ? cuponAplicado.codigo : "",
+        cliente: cli,
         entrega: retiro ? "retiro" : "envio",
         direccion: retiro ? { calle: "Av. Mitre 6469, Wilde" } : dir,
         nota
