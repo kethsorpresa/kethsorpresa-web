@@ -248,6 +248,8 @@
   .swatches{display:flex;gap:8px;flex-wrap:wrap}
   .swatch{display:inline-flex;align-items:center;gap:7px;padding:7px 12px;border-radius:999px;border:1px solid var(--line);font-size:.85rem;font-weight:600;color:var(--ink-2);transition:all .15s}
   .swatch .c{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,0,0,.08)}
+  .swatch .c-foto{width:24px;height:24px;border-radius:8px;overflow:hidden;border:1px solid rgba(0,0,0,.08);flex-shrink:0}
+  .swatch .c-foto img{width:100%;height:100%;object-fit:cover;display:block}
   .swatch.on{border-color:var(--ink);color:var(--ink)}
   .swatch.sin-stock{opacity:.45;text-decoration:line-through;cursor:not-allowed}
   .perso{margin-bottom:16px}
@@ -618,7 +620,7 @@ function renderModal(){
         ${(v.opciones || []).map(o => {
           const oStock = (o.stock !== null && o.stock !== undefined && o.stock !== "") ? Math.max(0, Number(o.stock) || 0) : null;
           const oSin = oStock === 0;
-          return `<button class="swatch ios-press ${modalSel.sel[v.nombre] === o.valor ? "on" : ""} ${oSin ? "sin-stock" : ""}" role="radio" aria-checked="${modalSel.sel[v.nombre] === o.valor}" data-var="${esc(v.nombre)}" data-val="${esc(o.valor)}" ${oSin ? "disabled" : ""} title="${oSin ? "Sin stock de este color" : (oStock !== null ? "Quedan " + oStock : "")}">${o.color ? `<span class="c" style="background:${esc(o.color)}"></span>` : ""}${esc(o.valor)}</button>`;
+          return `<button class="swatch ios-press ${modalSel.sel[v.nombre] === o.valor ? "on" : ""} ${oSin ? "sin-stock" : ""}" role="radio" aria-checked="${modalSel.sel[v.nombre] === o.valor}" data-var="${esc(v.nombre)}" data-val="${esc(o.valor)}" ${oSin ? "disabled" : ""} title="${oSin ? "Sin stock de este color" : (oStock !== null ? "Quedan " + oStock : "")}">${o.imagen ? `<span class="c c-foto"><img src="${esc(o.imagen)}" alt="${esc(o.valor)}" loading="lazy"></span>` : (o.color ? `<span class="c" style="background:${esc(o.color)}"></span>` : "")}${esc(o.valor)}</button>`;
         }).join("")}
       </div>
     </div>`).join("");

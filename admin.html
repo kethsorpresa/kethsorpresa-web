@@ -86,9 +86,11 @@
   .opcion input[type=text]{padding:7px 10px;border:1px solid var(--line);border-radius:8px;min-width:0}
   .opcion .color{display:flex;align-items:center;gap:4px;font-size:.72rem;color:var(--ink-2)}
   .opcion input[type=color]{width:34px;height:30px;border:1px solid var(--line);border-radius:8px;padding:2px;background:#fff;cursor:pointer}
-  .opcion .mini{width:34px;height:30px;border:1px dashed var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem;cursor:pointer;overflow:hidden;background:#fff;position:relative}
+  .opcion .mini{width:52px;height:44px;border:1px dashed var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem;cursor:pointer;overflow:hidden;background:#fff;position:relative}
   .opcion .mini img{width:100%;height:100%;object-fit:cover}
   .opcion .mini input{position:absolute;inset:0;opacity:0;cursor:pointer}
+  .opcion .mini-x{position:absolute;top:2px;right:2px;z-index:2;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:12px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;padding:0}
+  .opcion .mini-x:hover{background:var(--err)}
   .opcion .x{color:var(--err);font-weight:800;padding:4px 8px}
   .modal .acc-modal{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
   .toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:12px;font-size:.9rem;z-index:100;display:none;box-shadow:0 4px 16px rgba(0,0,0,.3);max-width:90%;text-align:center}
@@ -584,7 +586,7 @@ function renderGrupos(){
           <input type="text" placeholder="Opción (ej: Rosa)" value="${esc(o.valor)}" oninput="editGrupos[${gi}].opciones[${oi}].valor=this.value">
           <span class="stock" title="Stock de esta opción (vacío = sin control)"><input type="number" min="0" placeholder="∞" value="${o.stock === null || o.stock === undefined || o.stock === "" ? "" : o.stock}" oninput="editGrupos[${gi}].opciones[${oi}].stock = this.value === '' ? null : Math.max(0, parseInt(this.value) || 0)"></span>
           <span class="color"><input type="color" value="${esc(o.color || "#ffcfd8")}" title="Color de la muestra" oninput="editGrupos[${gi}].opciones[${oi}].color=this.value"><button type="button" title="${o.color ? "Quitar color" : "Sin color (solo texto)"}" style="font-size:.7rem;color:${o.color ? "var(--err)" : "var(--ink-3)"}" onclick="toggleColor(${gi},${oi})">${o.color ? "×" : "sin color"}</button></span>
-          <label class="mini" title="Foto de esta opción (opcional)">${o.imagen ? `<img src="${esc(src(o.imagen))}" alt="">` : "📷"}<input type="file" accept="image/*" onchange="fotoOpcion(${gi},${oi},this.files[0])"></label>
+          <label class="mini" title="${o.imagen ? "Cambiar foto de esta opción (se ve en la web al elegirla)" : "Subir foto de esta opción (se ve en la web al elegirla)"}">${o.imagen ? `<img src="${esc(src(o.imagen))}" alt="Foto de ${esc(o.valor)}">` : "📷"}<input type="file" accept="image/*" onchange="fotoOpcion(${gi},${oi},this.files[0])">${o.imagen ? `<button type="button" class="mini-x" title="Quitar foto" onclick="event.preventDefault();event.stopPropagation();quitarFotoOpcion(${gi},${oi})">×</button>` : ""}</label>
           <button type="button" class="x" title="Quitar opción" onclick="editGrupos[${gi}].opciones.splice(${oi},1);renderGrupos()">×</button>
         </div>`).join("")}
       <button type="button" class="btn btn-c btn-sm" onclick="editGrupos[${gi}].opciones.push({valor:'',color:'#ffcfd8',stock:null});renderGrupos()">+ Agregar opción</button>
@@ -596,6 +598,13 @@ async function fotoOpcion(gi, oi, file){
   if (!file) return;
   try{ const path = await procesarFoto(file, ($("f_nombre").value || "opcion") + "-" + (editGrupos[gi].opciones[oi].valor || oi)); editGrupos[gi].opciones[oi].imagen = path; renderGrupos(); toast("Foto lista — se publica al guardar"); }
   catch(e){ toast("No pude procesar la foto: " + e.message); }
+}
+function quitarFotoOpcion(gi, oi){
+  const o = editGrupos[gi] && editGrupos[gi].opciones[oi];
+  if (!o) return;
+  delete o.imagen;
+  renderGrupos();
+  toast("Foto quitada — se publica al guardar");
 }
 
 // Fotos: se achican a máx 1200px y se convierten a WebP antes de subir
