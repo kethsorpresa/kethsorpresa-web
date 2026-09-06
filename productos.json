@@ -143,5 +143,31 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vasos-tumbler-1-litro",
+    "nombre": "Vasos Tumbler 1 litro",
+    "categoria": "Vasos",
+    "descripcion": "Vasos Tumbler de 1 litro",
+    "precio": 6500,
+    "imagen": "assets/products/vasos-tumbler-1-litro-mtqbpjdu.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": 100,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 117,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Blanco",
+            "color": "#ffffff"
+          }
+        ]
+      }
+    ]
   }
 ]
