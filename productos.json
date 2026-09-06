@@ -4,7 +4,7 @@
     "nombre": "Vaso glitter personalizado",
     "categoria": "Vasos",
     "descripcion": "Vaso de acrílico con glitter, tapa y sorbete. Elegí el color y contanos qué nombre o frase querés (ej. Martu · Mis XV).",
-    "precio": 8000,
+    "precio": 8998,
     "imagen": "assets/products/vaso-glitter-rosa.webp",
     "destacado": true,
     "agotado": false,
@@ -49,22 +49,6 @@
         ]
       }
     ]
-  },
-  {
-    "id": "taza-personalizada",
-    "nombre": "Taza personalizada",
-    "categoria": "Vasos",
-    "descripcion": "Taza de cerámica con la frase o el nombre que elijas. Ideal para regalar.",
-    "precio": 4800,
-    "imagen": "assets/products/taza.svg",
-    "destacado": true,
-    "agotado": false,
-    "stock": null,
-    "personalizable": true,
-    "textoEtiqueta": "Frase o nombre para la taza",
-    "textoMax": 20,
-    "precioPersonalizacion": 0,
-    "variantes": []
   },
   {
     "id": "caja-sorpresa",
