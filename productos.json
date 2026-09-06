@@ -135,5 +135,42 @@
     "textoMax": 12,
     "precioPersonalizacion": 0,
     "variantes": []
+  },
+  {
+    "id": "vasos-acrilicos-475ml-personalizados",
+    "nombre": "Vasos Acrilicos 475ml Personalizados",
+    "categoria": "Vasos",
+    "descripcion": "Compra minima 10 unidades",
+    "precio": 2800,
+    "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-mtqfpmyx.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 50,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Rosa",
+            "color": "#ffcfd8",
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-rosa-mtqfom03.webp"
+          },
+          {
+            "valor": "Transparente",
+            "color": "#c7c7c7",
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-transparente-mtqfp1o2.webp"
+          },
+          {
+            "valor": "Lila",
+            "color": "#deafe4",
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-lila-mtqfp8g5.webp"
+          }
+        ]
+      }
+    ]
   }
 ]
