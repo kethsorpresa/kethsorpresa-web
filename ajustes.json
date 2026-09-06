@@ -5,5 +5,10 @@
   "whatsapp": "5491127118602",
   "instagram": "kethsorpresa",
   "cupones": [],
-  "banners": []
+  "banners": [
+    {
+      "imagen": "assets/banners/ejemplo-dia-del-padre.webp",
+      "tamano": "mediano"
+    }
+  ]
 }
