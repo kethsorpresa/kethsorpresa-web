@@ -176,9 +176,7 @@
   .del{font-size:.72rem;color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
   .datos{padding:18px 22px;border-top:1px solid var(--line)}
   .datos h4{font-family:'Manrope';font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:10px}
-  .pay-opts{display:flex;gap:8px;margin-bottom:10px}
-  .pay-opt{flex:1;text-align:center;padding:10px 6px;border-radius:var(--r);border:1px solid var(--line);font-size:.86rem;font-weight:600;color:var(--ink-2);transition:all .15s}
-  .pay-opt.on{border-color:var(--ink);color:var(--ink)}
+  .pay-fijo{font-size:.86rem;color:var(--ink-2);background:var(--marca-suave);border-radius:var(--r);padding:10px 12px;margin-bottom:12px}
   .datos input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);font:inherit;font-size:.9rem;color:var(--ink);margin-bottom:8px;box-sizing:border-box}
   .datos input:focus{outline:none;border-color:var(--acento)}
   .datos input.err{border-color:#d33;background:#fff5f5}
@@ -305,11 +303,11 @@
       <div class="paso"><div class="num">01</div><h4>Elegí</h4><p>Mirá el catálogo y elegí color o modelo.</p></div>
       <div class="paso"><div class="num">02</div><h4>Personalizá</h4><p>Escribí el nombre, edad o frase que quieras.</p></div>
       <div class="paso"><div class="num">03</div><h4>Enviá el pedido</h4><p>Se arma solo y sale por WhatsApp.</p></div>
-      <div class="paso"><div class="num">04</div><h4>Coordinamos</h4><p>Pago por transferencia o Mercado Pago, y entrega.</p></div>
+      <div class="paso"><div class="num">04</div><h4>Coordinamos</h4><p>Pago por transferencia y entrega.</p></div>
     </div>
   </div>
   <div class="faq">
-    <details><summary>¿Cómo pago?</summary><p>Por transferencia bancaria o Mercado Pago. Cuando nos mandás el pedido por WhatsApp te pasamos los datos y coordinamos.</p></details>
+    <details><summary>¿Cómo pago?</summary><p>Por transferencia bancaria. Cuando nos mandás el pedido por WhatsApp te pasamos los datos y coordinamos.</p></details>
     <details><summary>¿Cuánto tarda un producto personalizado?</summary><p>Depende del producto y la cantidad. Te confirmamos el tiempo de entrega por WhatsApp apenas recibimos el pedido.</p></details>
     <details><summary>¿Hacen envíos?</summary><p>Sí, coordinamos envío o retiro por WhatsApp según tu zona.</p></details>
     <details><summary>¿Puedo pedir algo que no está en el catálogo?</summary><p>Sí. Escribinos por WhatsApp o Instagram y lo vemos.</p></details>
@@ -341,10 +339,7 @@
     <div class="items" id="items"></div>
     <div class="datos" id="datos">
       <h4>Forma de pago</h4>
-      <div class="pay-opts" role="radiogroup" aria-label="Forma de pago">
-        <button class="pay-opt on" data-pay="Transferencia" role="radio" aria-checked="true" onclick="elegirPago(this)">Transferencia</button>
-        <button class="pay-opt" data-pay="Mercado Pago" role="radio" aria-checked="false" onclick="elegirPago(this)">Mercado Pago</button>
-      </div>
+      <p class="pay-fijo">Transferencia bancaria — te pasamos los datos cuando confirmamos tu pedido.</p>
       <h4>Datos de envío</h4>
       <input id="dirCalle" placeholder="Calle y altura" aria-label="Calle y altura" autocomplete="street-address" autocapitalize="words">
       <input id="dirCp" placeholder="Código postal" aria-label="Código postal" inputmode="numeric" autocomplete="postal-code">
@@ -386,7 +381,7 @@ let CATS = [];
 let catSel = "Todas";
 let busqueda = "";
 let carrito = {};          // clave -> {id, nombre, precio, img, sel, texto, qty}
-let pagoSel = "Transferencia";
+// Pago: transferencia bancaria (se coordina por WhatsApp).
 let modalSel = null;       // selección actual en el modal {id, sel:{grupo:valor}, texto}
 let ultimoOrigen = null;   // botón desde donde se agregó (animación)
 
@@ -631,10 +626,6 @@ $("items").addEventListener("click", e => {
 });
 function abrirCarrito(){ $("drawer").classList.add("open"); $("overlay").classList.add("open"); $("drawer").setAttribute("aria-hidden", "false"); document.body.classList.add("lock"); }
 function cerrarCarrito(){ if (!$("drawer").classList.contains("open")) return; $("drawer").classList.remove("open"); $("overlay").classList.remove("open"); $("drawer").setAttribute("aria-hidden", "true"); if (!$("modalOv").classList.contains("open")) document.body.classList.remove("lock"); }
-function elegirPago(el){
-  document.querySelectorAll(".pay-opt").forEach(b => { b.classList.remove("on"); b.setAttribute("aria-checked", "false"); });
-  el.classList.add("on"); el.setAttribute("aria-checked", "true"); pagoSel = el.dataset.pay;
-}
 
 // ---------- WhatsApp ----------
 function waUrl(texto){ return "https://wa.me/" + WHATSAPP + "?text=" + encodeURIComponent(texto); }
@@ -661,7 +652,7 @@ function enviarPedido(){
     if (i.texto) msg += `\n   • Personalizado: "${i.texto}"`;
     msg += `\n   = ${fmt(i.precio * i.qty)}\n`;
   });
-  msg += `\n*Total: ${fmt(total)}* (sin envío)\nPago: ${pagoSel}\n\n`;
+  msg += `\n*Total: ${fmt(total)}* (sin envío)\nPago: transferencia bancaria\n\n`;
   msg += `Dirección de envío:\n${dir.calle}, CP ${dir.cp}\n${dir.ciudad}, ${dir.provincia}\n\n`;
   msg += `¿Cuánto sale el envío a esa dirección?\n`;
   const nota = $("nota").value.trim();
