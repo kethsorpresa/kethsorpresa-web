@@ -119,5 +119,21 @@
         ]
       }
     ]
+  },
+  {
+    "id": "copas",
+    "nombre": "Copas",
+    "categoria": "Souvenirs",
+    "descripcion": "",
+    "precio": 3500,
+    "imagen": "",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": false,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
+    "variantes": []
   }
 ]
