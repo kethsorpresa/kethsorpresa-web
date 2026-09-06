@@ -1,7 +1,7 @@
 {
   "promo": "10% OFF Pagando en efectivo en el local",
   "heroTitulo": "El regalo *ideal*",
-  "heroTexto": "Vasos y Regalos personalizadas. Elegí el color, escribí el texto y pedí por WhatsApp.",
+  "heroTexto": "*Vasos y regalos personalizados*. \nElegí el color,escribí el texto y confirma tu pedido",
   "whatsapp": "5491127118602",
   "instagram": "kethsorpresa",
   "tiktok": "",
@@ -16,6 +16,10 @@
   "banners": [
     {
       "imagen": "assets/banners/banner-mtqcfgrq.webp",
+      "tamano": "mediano"
+    },
+    {
+      "imagen": "assets/banners/banner-mtqf9nn3.webp",
       "tamano": "mediano"
     }
   ]
