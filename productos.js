@@ -30,7 +30,7 @@ const PRODUCTOS_RESPALDO = [
     "id": "vaso-glitter",
     "nombre": "Vaso glitter personalizado",
     "categoria": "Vasos",
-    "descripcion": "Vaso de acrílico con glitter, tapa y sorbete. Elegí el color y el estilo de letra, y contanos qué nombre o frase querés (ej. Martu · Mis XV).",
+    "descripcion": "Vaso de acrílico con glitter, tapa y sorbete. Elegí el color y contanos qué nombre o frase querés (ej. Martu · Mis XV).",
     "precio": 2500,
     "imagen": "assets/products/vaso-glitter-rosa.webp",
     "destacado": true,
@@ -67,17 +67,6 @@ const PRODUCTOS_RESPALDO = [
             "valor": "Negro",
             "color": "#2b2b2e",
             "imagen": "assets/products/vaso-glitter-negro.webp"
-          }
-        ]
-      },
-      {
-        "nombre": "Letra",
-        "opciones": [
-          {
-            "valor": "Cursiva"
-          },
-          {
-            "valor": "Imprenta"
           }
         ]
       }

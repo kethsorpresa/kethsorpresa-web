@@ -238,6 +238,12 @@
   .perso textarea,.perso input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:var(--r);font:inherit;font-size:1rem;color:var(--ink);box-sizing:border-box;resize:vertical}
   .perso textarea:focus,.perso input:focus{outline:none;border-color:var(--acento)}
   .perso .hint{display:flex;justify-content:space-between;font-size:.74rem;color:var(--ink-3);margin-top:5px;line-height:1.4}
+  .modal-qty{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;border:1px solid var(--line);border-radius:var(--r);padding:10px 12px}
+  .modal-qty .q-lbl{font-size:.9rem;font-weight:600;color:var(--ink-2)}
+  .modal-qty .qty-stepper{display:flex;align-items:center;gap:14px}
+  .modal-qty .qty-stepper button{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);font-size:1.2rem;line-height:1;color:var(--ink);display:flex;align-items:center;justify-content:center}
+  .modal-qty .qty-stepper button:disabled{opacity:.35;cursor:not-allowed}
+  .modal-qty .qty-stepper span{min-width:22px;text-align:center;font-weight:700;font-size:1.05rem}
   .perso .hint .max.full{color:var(--acento-deep)}
   .modal-add{margin-top:auto;background:var(--ink);color:#fff;font-weight:600;font-size:.98rem;padding:14px;border-radius:var(--r);transition:opacity .2s}
   .modal-add:hover{opacity:.9}
@@ -416,6 +422,7 @@ let CUPONES = [];          // cupones: [{codigo, tipo: "porcentaje"|"monto", val
 let cuponAplicado = null;  // cupón aplicado: {codigo, tipo, valor}
 // Pago: transferencia bancaria (se coordina por WhatsApp).
 let modalSel = null;       // selección actual en el modal {id, sel:{grupo:valor}, texto}
+let modalQty = 1;          // cantidad elegida en el modal
 let ultimoOrigen = null;   // botón desde donde se agregó (animación)
 
 // ---------- Helpers ----------
@@ -537,6 +544,7 @@ let focoPrevio = null;
 function abrirModal(id){
   const p = PRODUCTOS.find(x => x.id === id); if (!p) return;
   modalSel = { id, sel: seleccionInicial(p), texto: "" };
+  modalQty = 1;
   focoPrevio = document.activeElement;
   renderModal();
   $("modalOv").classList.add("open"); document.body.classList.add("lock");
@@ -556,9 +564,19 @@ function renderModal(){
   const perso = p.personalizable ? `
     <div class="perso">
       <label class="var-label" for="persoInput"><span>Detalles de tu personalización</span></label>
-      <textarea id="persoInput" rows="3" placeholder="${esc(p.textoEtiqueta || "Escribí tu texto")}. Si son varios textos o colores, contalo con detalle, ej: Martu en negro, XV en plateado. ¿Imprenta o cursiva?" autocomplete="off" autocapitalize="sentences">${esc(modalSel.texto)}</textarea>
-      <div class="hint"><span>${extra > 0 ? "+ " + fmt(extra) + " por personalizar" : "Sin costo extra"} · Aclará colores y si es imprenta o cursiva</span></div>
+      <textarea id="persoInput" rows="3" placeholder="${esc(p.textoEtiqueta || "Escribí tu texto")}. Si son varios textos o colores, contalo con detalle, ej: Martu en negro, XV en plateado." autocomplete="off" autocapitalize="sentences">${esc(modalSel.texto)}</textarea>
+      <div class="hint"><span>${extra > 0 ? "+ " + fmt(extra) + " por personalizar" : "Sin costo extra"} · Contanos colores y detalles</span></div>
     </div>` : "";
+  const maxQ = agotadoDe(p) ? 0 : (stockDe(p) === Infinity ? 99 : stockDe(p));
+  const qty = agotadoDe(p) ? "" : `
+    <div class="modal-qty">
+      <span class="q-lbl">Cantidad</span>
+      <div class="qty-stepper">
+        <button type="button" class="ios-press" id="qMenos" aria-label="Quitar una">−</button>
+        <span id="modalQtyNum">${modalQty}</span>
+        <button type="button" class="ios-press" id="qMas" aria-label="Agregar una" ${modalQty >= maxQ ? "disabled" : ""}>+</button>
+      </div>
+    </div>`;
   $("modalBox").innerHTML = `
     <button class="modal-close" onclick="cerrarModal()" aria-label="Cerrar">×</button>
     <div class="modal-img">${img ? `<img id="modalImg" src="${esc(img)}" alt="${esc(p.nombre)}">` : ""}</div>
@@ -567,9 +585,14 @@ function renderModal(){
       <h3 id="modalTitle">${esc(p.nombre)}</h3>
       ${p.descripcion ? `<p class="modal-desc">${esc(p.descripcion)}</p>` : ""}
       <div class="modal-price">${fmt(p.precio)}${p.personalizable && extra > 0 ? `<small>+ ${fmt(extra)} si lo personalizás</small>` : ""}</div>
-      ${vars}${perso}
+      ${vars}${perso}${qty}
       <button class="modal-add ios-press" id="modalAdd" ${agotadoDe(p) ? "disabled" : ""}>${agotadoDe(p) ? "Sin stock por ahora" : "Agregar al pedido"}</button>
     </div>`;
+  const qnum = $("modalQtyNum"), qmenos = $("qMenos"), qmas = $("qMas");
+  if (qmenos && qmas){
+    qmenos.addEventListener("click", () => { if (modalQty > 1){ modalQty--; qnum.textContent = modalQty; if (qmas.disabled) qmas.disabled = false; } });
+    qmas.addEventListener("click", () => { if (modalQty < maxQ){ modalQty++; qnum.textContent = modalQty; if (modalQty >= maxQ) qmas.disabled = true; } });
+  }
   $("modalBox").querySelectorAll(".swatch").forEach(b => b.addEventListener("click", () => {
     modalSel.sel[b.dataset.var] = b.dataset.val;
     const inp = $("persoInput"); if (inp) modalSel.texto = inp.value;
@@ -581,7 +604,7 @@ function renderModal(){
     const texto = (modalSel.texto || "").trim();
     if (p.personalizable && !texto){ toast("Contanos los detalles de tu personalización"); if (inp) inp.focus(); return; }
     ultimoOrigen = $("modalAdd");
-    agregar(p, modalSel.sel, texto);
+    agregar(p, modalSel.sel, texto, modalQty);
     cerrarModal();
   });
 }
@@ -593,14 +616,15 @@ function cerrarModal(e){
 }
 
 // ---------- Carrito ----------
-function agregar(p, sel, texto){
+function agregar(p, sel, texto, n = 1){
+  n = Math.max(1, Math.min(Math.floor(Number(n) || 1), 99));
   if (agotadoDe(p)){ toast("Ese producto está agotado"); return; }
   const clave = p.id + "|" + JSON.stringify(sel || {}) + "|" + (texto || "");
   const enCarrito = Object.values(carrito).filter(i => i.id === p.id).reduce((s, i) => s + i.qty, 0);
-  if (enCarrito + 1 > stockDe(p)){ toast(`Solo quedan ${stockDe(p)} de este producto`); return; }
-  if (carrito[clave]) carrito[clave].qty++;
-  else carrito[clave] = { id: p.id, nombre: p.nombre, precio: precioUnit(p, texto), img: imagenDe(p, sel), sel: sel || {}, texto: texto || "", qty: 1 };
-  volarAlCarrito(); actualizar(); toast(p.nombre + " agregado");
+  if (enCarrito + n > stockDe(p)){ toast(`Solo quedan ${stockDe(p)} de este producto`); return; }
+  if (carrito[clave]) carrito[clave].qty += n;
+  else carrito[clave] = { id: p.id, nombre: p.nombre, precio: precioUnit(p, texto), img: imagenDe(p, sel), sel: sel || {}, texto: texto || "", qty: n };
+  volarAlCarrito(); actualizar(); toast(p.nombre + " agregado" + (n > 1 ? " ×" + n : ""));
 }
 function cambiar(clave, d){
   const it = carrito[clave]; if (!it) return;
