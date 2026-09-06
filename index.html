@@ -244,6 +244,8 @@
   .modal-qty .qty-stepper button{width:30px;height:30px;border-radius:50%;border:1px solid var(--line);font-size:1.2rem;line-height:1;color:var(--ink);display:flex;align-items:center;justify-content:center}
   .modal-qty .qty-stepper button:disabled{opacity:.35;cursor:not-allowed}
   .modal-qty .qty-stepper span{min-width:22px;text-align:center;font-weight:700;font-size:1.05rem}
+  .modal-qty .qty-stepper input{width:56px;padding:6px 8px;border:1px solid var(--line);border-radius:10px;font:inherit;font-weight:700;font-size:1.05rem;text-align:center;color:var(--ink)}
+  .modal-qty .qty-stepper input:focus{outline:none;border-color:var(--acento)}
   .perso .hint .max.full{color:var(--acento-deep)}
   .modal-add{margin-top:auto;background:var(--ink);color:#fff;font-weight:600;font-size:.98rem;padding:14px;border-radius:var(--r);transition:opacity .2s}
   .modal-add:hover{opacity:.9}
@@ -567,13 +569,13 @@ function renderModal(){
       <textarea id="persoInput" rows="3" placeholder="${esc(p.textoEtiqueta || "Escribí tu texto")}. Si son varios textos o colores, contalo con detalle, ej: Martu en negro, XV en plateado." autocomplete="off" autocapitalize="sentences">${esc(modalSel.texto)}</textarea>
       <div class="hint"><span>${extra > 0 ? "+ " + fmt(extra) + " por personalizar" : "Sin costo extra"} · Contanos colores y detalles</span></div>
     </div>` : "";
-  const maxQ = agotadoDe(p) ? 0 : (stockDe(p) === Infinity ? 99 : stockDe(p));
+  const maxQ = agotadoDe(p) ? 0 : (stockDe(p) === Infinity ? 9999 : stockDe(p));
   const qty = agotadoDe(p) ? "" : `
     <div class="modal-qty">
       <span class="q-lbl">Cantidad</span>
       <div class="qty-stepper">
         <button type="button" class="ios-press" id="qMenos" aria-label="Quitar una">−</button>
-        <span id="modalQtyNum">${modalQty}</span>
+        <input type="number" id="modalQtyNum" inputmode="numeric" min="1" max="${maxQ}" value="${modalQty}" aria-label="Cantidad">
         <button type="button" class="ios-press" id="qMas" aria-label="Agregar una" ${modalQty >= maxQ ? "disabled" : ""}>+</button>
       </div>
     </div>`;
@@ -589,10 +591,18 @@ function renderModal(){
       <button class="modal-add ios-press" id="modalAdd" ${agotadoDe(p) ? "disabled" : ""}>${agotadoDe(p) ? "Sin stock por ahora" : "Agregar al pedido"}</button>
     </div>`;
   const qnum = $("modalQtyNum"), qmenos = $("qMenos"), qmas = $("qMas");
-  if (qmenos && qmas){
-    qmenos.addEventListener("click", () => { if (modalQty > 1){ modalQty--; qnum.textContent = modalQty; if (qmas.disabled) qmas.disabled = false; } });
-    qmas.addEventListener("click", () => { if (modalQty < maxQ){ modalQty++; qnum.textContent = modalQty; if (modalQty >= maxQ) qmas.disabled = true; } });
+  const setQ = v => {
+    v = Math.max(1, Math.min(maxQ, Math.floor(Number(v) || 1)));
+    modalQty = v; qnum.value = v;
+    if (qmas) qmas.disabled = v >= maxQ;
+    if (qmenos) qmenos.disabled = v <= 1;
+  };
+  if (qnum){
+    qnum.addEventListener("change", () => setQ(qnum.value));
+    qnum.addEventListener("input", () => { const v = Math.floor(Number(qnum.value) || 0); if (v >= 1 && v <= maxQ){ modalQty = v; if (qmas) qmas.disabled = v >= maxQ; if (qmenos) qmenos.disabled = v <= 1; } });
   }
+  if (qmenos) qmenos.addEventListener("click", () => setQ(modalQty - 1));
+  if (qmas) qmas.addEventListener("click", () => setQ(modalQty + 1));
   $("modalBox").querySelectorAll(".swatch").forEach(b => b.addEventListener("click", () => {
     modalSel.sel[b.dataset.var] = b.dataset.val;
     const inp = $("persoInput"); if (inp) modalSel.texto = inp.value;
