@@ -186,6 +186,10 @@
   .datos{padding:18px 22px;border-top:1px solid var(--line)}
   .datos h4{font-family:'Manrope';font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:10px}
   .pay-fijo{font-size:.86rem;color:var(--ink-2);background:var(--marca-suave);border-radius:var(--r);padding:10px 12px;margin-bottom:12px}
+  .datos .entrega-opt{display:flex;align-items:center;gap:8px;font-size:.9rem;color:var(--ink);padding:9px 0;cursor:pointer}
+  .datos .entrega-opt input{width:auto;margin:0;accent-color:var(--acento)}
+  .retiro-info{font-size:.86rem;color:var(--ink-2);background:var(--marca-suave);border-radius:var(--r);padding:10px 12px;margin-bottom:12px}
+  .retiro-info strong{color:var(--ink)}
   .datos input{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);font:inherit;font-size:.9rem;color:var(--ink);margin-bottom:8px;box-sizing:border-box}
   .datos input:focus{outline:none;border-color:var(--acento)}
   .datos input.err{border-color:#d33;background:#fff5f5}
@@ -339,7 +343,7 @@
   <div class="faq">
     <details><summary>¿Cómo pago?</summary><p>Por transferencia bancaria. Cuando nos mandás el pedido por WhatsApp te pasamos los datos y coordinamos.</p></details>
     <details><summary>¿Cuánto tarda un producto personalizado?</summary><p>Depende del producto y la cantidad. Te confirmamos el tiempo de entrega por WhatsApp apenas recibimos el pedido.</p></details>
-    <details><summary>¿Hacen envíos?</summary><p>Sí, coordinamos envío o retiro por WhatsApp según tu zona.</p></details>
+    <details><summary>¿Hacen envíos?</summary><p>Sí, coordinamos envío o retiro por WhatsApp según tu zona. También podés retirar por el local: <strong>Av. Mitre 6469, Wilde</strong>.</p></details>
     <details><summary>¿Puedo pedir algo que no está en el catálogo?</summary><p>Sí. Escribinos por WhatsApp o Instagram y lo vemos.</p></details>
   </div>
 </section>
@@ -370,11 +374,16 @@
     <div class="datos" id="datos">
       <h4>Forma de pago</h4>
       <p class="pay-fijo">Transferencia bancaria — te pasamos los datos cuando confirmamos tu pedido.</p>
-      <h4>Datos de envío</h4>
-      <input id="dirCalle" placeholder="Calle y altura" aria-label="Calle y altura" autocomplete="street-address" autocapitalize="words">
-      <input id="dirCp" placeholder="Código postal" aria-label="Código postal" inputmode="numeric" autocomplete="postal-code">
-      <input id="dirCiudad" placeholder="Ciudad" aria-label="Ciudad" autocomplete="address-level2" autocapitalize="words">
-      <input id="dirProvincia" placeholder="Provincia" aria-label="Provincia" autocomplete="address-level1" autocapitalize="words">
+      <h4>¿Cómo lo recibís?</h4>
+      <label class="entrega-opt"><input type="radio" name="entrega" value="envio" checked onchange="toggleEntrega()"> Envío a domicilio</label>
+      <label class="entrega-opt"><input type="radio" name="entrega" value="retiro" onchange="toggleEntrega()"> Retiro por el local</label>
+      <div id="envioDatos">
+        <input id="dirCalle" placeholder="Calle y altura" aria-label="Calle y altura" autocomplete="street-address" autocapitalize="words">
+        <input id="dirCp" placeholder="Código postal" aria-label="Código postal" inputmode="numeric" autocomplete="postal-code">
+        <input id="dirCiudad" placeholder="Ciudad" aria-label="Ciudad" autocomplete="address-level2" autocapitalize="words">
+        <input id="dirProvincia" placeholder="Provincia" aria-label="Provincia" autocomplete="address-level1" autocapitalize="words">
+      </div>
+      <div id="retiroInfo" class="retiro-info" style="display:none">Retirás por el local: <strong>Av. Mitre 6469, Wilde</strong> — te confirmamos por WhatsApp cuándo está listo.</div>
       <label class="sr-only" for="nota">Nota para el pedido</label>
       <textarea id="nota" rows="2" placeholder="Nota (opcional): fecha del evento, más detalles…"></textarea>
     </div>
@@ -394,7 +403,7 @@
       <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.003 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.257.59 4.463 1.71 6.408L3.2 28.8l6.56-1.71a12.74 12.74 0 0 0 6.24 1.59h.005c7.06 0 12.8-5.74 12.8-12.8 0-3.42-1.332-6.635-3.75-9.052A12.716 12.716 0 0 0 16.003 3.2Zm0 23.36h-.004a10.63 10.63 0 0 1-5.42-1.485l-.388-.23-4.028 1.055 1.075-3.928-.253-.403a10.6 10.6 0 0 1-1.626-5.67c0-5.867 4.774-10.64 10.646-10.64a10.57 10.57 0 0 1 7.522 3.122 10.57 10.57 0 0 1 3.116 7.526c0 5.868-4.774 10.646-10.64 10.646Zm5.837-7.972c-.32-.16-1.893-.934-2.186-1.04-.293-.107-.507-.16-.72.16-.213.32-.826 1.04-1.013 1.253-.187.213-.373.24-.693.08-.32-.16-1.35-.498-2.573-1.588-.951-.848-1.593-1.895-1.78-2.215-.187-.32-.02-.493.14-.652.144-.143.32-.373.48-.56.16-.187.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.539-.72-.549l-.613-.011c-.213 0-.56.08-.853.4-.293.32-1.12 1.094-1.12 2.667 0 1.573 1.146 3.093 1.306 3.307.16.213 2.253 3.44 5.46 4.823.763.33 1.358.526 1.822.674.766.243 1.463.209 2.014.127.614-.092 1.893-.774 2.16-1.52.267-.747.267-1.387.187-1.52-.08-.133-.293-.213-.613-.373Z"/></svg>
       Enviar pedido por WhatsApp
     </button>
-    <div class="pago-nota">Te respondemos con el costo del envío para coordinar el pago y la entrega.</div>
+    <div class="pago-nota" id="pagoNota">Te respondemos con el costo del envío para coordinar el pago y la entrega.</div>
   </div>
 </aside>
 
@@ -732,16 +741,28 @@ function pintarCupon(count, subtotal, descuento){
   if (descuento > 0){ $("descLbl").textContent = "Cupón " + cuponAplicado.codigo; $("descVal").textContent = "−" + fmt(descuento); descRow.style.display = ""; }
   else descRow.style.display = "none";
 }
+function toggleEntrega(){
+  const retiro = document.querySelector('input[name=entrega]:checked')?.value === 'retiro';
+  $("envioDatos").style.display = retiro ? "none" : "";
+  $("retiroInfo").style.display = retiro ? "" : "none";
+  $("pagoNota").textContent = retiro
+    ? "Te esperamos en Av. Mitre 6469, Wilde — sin costo de envío."
+    : "Te respondemos con el costo del envío para coordinar el pago y la entrega.";
+}
+
 function enviarPedido(){
   const items = Object.values(carrito);
   if (!items.length) return toast("Agregá algo al pedido primero");
   if (!/^\d{10,15}$/.test(WHATSAPP)){ toast("Falta configurar el número de WhatsApp"); return; }
+  const retiro = document.querySelector('input[name=entrega]:checked')?.value === 'retiro';
   const dir = { calle: $("dirCalle").value.trim(), cp: $("dirCp").value.trim(), ciudad: $("dirCiudad").value.trim(), provincia: $("dirProvincia").value.trim() };
   let falta = false;
-  [[$("dirCalle"), dir.calle], [$("dirCp"), dir.cp], [$("dirCiudad"), dir.ciudad], [$("dirProvincia"), dir.provincia]].forEach(([el, v]) => {
-    if (!v){ el.classList.add("err"); falta = true; } else el.classList.remove("err");
-  });
-  if (falta) return toast("Completá calle, código postal, ciudad y provincia");
+  if (!retiro){
+    [[$("dirCalle"), dir.calle], [$("dirCp"), dir.cp], [$("dirCiudad"), dir.ciudad], [$("dirProvincia"), dir.provincia]].forEach(([el, v]) => {
+      if (!v){ el.classList.add("err"); falta = true; } else el.classList.remove("err");
+    });
+    if (falta) return toast("Completá calle, código postal, ciudad y provincia");
+  }
   const subtotal = items.reduce((s, i) => s + i.qty * i.precio, 0);
   const descuento = cuponAplicado ? descuentoDe(subtotal) : 0;
   const total = subtotal - descuento;
@@ -756,9 +777,13 @@ function enviarPedido(){
   if (cuponAplicado && descuento > 0){
     msg += `\nSubtotal: ${fmt(subtotal)}\nCupón ${cuponAplicado.codigo}: −${fmt(descuento)}\n`;
   }
-  msg += `\n*Total: ${fmt(total)}* (sin envío)\nPago: transferencia bancaria\n\n`;
-  msg += `Dirección de envío:\n${dir.calle}, CP ${dir.cp}\n${dir.ciudad}, ${dir.provincia}\n\n`;
-  msg += `¿Cuánto sale el envío a esa dirección?\n`;
+  msg += `\n*Total: ${fmt(total)}*${retiro ? "" : " (sin envío)"}\nPago: transferencia bancaria\n\n`;
+  if (retiro){
+    msg += `Retiro por el local: Av. Mitre 6469, Wilde\n\n`;
+  } else {
+    msg += `Dirección de envío:\n${dir.calle}, CP ${dir.cp}\n${dir.ciudad}, ${dir.provincia}\n\n`;
+    msg += `¿Cuánto sale el envío a esa dirección?\n`;
+  }
   const nota = $("nota").value.trim();
   if (nota) msg += `\nNota: ${nota}\n`;
   msg += `\n¡Gracias!`;
