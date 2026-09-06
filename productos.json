@@ -67,22 +67,6 @@
     "variantes": []
   },
   {
-    "id": "gorrito-cumple",
-    "nombre": "Gorrito Feliz Cumpleaños",
-    "categoria": "Cumpleaños",
-    "descripcion": "Gorrito de fiesta con el nombre o la edad de la persona homenajeada.",
-    "precio": 1500,
-    "imagen": "assets/products/gorrito.svg",
-    "destacado": false,
-    "agotado": false,
-    "stock": null,
-    "personalizable": true,
-    "textoEtiqueta": "Nombre o edad",
-    "textoMax": 15,
-    "precioPersonalizacion": 0,
-    "variantes": []
-  },
-  {
     "id": "globos-x10",
     "nombre": "Globos x10 surtidos",
     "categoria": "Globos",
