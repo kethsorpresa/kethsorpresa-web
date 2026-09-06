@@ -4,10 +4,11 @@
     "nombre": "Vaso glitter personalizado",
     "categoria": "Vasos",
     "descripcion": "Vaso de acrílico con glitter, tapa y sorbete. Elegí el color y contanos qué nombre o frase querés (ej. Martu · Mis XV).",
-    "precio": 2500,
+    "precio": 8000,
     "imagen": "assets/products/vaso-glitter-rosa.webp",
     "destacado": true,
     "agotado": false,
+    "stock": null,
     "personalizable": true,
     "textoEtiqueta": "Nombre o frase (ej. Martu · Mis XV)",
     "textoMax": 24,
@@ -40,6 +41,10 @@
             "valor": "Negro",
             "color": "#2b2b2e",
             "imagen": "assets/products/vaso-glitter-negro.webp"
+          },
+          {
+            "valor": "Verde",
+            "color": "#718b50"
           }
         ]
       }
@@ -54,6 +59,7 @@
     "imagen": "assets/products/taza.svg",
     "destacado": true,
     "agotado": false,
+    "stock": null,
     "personalizable": true,
     "textoEtiqueta": "Frase o nombre para la taza",
     "textoMax": 20,
@@ -69,41 +75,12 @@
     "imagen": "assets/products/gorrito.svg",
     "destacado": false,
     "agotado": false,
+    "stock": null,
     "personalizable": true,
     "textoEtiqueta": "Nombre o edad",
     "textoMax": 15,
     "precioPersonalizacion": 0,
     "variantes": []
-  },
-  {
-    "id": "guirnalda-feliz",
-    "nombre": "Guirnalda Feliz Cumpleaños",
-    "categoria": "Decoración",
-    "descripcion": "Guirnalda de banderines para decorar. Disponible en varios colores.",
-    "precio": 3200,
-    "imagen": "assets/products/guirnalda.svg",
-    "destacado": false,
-    "agotado": false,
-    "personalizable": false,
-    "variantes": [
-      {
-        "nombre": "Color",
-        "opciones": [
-          {
-            "valor": "Rosa",
-            "color": "#ffb3c3"
-          },
-          {
-            "valor": "Lila",
-            "color": "#c8b6ff"
-          },
-          {
-            "valor": "Celeste",
-            "color": "#8ecae6"
-          }
-        ]
-      }
-    ]
   },
   {
     "id": "globos-x10",
@@ -114,7 +91,11 @@
     "imagen": "assets/products/globos.svg",
     "destacado": false,
     "agotado": false,
+    "stock": null,
     "personalizable": false,
+    "textoEtiqueta": "",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
     "variantes": [
       {
         "nombre": "Color",
@@ -144,6 +125,7 @@
     "imagen": "assets/products/caja-sorpresa.svg",
     "destacado": true,
     "agotado": false,
+    "stock": null,
     "personalizable": true,
     "textoEtiqueta": "Dedicatoria (va en la tarjeta)",
     "textoMax": 30,
@@ -157,36 +139,6 @@
           },
           {
             "valor": "Grande"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "kit-fiesta-20",
-    "nombre": "Kit Fiesta x20 personas",
-    "categoria": "Kits",
-    "descripcion": "Kit completo: platos, servilletas, vasos, mantel y banderines para 20 personas.",
-    "precio": 18500,
-    "imagen": "assets/products/cotillon-mix.svg",
-    "destacado": false,
-    "agotado": false,
-    "personalizable": false,
-    "variantes": [
-      {
-        "nombre": "Temática",
-        "opciones": [
-          {
-            "valor": "Clásica",
-            "color": "#ffd166"
-          },
-          {
-            "valor": "Princesas",
-            "color": "#ffb3c3"
-          },
-          {
-            "valor": "Fútbol",
-            "color": "#5b8def"
           }
         ]
       }
