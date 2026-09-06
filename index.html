@@ -215,9 +215,9 @@
   .swatch .c{width:14px;height:14px;border-radius:50%;border:1px solid rgba(0,0,0,.08)}
   .swatch.on{border-color:var(--ink);color:var(--ink)}
   .perso{margin-bottom:16px}
-  .perso input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:var(--r);font:inherit;font-size:1rem;color:var(--ink)}
-  .perso input:focus{outline:none;border-color:var(--acento)}
-  .perso .hint{display:flex;justify-content:space-between;font-size:.74rem;color:var(--ink-3);margin-top:5px}
+  .perso textarea,.perso input{width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:var(--r);font:inherit;font-size:1rem;color:var(--ink);box-sizing:border-box;resize:vertical}
+  .perso textarea:focus,.perso input:focus{outline:none;border-color:var(--acento)}
+  .perso .hint{display:flex;justify-content:space-between;font-size:.74rem;color:var(--ink-3);margin-top:5px;line-height:1.4}
   .perso .hint .max.full{color:var(--acento-deep)}
   .modal-add{margin-top:auto;background:var(--ink);color:#fff;font-weight:600;font-size:.98rem;padding:14px;border-radius:var(--r);transition:opacity .2s}
   .modal-add:hover{opacity:.9}
@@ -507,7 +507,7 @@ function abrirModal(id){
   focoPrevio = document.activeElement;
   renderModal();
   $("modalOv").classList.add("open"); document.body.classList.add("lock");
-  setTimeout(() => { const f = $("modalBox").querySelector(".perso input, .swatch.on, .modal-add"); if (f) f.focus({preventScroll:true}); }, 60);
+  setTimeout(() => { const f = $("modalBox").querySelector(".perso textarea, .swatch.on, .modal-add"); if (f) f.focus({preventScroll:true}); }, 60);
 }
 function renderModal(){
   const p = PRODUCTOS.find(x => x.id === modalSel.id); if (!p) return;
@@ -520,12 +520,11 @@ function renderModal(){
         ${(v.opciones || []).map(o => `<button class="swatch ios-press ${modalSel.sel[v.nombre] === o.valor ? "on" : ""}" role="radio" aria-checked="${modalSel.sel[v.nombre] === o.valor}" data-var="${esc(v.nombre)}" data-val="${esc(o.valor)}">${o.color ? `<span class="c" style="background:${esc(o.color)}"></span>` : ""}${esc(o.valor)}</button>`).join("")}
       </div>
     </div>`).join("");
-  const max = Number(p.textoMax) || 20;
   const perso = p.personalizable ? `
     <div class="perso">
-      <label class="var-label" for="persoInput"><span>Personalización</span></label>
-      <input type="text" id="persoInput" maxlength="${max}" value="${esc(modalSel.texto)}" placeholder="${esc(p.textoEtiqueta || "Escribí tu texto")}" autocomplete="off" autocapitalize="words">
-      <div class="hint"><span>${extra > 0 ? "+ " + fmt(extra) + " por personalizar" : "Sin costo extra"}</span><span class="max" id="persoMax">${modalSel.texto.length} / ${max}</span></div>
+      <label class="var-label" for="persoInput"><span>Detalles de tu personalización</span></label>
+      <textarea id="persoInput" rows="3" placeholder="${esc(p.textoEtiqueta || "Escribí tu texto")}. Si son varios textos o colores, contalo con detalle, ej: Martu en negro, XB en plateado. ¿Imprenta o cursiva?" autocomplete="off" autocapitalize="sentences">${esc(modalSel.texto)}</textarea>
+      <div class="hint"><span>${extra > 0 ? "+ " + fmt(extra) + " por personalizar" : "Sin costo extra"} · Aclará colores y si es imprenta o cursiva</span></div>
     </div>` : "";
   $("modalBox").innerHTML = `
     <button class="modal-close" onclick="cerrarModal()" aria-label="Cerrar">×</button>
@@ -544,10 +543,10 @@ function renderModal(){
     renderModal();
   }));
   const inp = $("persoInput");
-  if (inp) inp.addEventListener("input", () => { modalSel.texto = inp.value; const m = $("persoMax"); m.textContent = `${inp.value.length} / ${max}`; m.classList.toggle("full", inp.value.length >= max); });
+  if (inp) inp.addEventListener("input", () => { modalSel.texto = inp.value; });
   $("modalAdd").addEventListener("click", () => {
     const texto = (modalSel.texto || "").trim();
-    if (p.personalizable && !texto){ toast("Escribí el texto de la personalización"); if (inp) inp.focus(); return; }
+    if (p.personalizable && !texto){ toast("Contanos los detalles de tu personalización"); if (inp) inp.focus(); return; }
     ultimoOrigen = $("modalAdd");
     agregar(p, modalSel.sel, texto);
     cerrarModal();
