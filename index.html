@@ -78,6 +78,12 @@
   .catbar{position:sticky;top:var(--header-h);z-index:40;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .catbar-inner{max-width:1080px;margin:0 auto;padding:0 20px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
   .catbar-inner::-webkit-scrollbar{display:none}
+  /* Banners promocionales */
+  .banners{max-width:1080px;margin:0 auto;padding:20px 20px 0}
+  .banners-in{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:18px}
+  .banners-in::-webkit-scrollbar{display:none}
+  .banners-in img{flex:0 0 100%;width:100%;max-width:100%;border-radius:18px;object-fit:cover;scroll-snap-align:start;aspect-ratio:16/5}
+  @media(max-width:600px){.banners-in img{aspect-ratio:16/7}}
   .pill{white-space:nowrap;font-size:.86rem;font-weight:600;color:var(--ink-3);padding:14px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;flex-shrink:0}
   .pill:hover{color:var(--ink)}
   .pill.on{color:var(--ink);border-bottom-color:var(--acento)}
@@ -296,6 +302,8 @@
 </section></div>
 
 <nav class="catbar" aria-label="Categorías"><div class="catbar-inner" id="catbar"></div></nav>
+
+<div class="banners" id="banners" hidden></div>
 
 <section class="section destacados" id="destacados" aria-labelledby="destTitle">
   <div class="sec-head"><h2 id="destTitle">Destacados</h2></div>
@@ -757,6 +765,12 @@ function aplicarAjustes(a){
   if (a.whatsapp && /^\d{10,15}$/.test(String(a.whatsapp).replace(/\D/g, ""))) WHATSAPP = String(a.whatsapp).replace(/\D/g, "");
   if (a.instagram){ INSTAGRAM = String(a.instagram).replace(/^@/, ""); $("igLink").href = $("igFoot").href = "https://www.instagram.com/" + INSTAGRAM; }
   if (Array.isArray(a.cupones)) CUPONES = a.cupones;
+  const banners = $("banners");
+  if (banners){
+    const bs = Array.isArray(a.banners) ? a.banners.filter(b => b && b.imagen) : [];
+    if (bs.length){ banners.hidden = false; banners.innerHTML = `<div class="banners-in">` + bs.map(b => `<img src="${esc(b.imagen)}" alt="" loading="lazy">`).join("") + `</div>`; }
+    else { banners.hidden = true; banners.innerHTML = ""; }
+  }
   document.documentElement.style.setProperty("--header-h", $("header").getBoundingClientRect().height + "px");
 }
 fetch("ajustes.json", {cache: "no-cache"}).then(r => r.ok ? r.json() : null).then(aplicarAjustes).catch(() => {});

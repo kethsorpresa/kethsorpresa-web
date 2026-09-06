@@ -235,6 +235,11 @@
       <div class="desc">El cliente escribe el código en el carrito y el descuento se aplica solo. % = porcentaje del total, $ = monto fijo. Código vacío = no se muestra.</div>
       <div id="cuponesList"></div>
     </div>
+    <div class="seccion" style="margin-top:16px">
+      <h3>Banners promocionales <button type="button" class="btn btn-c btn-sm" onclick="agregarBanner()">+ Agregar banner</button></h3>
+      <div class="desc">Imágenes que se muestran en la portada de la web (día del padre, día de la madre, 20%, 6 cuotas…). Se ven apenas publicás.</div>
+      <div id="bannersList"></div>
+    </div>
     <div class="acc-modal">
       <button class="btn btn-c" onclick="cerrarAjustes()">Cancelar</button>
       <button class="btn btn-p" onclick="guardarAjustes()">Aplicar</button>
@@ -339,7 +344,7 @@ const store = {
   },
   async save({ productos, ajustes, fotos }){
     if (MODO === "github"){
-      for (const f of fotos){ SHAS["assets/products/" + f.filename] = null; await GH.put("assets/products/" + f.filename, f.dataBase64, "Admin: foto " + f.filename); }
+      for (const f of fotos){ SHAS[f.dir + "/" + f.filename] = null; await GH.put(f.dir + "/" + f.filename, f.dataBase64, "Admin: imagen " + f.filename); }
       await GH.put("productos.json", GH.b64(JSON.stringify(productos, null, 2)), "Admin: catálogo (" + productos.length + " productos)");
       await GH.put("ajustes.json", GH.b64(JSON.stringify(ajustes, null, 2)), "Admin: ajustes");
       return { ok: true };
@@ -373,7 +378,7 @@ async function recargar(){
     const r = await store.load();
     PRODUCTOS = (r.productos || []).map(normalizar);
     ORIGINAL = JSON.parse(JSON.stringify(PRODUCTOS));
-    AJUSTES = Object.assign({ promo: "", heroTitulo: "", heroTexto: "", whatsapp: "", instagram: "", cupones: [] }, r.ajustes || {});
+    AJUSTES = Object.assign({ promo: "", heroTitulo: "", heroTexto: "", whatsapp: "", instagram: "", cupones: [], banners: [] }, r.ajustes || {});
     AJUSTES_ORIG = JSON.parse(JSON.stringify(AJUSTES));
     fotosPendientes = [];
     renderChips(); render();
@@ -385,7 +390,9 @@ async function recargar(){
 function abrirAjustes(){
   ["promo", "heroTitulo", "heroTexto", "whatsapp", "instagram"].forEach(k => $("a_" + k).value = AJUSTES[k] || "");
   if (!Array.isArray(AJUSTES.cupones)) AJUSTES.cupones = [];
+  if (!Array.isArray(AJUSTES.banners)) AJUSTES.banners = [];
   renderCupones();
+  renderBanners();
   $("ovAjustes").classList.add("open");
 }
 function cerrarAjustes(){ $("ovAjustes").classList.remove("open"); }
@@ -415,6 +422,25 @@ function cuponCampo(i, k, v){
 }
 function agregarCupon(){ (AJUSTES.cupones || (AJUSTES.cupones = [])).push({ codigo: "", tipo: "porcentaje", valor: 10, activo: true }); renderCupones(); }
 function quitarCupon(i){ AJUSTES.cupones.splice(i, 1); renderCupones(); }
+function renderBanners(){
+  const bs = AJUSTES.banners || (AJUSTES.banners = []);
+  const box = $("bannersList"); if (!box) return;
+  box.innerHTML = bs.length ? bs.map((b, i) => `
+    <div style="display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:8px;margin-bottom:8px;background:#fffafc">
+      ${b.imagen ? `<img src="${esc(src(b.imagen))}" alt="" style="width:64px;height:64px;object-fit:cover;border-radius:8px;flex-shrink:0">` : `<span style="width:64px;height:64px;border-radius:8px;background:#f6e3e9;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0">🖼</span>`}
+      <label style="flex:1;font-size:.8rem;color:var(--chicle-deep);cursor:pointer">${b.imagen ? "Cambiar imagen" : "Subir imagen"}
+        <input type="file" accept="image/*" style="display:none" onchange="bannerFoto(${i},this.files[0])">
+      </label>
+      <button type="button" class="btn btn-d btn-sm" onclick="quitarBanner(${i})">🗑 Quitar</button>
+    </div>`).join("") : `<div class="nota">Todavía no hay banners. Agregá promos: día del padre, día de la madre, 20%, 6 cuotas…</div>`;
+}
+async function bannerFoto(i, file){
+  if (!file) return;
+  try{ const path = await procesarFoto(file, "banner", "banners"); AJUSTES.banners[i].imagen = path; renderBanners(); toast("Banner listo — se publica al guardar"); }
+  catch(e){ toast("No pude procesar la foto: " + e.message); }
+}
+function agregarBanner(){ (AJUSTES.banners || (AJUSTES.banners = [])).push({ imagen: "" }); renderBanners(); }
+function quitarBanner(i){ AJUSTES.banners.splice(i, 1); renderBanners(); }
 function guardarAjustes(){
   const wa = $("a_whatsapp").value.replace(/\D/g, "");
   if (wa && !/^\d{10,15}$/.test(wa)) return toast("El WhatsApp tiene que ser solo números, ej. 5491127118602");
@@ -424,7 +450,7 @@ function guardarAjustes(){
     valor: Math.max(0, Number(c.valor) || 0),
     activo: c.activo !== false
   }));
-  AJUSTES = { promo: $("a_promo").value.trim(), heroTitulo: $("a_heroTitulo").value.trim(), heroTexto: $("a_heroTexto").value.trim(), whatsapp: wa, instagram: $("a_instagram").value.trim().replace(/^@/, ""), cupones };
+  AJUSTES = { promo: $("a_promo").value.trim(), heroTitulo: $("a_heroTitulo").value.trim(), heroTexto: $("a_heroTexto").value.trim(), whatsapp: wa, instagram: $("a_instagram").value.trim().replace(/^@/, ""), cupones, banners: (AJUSTES.banners || []).filter(b => b && b.imagen) };
   cerrarAjustes(); render(); toast("Ajustes aplicados. Recordá “Guardar y publicar”.");
 }
 $("ovAjustes").addEventListener("click", e => { if (e.target === $("ovAjustes")) cerrarAjustes(); });
@@ -554,7 +580,7 @@ async function fotoOpcion(gi, oi, file){
 }
 
 // Fotos: se achican a máx 1200px y se convierten a WebP antes de subir
-function procesarFoto(file, nombreBase){
+function procesarFoto(file, nombreBase, folder = "products"){
   return new Promise((resolve, reject) => {
     if (!file.type.startsWith("image/")) return reject(new Error("no es una imagen"));
     if (file.size > 25 * 1024 * 1024) return reject(new Error("más de 25MB"));
@@ -568,8 +594,9 @@ function procesarFoto(file, nombreBase){
       let dataUrl = c.toDataURL("image/webp", 0.86); let ext = "webp";
       if (!dataUrl.startsWith("data:image/webp")){ dataUrl = c.toDataURL("image/jpeg", 0.86); ext = "jpg"; }
       const filename = (slug(nombreBase) || "foto") + "-" + Date.now().toString(36) + "." + ext;
-      const path = "assets/products/" + filename;
-      fotosPendientes.push({ filename, dataBase64: dataUrl.split(",")[1] });
+      const dir = "assets/" + folder;
+      const path = dir + "/" + filename;
+      fotosPendientes.push({ dir, filename, dataBase64: dataUrl.split(",")[1] });
       previews[path] = dataUrl;
       resolve(path);
     };
@@ -630,7 +657,8 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") cerrarModal(
 function fotosUsadas(){
   const usadas = new Set();
   PRODUCTOS.forEach(p => { if (p.imagen) usadas.add(p.imagen); (p.variantes || []).forEach(v => (v.opciones || []).forEach(o => { if (o.imagen) usadas.add(o.imagen); })); });
-  return fotosPendientes.filter(f => usadas.has("assets/products/" + f.filename));
+  (AJUSTES.banners || []).forEach(b => { if (b.imagen) usadas.add(b.imagen); });
+  return fotosPendientes.filter(f => usadas.has(f.dir + "/" + f.filename));
 }
 async function guardar(){
   if (!hayCambios()) return toast("No hay cambios para publicar");
