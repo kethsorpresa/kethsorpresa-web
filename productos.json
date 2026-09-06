@@ -67,40 +67,6 @@
     "variantes": []
   },
   {
-    "id": "globos-x10",
-    "nombre": "Globos x10 surtidos",
-    "categoria": "Globos",
-    "descripcion": "Pack de 10 globos metalizados surtidos para decorar cualquier fiesta.",
-    "precio": 2800,
-    "imagen": "assets/products/globos.svg",
-    "destacado": false,
-    "agotado": false,
-    "stock": null,
-    "personalizable": false,
-    "textoEtiqueta": "",
-    "textoMax": 12,
-    "precioPersonalizacion": 0,
-    "variantes": [
-      {
-        "nombre": "Color",
-        "opciones": [
-          {
-            "valor": "Rosa",
-            "color": "#ffb3c3"
-          },
-          {
-            "valor": "Dorado",
-            "color": "#f5c84b"
-          },
-          {
-            "valor": "Plateado",
-            "color": "#b8c0cc"
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "caja-sorpresa",
     "nombre": "Caja Sorpresa",
     "categoria": "Regalos",
