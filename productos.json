@@ -5,7 +5,7 @@
     "categoria": "Vasos",
     "descripcion": "Vaso de acrílico con glitter, tapa y sorbete. Elegí el color y contanos qué nombre o frase querés (ej. Martu · Mis XV).",
     "precio": 8998,
-    "imagen": "assets/products/vaso-glitter-rosa.webp",
+    "imagen": "assets/products/vaso-glitter-personalizado-mtqh19mm.webp",
     "destacado": true,
     "agotado": false,
     "stock": null,
@@ -20,31 +20,47 @@
           {
             "valor": "Rosa",
             "color": "#f4a6bd",
-            "imagen": "assets/products/vaso-glitter-rosa.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-rosa-mtqgzs6s.webp"
           },
           {
             "valor": "Violeta",
             "color": "#a35fd6",
-            "imagen": "assets/products/vaso-glitter-violeta.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-violeta-mtqgzv56.webp"
           },
           {
             "valor": "Azul",
             "color": "#2d4fd6",
-            "imagen": "assets/products/vaso-glitter-azul.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-azul-mtqgzzl3.webp"
           },
           {
             "valor": "Plateado",
             "color": "#c9c9cf",
-            "imagen": "assets/products/vaso-glitter-plateado.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-plateado-mtqh04dg.webp"
           },
           {
             "valor": "Negro",
             "color": "#2b2b2e",
-            "imagen": "assets/products/vaso-glitter-negro.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-negro-mtqh079m.webp"
+          },
+          {
+            "valor": "Dorado",
+            "color": "#c49736",
+            "imagen": "assets/products/vaso-glitter-personalizado-dorado-mtqh0nvc.webp"
+          },
+          {
+            "valor": "Celeste",
+            "color": "#90d9f9",
+            "imagen": "assets/products/vaso-glitter-personalizado-celeste-mtqh149v.webp"
           },
           {
             "valor": "Verde",
-            "color": "#718b50"
+            "color": "#107e31",
+            "imagen": "assets/products/vaso-glitter-personalizado-verde-mtqh1v41.webp"
+          },
+          {
+            "valor": "Rojo",
+            "color": "#db0f35",
+            "imagen": "assets/products/vaso-glitter-personalizado-rojo-mtqh27mg.webp"
           }
         ]
       }
