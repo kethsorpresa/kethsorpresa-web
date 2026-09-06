@@ -230,6 +230,11 @@
       <div class="campo"><label>WhatsApp</label><input id="a_whatsapp" inputmode="numeric" placeholder="5491127118602"><div class="nota">Con 54 9 adelante, sin + ni espacios.</div></div>
       <div class="campo"><label>Instagram</label><input id="a_instagram" placeholder="kethsorpresa"></div>
     </div>
+    <div class="seccion" style="margin-top:16px">
+      <h3>Cupones de descuento <button type="button" class="btn btn-c btn-sm" onclick="agregarCupon()">+ Agregar cupón</button></h3>
+      <div class="desc">El cliente escribe el código en el carrito y el descuento se aplica solo. % = porcentaje del total, $ = monto fijo. Código vacío = no se muestra.</div>
+      <div id="cuponesList"></div>
+    </div>
     <div class="acc-modal">
       <button class="btn btn-c" onclick="cerrarAjustes()">Cancelar</button>
       <button class="btn btn-p" onclick="guardarAjustes()">Aplicar</button>
@@ -248,7 +253,7 @@
 // Modo Vercel (opcional): si completás BACKEND_URL, usa ese backend con contraseña.
 // Modo local: si abrís el admin con INICIAR-ADMIN.command, guarda en la PC.
 // ============================================================
-const GITHUB_REPO = "NicolasDerito/kethsorpresa-web";
+const GITHUB_REPO = "kethsorpresa/kethsorpresa-web";
 const GITHUB_BRANCH = "main";
 const BACKEND_URL = "";
 // ============================================================
@@ -368,7 +373,7 @@ async function recargar(){
     const r = await store.load();
     PRODUCTOS = (r.productos || []).map(normalizar);
     ORIGINAL = JSON.parse(JSON.stringify(PRODUCTOS));
-    AJUSTES = Object.assign({ promo: "", heroTitulo: "", heroTexto: "", whatsapp: "", instagram: "" }, r.ajustes || {});
+    AJUSTES = Object.assign({ promo: "", heroTitulo: "", heroTexto: "", whatsapp: "", instagram: "", cupones: [] }, r.ajustes || {});
     AJUSTES_ORIG = JSON.parse(JSON.stringify(AJUSTES));
     fotosPendientes = [];
     renderChips(); render();
@@ -379,13 +384,47 @@ async function recargar(){
 // ---------- Ajustes de la tienda ----------
 function abrirAjustes(){
   ["promo", "heroTitulo", "heroTexto", "whatsapp", "instagram"].forEach(k => $("a_" + k).value = AJUSTES[k] || "");
+  if (!Array.isArray(AJUSTES.cupones)) AJUSTES.cupones = [];
+  renderCupones();
   $("ovAjustes").classList.add("open");
 }
 function cerrarAjustes(){ $("ovAjustes").classList.remove("open"); }
+function renderCupones(){
+  const cs = AJUSTES.cupones || (AJUSTES.cupones = []);
+  const box = $("cuponesList"); if (!box) return;
+  box.innerHTML = cs.length ? cs.map((c, i) => `
+    <div class="fila3" style="align-items:end;margin-bottom:8px">
+      <div class="campo"><label>Código</label><input value="${esc(c.codigo || "")}" placeholder="PADRE10" oninput="cuponCampo(${i},'codigo',this.value)" style="text-transform:uppercase"></div>
+      <div class="campo"><label>Tipo</label>
+        <select onchange="cuponCampo(${i},'tipo',this.value)" style="width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff">
+          <option value="porcentaje" ${c.tipo !== "monto" ? "selected" : ""}>% porcentaje</option>
+          <option value="monto" ${c.tipo === "monto" ? "selected" : ""}>$ monto fijo</option>
+        </select>
+      </div>
+      <div class="campo"><label>Valor</label><input type="number" min="0" value="${Number(c.valor) || 0}" oninput="cuponCampo(${i},'valor',this.value)"><div class="nota">10 = 10% o $10</div></div>
+      <div class="campo" style="min-width:110px">
+        <label><input type="checkbox" ${c.activo === false ? "" : "checked"} onchange="cuponCampo(${i},'activo',this.checked)"> Activo</label>
+        <button type="button" class="btn btn-d btn-sm" onclick="quitarCupon(${i})" style="margin-top:6px">🗑 Quitar</button>
+      </div>
+    </div>`).join("") : `<div class="nota">Todavía no hay cupones. Tocá “+ Agregar cupón”.</div>`;
+}
+function cuponCampo(i, k, v){
+  const cs = AJUSTES.cupones || (AJUSTES.cupones = []);
+  if (!cs[i]) return;
+  cs[i][k] = k === "valor" ? (Number(v) || 0) : (k === "activo" ? !!v : String(v).trim().toUpperCase());
+}
+function agregarCupon(){ (AJUSTES.cupones || (AJUSTES.cupones = [])).push({ codigo: "", tipo: "porcentaje", valor: 10, activo: true }); renderCupones(); }
+function quitarCupon(i){ AJUSTES.cupones.splice(i, 1); renderCupones(); }
 function guardarAjustes(){
   const wa = $("a_whatsapp").value.replace(/\D/g, "");
   if (wa && !/^\d{10,15}$/.test(wa)) return toast("El WhatsApp tiene que ser solo números, ej. 5491127118602");
-  AJUSTES = { promo: $("a_promo").value.trim(), heroTitulo: $("a_heroTitulo").value.trim(), heroTexto: $("a_heroTexto").value.trim(), whatsapp: wa, instagram: $("a_instagram").value.trim().replace(/^@/, "") };
+  const cupones = (AJUSTES.cupones || []).filter(c => String(c.codigo || "").trim()).map(c => ({
+    codigo: String(c.codigo).trim().toUpperCase(),
+    tipo: c.tipo === "monto" ? "monto" : "porcentaje",
+    valor: Math.max(0, Number(c.valor) || 0),
+    activo: c.activo !== false
+  }));
+  AJUSTES = { promo: $("a_promo").value.trim(), heroTitulo: $("a_heroTitulo").value.trim(), heroTexto: $("a_heroTexto").value.trim(), whatsapp: wa, instagram: $("a_instagram").value.trim().replace(/^@/, ""), cupones };
   cerrarAjustes(); render(); toast("Ajustes aplicados. Recordá “Guardar y publicar”.");
 }
 $("ovAjustes").addEventListener("click", e => { if (e.target === $("ovAjustes")) cerrarAjustes(); });

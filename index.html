@@ -191,6 +191,17 @@
   .checkout:hover{filter:brightness(.95)}
   .checkout:disabled{opacity:.4;cursor:not-allowed}
   .pago-nota{font-size:.76rem;color:var(--ink-3);text-align:center;margin-top:10px}
+  .cupon-area{margin-bottom:10px}
+  .cupon-row{display:flex;gap:8px;margin-bottom:8px}
+  .cupon-row input{flex:1;min-width:0;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r);font:inherit;font-size:.9rem;color:var(--ink);text-transform:uppercase}
+  .cupon-row input:focus{outline:none;border-color:var(--acento)}
+  .cupon-btn{background:var(--ink);color:#fff;border:0;border-radius:var(--r);padding:0 16px;font-weight:700;font-size:.85rem;cursor:pointer;flex-shrink:0}
+  .cupon-btn:hover{filter:brightness(1.15)}
+  .cupon-ok{display:flex;align-items:center;justify-content:space-between;gap:8px;background:var(--marca-suave);border-radius:var(--r);padding:9px 12px;font-size:.85rem;color:var(--acento-deep);margin-bottom:8px}
+  .cupon-ok b{color:var(--acento-deep)}
+  .cupon-ok button{background:none;border:0;color:var(--ink-3);font-size:.78rem;text-decoration:underline;cursor:pointer;flex-shrink:0}
+  .sub-row,.desc-row{display:flex;justify-content:space-between;align-items:baseline;font-size:.88rem;color:var(--ink-2);margin-bottom:6px}
+  .desc-row{color:var(--acento-deep)}
 
   /* Modal producto */
   .modal-ov{position:fixed;inset:0;background:rgba(36,26,30,.4);z-index:75;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;display:flex;align-items:center;justify-content:center;padding:16px}
@@ -350,6 +361,15 @@
     </div>
   </div>
   <div class="drawer-foot">
+    <div class="cupon-area" id="cuponArea" style="display:none">
+      <div class="cupon-row" id="cuponForm">
+        <input id="cuponInput" placeholder="Cupón de descuento" aria-label="Cupón de descuento" autocomplete="off" onkeydown="if(event.key==='Enter')aplicarCupon()">
+        <button class="cupon-btn" onclick="aplicarCupon()">Aplicar</button>
+      </div>
+      <div class="cupon-ok" id="cuponOk" style="display:none"></div>
+    </div>
+    <div class="sub-row" id="subRow" style="display:none"><span>Subtotal</span><span id="subVal"></span></div>
+    <div class="desc-row" id="descRow" style="display:none"><span id="descLbl">Cupón</span><span id="descVal"></span></div>
     <div class="total-row"><span class="lbl">Total</span><span class="val" id="total">$0</span></div>
     <button class="checkout ios-press" id="checkout" onclick="enviarPedido()" disabled>
       <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.003 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.257.59 4.463 1.71 6.408L3.2 28.8l6.56-1.71a12.74 12.74 0 0 0 6.24 1.59h.005c7.06 0 12.8-5.74 12.8-12.8 0-3.42-1.332-6.635-3.75-9.052A12.716 12.716 0 0 0 16.003 3.2Zm0 23.36h-.004a10.63 10.63 0 0 1-5.42-1.485l-.388-.23-4.028 1.055 1.075-3.928-.253-.403a10.6 10.6 0 0 1-1.626-5.67c0-5.867 4.774-10.64 10.646-10.64a10.57 10.57 0 0 1 7.522 3.122 10.57 10.57 0 0 1 3.116 7.526c0 5.868-4.774 10.646-10.64 10.646Zm5.837-7.972c-.32-.16-1.893-.934-2.186-1.04-.293-.107-.507-.16-.72.16-.213.32-.826 1.04-1.013 1.253-.187.213-.373.24-.693.08-.32-.16-1.35-.498-2.573-1.588-.951-.848-1.593-1.895-1.78-2.215-.187-.32-.02-.493.14-.652.144-.143.32-.373.48-.56.16-.187.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.539-.72-.549l-.613-.011c-.213 0-.56.08-.853.4-.293.32-1.12 1.094-1.12 2.667 0 1.573 1.146 3.093 1.306 3.307.16.213 2.253 3.44 5.46 4.823.763.33 1.358.526 1.822.674.766.243 1.463.209 2.014.127.614-.092 1.893-.774 2.16-1.52.267-.747.267-1.387.187-1.52-.08-.133-.293-.213-.613-.373Z"/></svg>
@@ -381,6 +401,8 @@ let CATS = [];
 let catSel = "Todas";
 let busqueda = "";
 let carrito = {};          // clave -> {id, nombre, precio, img, sel, texto, qty}
+let CUPONES = [];          // cupones: [{codigo, tipo: "porcentaje"|"monto", valor, activo}]
+let cuponAplicado = null;  // cupón aplicado: {codigo, tipo, valor}
 // Pago: transferencia bancaria (se coordina por WhatsApp).
 let modalSel = null;       // selección actual en el modal {id, sel:{grupo:valor}, texto}
 let ultimoOrigen = null;   // botón desde donde se agregó (animación)
@@ -593,11 +615,14 @@ function actualizar(){
   guardarCarrito();
   const items = Object.entries(carrito);
   const count = items.reduce((s, [,i]) => s + i.qty, 0);
-  const total = items.reduce((s, [,i]) => s + i.qty * i.precio, 0);
+  const subtotal = items.reduce((s, [,i]) => s + i.qty * i.precio, 0);
+  const descuento = cuponAplicado ? descuentoDe(subtotal) : 0;
+  const total = subtotal - descuento;
   const badge = $("cartCount"); const prev = parseInt(badge.textContent) || 0;
   badge.textContent = count; badge.classList.toggle("on", count > 0);
   if (count > prev){ badge.classList.remove("pop"); void badge.offsetWidth; badge.classList.add("pop"); }
   $("total").textContent = fmt(total);
+  pintarCupon(count, subtotal, descuento);
   $("checkout").disabled = count === 0;
   $("datos").style.display = count ? "" : "none";
   const cont = $("items");
@@ -632,6 +657,36 @@ function waConsulta(){
   if (!/^\d{10,15}$/.test(WHATSAPP)){ toast("Falta configurar el número de WhatsApp"); return; }
   window.open(waUrl(`Hola ${TIENDA}! Quiero hacer una consulta.`), "_blank", "noopener");
 }
+function descuentoDe(subtotal){
+  if (!cuponAplicado) return 0;
+  const v = Math.max(0, Number(cuponAplicado.valor) || 0);
+  if (cuponAplicado.tipo === "monto") return Math.min(v, subtotal);
+  return Math.round(subtotal * v / 100);
+}
+function aplicarCupon(){
+  const items = Object.values(carrito);
+  if (!items.length) return toast("Agregá algo al pedido primero");
+  const codigo = ($("cuponInput").value || "").trim().toUpperCase();
+  if (!codigo) return toast("Escribí el código del cupón");
+  const c = CUPONES.find(x => x && x.activo !== false && String(x.codigo).trim().toUpperCase() === codigo);
+  if (!c) return toast("Ese cupón no es válido");
+  cuponAplicado = { codigo, tipo: c.tipo === "monto" ? "monto" : "porcentaje", valor: Math.max(0, Number(c.valor) || 0) };
+  actualizar();
+  toast("Cupón aplicado 🎉");
+}
+function quitarCupon(){ cuponAplicado = null; actualizar(); }
+function pintarCupon(count, subtotal, descuento){
+  const area = $("cuponArea"); if (!area) return;
+  area.style.display = count ? "" : "none";
+  const ok = $("cuponOk"), form = $("cuponForm"), subRow = $("subRow"), descRow = $("descRow");
+  if (!cuponAplicado){ ok.style.display = "none"; form.style.display = ""; subRow.style.display = "none"; descRow.style.display = "none"; return; }
+  form.style.display = "none";
+  ok.innerHTML = `<span>Cupón <b>${esc(cuponAplicado.codigo)}</b> aplicado</span><button onclick="quitarCupon()">quitar</button>`;
+  ok.style.display = "";
+  subRow.style.display = ""; $("subVal").textContent = fmt(subtotal);
+  if (descuento > 0){ $("descLbl").textContent = "Cupón " + cuponAplicado.codigo; $("descVal").textContent = "−" + fmt(descuento); descRow.style.display = ""; }
+  else descRow.style.display = "none";
+}
 function enviarPedido(){
   const items = Object.values(carrito);
   if (!items.length) return toast("Agregá algo al pedido primero");
@@ -642,7 +697,9 @@ function enviarPedido(){
     if (!v){ el.classList.add("err"); falta = true; } else el.classList.remove("err");
   });
   if (falta) return toast("Completá calle, código postal, ciudad y provincia");
-  const total = items.reduce((s, i) => s + i.qty * i.precio, 0);
+  const subtotal = items.reduce((s, i) => s + i.qty * i.precio, 0);
+  const descuento = cuponAplicado ? descuentoDe(subtotal) : 0;
+  const total = subtotal - descuento;
   let msg = `Hola ${TIENDA}! Quiero comprar:\n\n`;
   items.forEach((i, n) => {
     msg += `${n + 1}) ${i.nombre} x${i.qty}`;
@@ -651,6 +708,9 @@ function enviarPedido(){
     if (i.texto) msg += `\n   • Personalizado: "${i.texto}"`;
     msg += `\n   = ${fmt(i.precio * i.qty)}\n`;
   });
+  if (cuponAplicado && descuento > 0){
+    msg += `\nSubtotal: ${fmt(subtotal)}\nCupón ${cuponAplicado.codigo}: −${fmt(descuento)}\n`;
+  }
   msg += `\n*Total: ${fmt(total)}* (sin envío)\nPago: transferencia bancaria\n\n`;
   msg += `Dirección de envío:\n${dir.calle}, CP ${dir.cp}\n${dir.ciudad}, ${dir.provincia}\n\n`;
   msg += `¿Cuánto sale el envío a esa dirección?\n`;
@@ -696,6 +756,7 @@ function aplicarAjustes(a){
   if (a.heroTexto) $("heroText").textContent = a.heroTexto;
   if (a.whatsapp && /^\d{10,15}$/.test(String(a.whatsapp).replace(/\D/g, ""))) WHATSAPP = String(a.whatsapp).replace(/\D/g, "");
   if (a.instagram){ INSTAGRAM = String(a.instagram).replace(/^@/, ""); $("igLink").href = $("igFoot").href = "https://www.instagram.com/" + INSTAGRAM; }
+  if (Array.isArray(a.cupones)) CUPONES = a.cupones;
   document.documentElement.style.setProperty("--header-h", $("header").getBoundingClientRect().height + "px");
 }
 fetch("ajustes.json", {cache: "no-cache"}).then(r => r.ok ? r.json() : null).then(aplicarAjustes).catch(() => {});
