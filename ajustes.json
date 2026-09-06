@@ -5,16 +5,18 @@
   "whatsapp": "5491127118602",
   "instagram": "kethsorpresa",
   "tiktok": "",
-  "cupones": [],
+  "cupones": [
+    {
+      "codigo": "WEB10",
+      "tipo": "porcentaje",
+      "valor": 10,
+      "activo": true
+    }
+  ],
   "banners": [
     {
-      "imagen": "assets/banners/banner-mtqcfgrq.webp"
-    },
-    {
-      "imagen": "assets/banners/banner-mtqcfqgf.webp"
-    },
-    {
-      "imagen": "assets/banners/banner-mtqckj0h.webp"
+      "imagen": "assets/banners/banner-mtqcfgrq.webp",
+      "tamano": "mediano"
     }
   ]
 }
