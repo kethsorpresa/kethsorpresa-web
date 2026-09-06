@@ -80,10 +80,13 @@
   .catbar-inner::-webkit-scrollbar{display:none}
   /* Banners promocionales */
   .banners{max-width:1080px;margin:0 auto;padding:20px 20px 0}
-  .banners-in{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;border-radius:18px}
-  .banners-in::-webkit-scrollbar{display:none}
-  .banners-in img{flex:0 0 100%;width:100%;max-width:100%;border-radius:18px;object-fit:cover;scroll-snap-align:start;aspect-ratio:16/5}
-  @media(max-width:600px){.banners-in img{aspect-ratio:16/7}}
+  .banners-in{display:flex;flex-direction:column;gap:14px}
+  .banners-in img{width:100%;border-radius:18px;object-fit:cover}
+  .banners-in img.t-auto{aspect-ratio:auto;height:auto}
+  .banners-in img.t-chico{aspect-ratio:4/1}
+  .banners-in img.t-mediano{aspect-ratio:2/1}
+  .banners-in img.t-grande{aspect-ratio:4/3}
+  @media(max-width:600px){.banners-in img.t-chico{aspect-ratio:16/6}.banners-in img.t-mediano{aspect-ratio:16/10}.banners-in img.t-grande{aspect-ratio:1/1}}
   .pill{white-space:nowrap;font-size:.86rem;font-weight:600;color:var(--ink-3);padding:14px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;flex-shrink:0}
   .pill:hover{color:var(--ink)}
   .pill.on{color:var(--ink);border-bottom-color:var(--acento)}
@@ -768,7 +771,7 @@ function aplicarAjustes(a){
   const banners = $("banners");
   if (banners){
     const bs = Array.isArray(a.banners) ? a.banners.filter(b => b && b.imagen) : [];
-    if (bs.length){ banners.hidden = false; banners.innerHTML = `<div class="banners-in">` + bs.map(b => `<img src="${esc(b.imagen)}" alt="" loading="lazy">`).join("") + `</div>`; }
+    if (bs.length){ banners.hidden = false; banners.innerHTML = `<div class="banners-in">` + bs.map(b => { const cls = b.tamano === "grande" ? "t-grande" : b.tamano === "chico" ? "t-chico" : b.tamano === "mediano" ? "t-mediano" : "t-auto"; return `<img class="${cls}" src="${esc(b.imagen)}" alt="" loading="lazy">`; }).join("") + `</div>`; }
     else { banners.hidden = true; banners.innerHTML = ""; }
   }
   document.documentElement.style.setProperty("--header-h", $("header").getBoundingClientRect().height + "px");
