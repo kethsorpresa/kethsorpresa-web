@@ -790,6 +790,22 @@ function enviarPedido(){
   if (nota) msg += `\nNota: ${nota}\n`;
   msg += `\n¡Gracias!`;
   window.open(waUrl(msg), "_blank", "noopener");
+
+  // Copia del pedido al backend (mail automático al negocio)
+  try {
+    fetch("https://kethsorpresa-pedidos.vercel.app/api/pedido", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items,
+        descuento,
+        cupon: cuponAplicado ? cuponAplicado.codigo : "",
+        entrega: retiro ? "retiro" : "envio",
+        direccion: retiro ? { calle: "Av. Mitre 6469, Wilde" } : dir,
+        nota
+      })
+    }).catch(() => {});
+  } catch (e) { /* silencioso: el pedido ya va por WhatsApp */ }
 }
 document.querySelectorAll(".datos input").forEach(inp => inp.addEventListener("input", () => inp.classList.remove("err")));
 
