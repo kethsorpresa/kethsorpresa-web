@@ -73,7 +73,7 @@
     "descripcion": "Caja regalo con cotillón variado y golosinas. ¡El regalo ideal para sorprender!",
     "precio": 9800,
     "imagen": "assets/products/caja-sorpresa.svg",
-    "destacado": true,
+    "destacado": false,
     "agotado": false,
     "stock": null,
     "personalizable": true,
