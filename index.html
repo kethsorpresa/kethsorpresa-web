@@ -290,9 +290,11 @@
     .hero{padding:44px 20px 44px}
 
     .como-in{grid-template-columns:1fr;gap:28px}
-    .modal{display:flex;flex-direction:column;max-height:92vh}
-    .modal-img{flex:0 0 auto;min-height:0;height:38vh}
-    .modal-info{flex:1 1 auto;overflow-y:auto;min-height:0;padding:20px 18px 18px}
+    .modal-ov{overflow-y:auto;-webkit-overflow-scrolling:touch}
+    .modal{display:flex;flex-direction:column;max-height:none;overflow:visible;margin:auto}
+    .modal-img{flex:0 0 auto;min-height:0;height:32vh}
+    .modal-close{position:sticky;top:8px;align-self:flex-end;margin:8px 8px -34px 0;z-index:3}
+    .modal-info{flex:0 0 auto;overflow:visible;min-height:0;padding:18px 18px 22px}
     .modal-info h3{font-size:1.35rem}
     .wa-float{bottom:18px;right:16px;width:50px;height:50px}
   }
