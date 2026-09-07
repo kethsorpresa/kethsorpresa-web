@@ -8,6 +8,12 @@
     "precios": "fraunces",
     "texto": "fraunces"
   },
+  "tamano": {
+    "titulos": 1.15,
+    "nombres": 1,
+    "precios": 1,
+    "texto": 1
+  },
   "whatsapp": "5491127118602",
   "instagram": "kethsorpresa",
   "tiktok": "",
