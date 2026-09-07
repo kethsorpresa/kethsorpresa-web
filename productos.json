@@ -212,5 +212,62 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vasos-glitter-475-ml",
+    "nombre": "Vasos Glitter 475 ML",
+    "categoria": "Vasos",
+    "descripcion": "Compra minima 10 unidades",
+    "precio": 2800,
+    "imagen": "assets/products/vasos-glitter-475-ml-mtqmmdc0.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": false,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Rosa",
+            "color": "#ffcfd8",
+            "imagen": "assets/products/vasos-glitter-475-ml-rosa-mtqmmvlg.webp"
+          },
+          {
+            "valor": "Blanco",
+            "color": "#fbf9f9",
+            "imagen": "assets/products/vasos-glitter-475-ml-blanco-mtqmmy47.webp"
+          },
+          {
+            "valor": "Lila",
+            "color": "#da9fdb",
+            "imagen": "assets/products/vasos-glitter-475-ml-lila-mtqmnx62.webp"
+          },
+          {
+            "valor": "Azul",
+            "color": "#3a13fb",
+            "imagen": "assets/products/vasos-glitter-475-ml-azul-mtqmow4m.webp"
+          },
+          {
+            "valor": "Rojo",
+            "color": "#f1042f",
+            "imagen": "assets/products/vasos-glitter-475-ml-rojo-mtqmp5fw.webp"
+          },
+          {
+            "valor": "Fucsia",
+            "color": "#f7508a",
+            "imagen": "assets/products/vasos-glitter-475-ml-5-mtqmpd1d.webp"
+          },
+          {
+            "valor": "Dorado",
+            "color": "#ce9e5a",
+            "imagen": "assets/products/vasos-glitter-475-ml-dorado-mtqmq1lk.webp"
+          }
+        ]
+      }
+    ]
   }
 ]
