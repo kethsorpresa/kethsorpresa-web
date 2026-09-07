@@ -72,13 +72,13 @@
 
   /* Hero */
   .hero-wrap{background:var(--marca)}
-  .hero{max-width:1080px;margin:0 auto;padding:64px 20px 60px;text-align:center}
+  .hero{max-width:1080px;margin:0 auto;padding:40px 20px 56px;text-align:center}
 
   .hero h1{font-size:calc(clamp(1.9rem,4.5vw,3rem) * var(--escala-titulos));line-height:1.1;margin:0 auto 12px;max-width:18ch;opacity:0;animation:fade .7s .15s forwards}
   .hero h1 em{font-style:italic;color:var(--acento-deep)}
   .hero p{font-family:var(--font-titulos,'Fraunces',Georgia,serif);font-size:calc(1rem * var(--escala-titulos));color:var(--ink-2);max-width:44ch;margin:0 auto 26px;opacity:0;animation:fade .7s .25s forwards}
   .hero p em{font-style:italic}
-  .hero-video{display:block;width:min(100%,1080px);margin:0 auto 20px;border-radius:18px;box-shadow:0 12px 34px rgba(36,26,30,.14);background:var(--marca-suave)}
+  .hero-video{display:block;width:100%;height:auto;background:var(--marca-suave)}
   .hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;font-weight:600;font-size:.92rem;padding:13px 26px;border-radius:999px;transition:transform .18s,opacity .2s;opacity:0;animation:fade .7s .35s forwards}
   .hero-cta:hover{transform:translateY(-1px)}
   .hero h1,.hero p,.hero-cta{transform:translateY(10px)}
@@ -294,7 +294,8 @@
     .ig-btn{width:34px;height:34px}
     .ig-btn svg{width:17px;height:17px}
     .cart-btn{margin-left:auto}
-    .hero{padding:44px 20px 44px}
+    .hero{padding:32px 20px 44px}
+    .hero-wrap{padding:0}
 
     .como-in{grid-template-columns:1fr;gap:28px}
     .modal-ov{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
@@ -337,12 +338,14 @@
   </div>
 </header>
 
-<div class="hero-wrap"><section class="hero" aria-labelledby="heroTitle">
-  <h1 id="heroTitle" class="sr-only">El regalo <em>ideal</em>, con tu nombre.</h1>
-  <p id="heroText" class="sr-only">Vasos y tazas personalizadas, cotillón y decoración. Elegí el color, escribí el texto y pedí por WhatsApp.</p>
+<div class="hero-wrap">
   <video class="hero-video" src="assets/hero/portada.mp4" poster="assets/hero/portada-poster.jpg" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1"></video>
-  <a href="#catalogo" class="hero-cta ios-press">Ver catálogo →</a>
-</section></div>
+  <section class="hero" aria-labelledby="heroTitle">
+    <h1 id="heroTitle" class="sr-only">El regalo <em>ideal</em>, con tu nombre.</h1>
+    <p id="heroText" class="sr-only">Vasos y tazas personalizadas, cotillón y decoración. Elegí el color, escribí el texto y pedí por WhatsApp.</p>
+    <a href="#catalogo" class="hero-cta ios-press">Ver catálogo →</a>
+  </section>
+</div>
 
 <nav class="catbar" aria-label="Categorías"><div class="catbar-inner" id="catbar"></div></nav>
 
