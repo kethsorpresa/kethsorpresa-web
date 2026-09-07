@@ -235,12 +235,12 @@
   /* Modal producto */
   .modal-ov{position:fixed;inset:0;background:rgba(36,26,30,.4);z-index:75;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;display:flex;align-items:center;justify-content:center;padding:16px}
   .modal-ov.open{opacity:1;visibility:visible}
-  .modal{background:#fff;border-radius:14px;max-width:820px;width:100%;max-height:92vh;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;position:relative}
+  .modal{background:#fff;border-radius:14px;max-width:820px;width:100%;max-height:92vh;overflow:hidden;display:flex;position:relative}
   .modal-ov.open .modal{animation:springIn .45s var(--spring)}
   @keyframes springIn{from{transform:scale(.94) translateY(12px);opacity:0}to{transform:none;opacity:1}}
-  .modal-img{background:var(--marca-suave);position:relative;overflow:hidden;min-height:420px;height:100%}
+  .modal-img{background:var(--marca-suave);position:relative;overflow:hidden;min-height:0;flex:0 0 46%;align-self:stretch}
   .modal-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
-  .modal-info{padding:32px 28px;display:flex;flex-direction:column;overflow-y:auto;min-height:0;gap:4px}
+  .modal-info{padding:32px 28px;display:flex;flex-direction:column;overflow-y:auto;min-height:0;gap:4px;flex:1 1 auto}
   .modal-close{position:absolute;top:12px;right:12px;background:#fff;width:34px;height:34px;border-radius:50%;font-size:1.3rem;color:var(--ink-2);z-index:2;display:flex;align-items:center;justify-content:center}
   .modal-cat{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-bottom:8px}
   .modal-info h3{font-size:1.6rem;line-height:1.15;margin-bottom:8px}
