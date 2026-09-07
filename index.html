@@ -927,13 +927,53 @@ fetch("productos.json", {cache: "no-cache"}).then(r => r.ok ? r.json() : null).t
   if (Array.isArray(lista) && lista.length){ PRODUCTOS = lista; arrancar(); }
 }).catch(() => {});
 // Ajustes del negocio: ajustes.json (textos, promo, WhatsApp, Instagram; se editan desde admin.html)
-// ---------- Tipografía por sector (elegida desde el admin) ----------
+// ---------- Tipografía por sector (40 fuentes: 20 cursivas + 20 imprenta) ----------
 const TIPOGRAFIAS = {
-  clasica:  { letra: "'Fraunces',Georgia,serif", href: "" },
-  elegante: { letra: "'Playfair Display',Georgia,serif", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" },
-  moderna:  { letra: "'Poppins',sans-serif", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" },
-  redonda:  { letra: "'Baloo 2',cursive", href: "https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&display=swap" },
-  texto:    { letra: "'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif", href: "" }
+"dancing-script": { letra: "'Dancing Script',cursive", href: "https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&display=swap" },
+"pacifico": { letra: "'Pacifico',cursive", href: "https://fonts.googleapis.com/css2?family=Pacifico&display=swap" },
+"great-vibes": { letra: "'Great Vibes',cursive", href: "https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" },
+"satisfy": { letra: "'Satisfy',cursive", href: "https://fonts.googleapis.com/css2?family=Satisfy&display=swap" },
+"caveat": { letra: "'Caveat',cursive", href: "https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" },
+"shadows-into-light": { letra: "'Shadows Into Light',cursive", href: "https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap" },
+"indie-flower": { letra: "'Indie Flower',cursive", href: "https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" },
+"kalam": { letra: "'Kalam',cursive", href: "https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&display=swap" },
+"patrick-hand": { letra: "'Patrick Hand',cursive", href: "https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" },
+"gloria-hallelujah": { letra: "'Gloria Hallelujah',cursive", href: "https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap" },
+"sacramento": { letra: "'Sacramento',cursive", href: "https://fonts.googleapis.com/css2?family=Sacramento&display=swap" },
+"parisienne": { letra: "'Parisienne',cursive", href: "https://fonts.googleapis.com/css2?family=Parisienne&display=swap" },
+"alex-brush": { letra: "'Alex Brush',cursive", href: "https://fonts.googleapis.com/css2?family=Alex+Brush&display=swap" },
+"allura": { letra: "'Allura',cursive", href: "https://fonts.googleapis.com/css2?family=Allura&display=swap" },
+"mr-dafoe": { letra: "'Mr Dafoe',cursive", href: "https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap" },
+"courgette": { letra: "'Courgette',cursive", href: "https://fonts.googleapis.com/css2?family=Courgette&display=swap" },
+"kaushan-script": { letra: "'Kaushan Script',cursive", href: "https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap" },
+"yellowtail": { letra: "'Yellowtail',cursive", href: "https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" },
+"amatic-sc": { letra: "'Amatic SC',cursive", href: "https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" },
+"la-belle-aurore": { letra: "'La Belle Aurore',cursive", href: "https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap" },
+"fraunces": { letra: "'Fraunces',Georgia,serif", href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&display=swap" },
+"playfair-display": { letra: "'Playfair Display',Georgia,serif", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" },
+"poppins": { letra: "'Poppins',sans-serif", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" },
+"baloo-2": { letra: "'Baloo 2',cursive", href: "https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&display=swap" },
+"manrope": { letra: "'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap" },
+"montserrat": { letra: "'Montserrat',sans-serif", href: "https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" },
+"nunito": { letra: "'Nunito',sans-serif", href: "https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" },
+"quicksand": { letra: "'Quicksand',sans-serif", href: "https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" },
+"raleway": { letra: "'Raleway',sans-serif", href: "https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" },
+"lato": { letra: "'Lato',sans-serif", href: "https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" },
+"open-sans": { letra: "'Open Sans',sans-serif", href: "https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" },
+"roboto": { letra: "'Roboto',sans-serif", href: "https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" },
+"work-sans": { letra: "'Work Sans',sans-serif", href: "https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600&display=swap" },
+"inter": { letra: "'Inter',sans-serif", href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" },
+"jost": { letra: "'Jost',sans-serif", href: "https://fonts.googleapis.com/css2?family=Jost:wght@400;600&display=swap" },
+"barlow": { letra: "'Barlow',sans-serif", href: "https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&display=swap" },
+"karla": { letra: "'Karla',sans-serif", href: "https://fonts.googleapis.com/css2?family=Karla:wght@400;600&display=swap" },
+"urbanist": { letra: "'Urbanist',sans-serif", href: "https://fonts.googleapis.com/css2?family=Urbanist:wght@400;600&display=swap" },
+"outfit": { letra: "'Outfit',sans-serif", href: "https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap" },
+"comfortaa": { letra: "'Comfortaa',sans-serif", href: "https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap" },
+"clasica": { letra: "'Fraunces',Georgia,serif", href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&display=swap" },
+"elegante": { letra: "'Playfair Display',Georgia,serif", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" },
+"moderna": { letra: "'Poppins',sans-serif", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" },
+"redonda": { letra: "'Baloo 2',cursive", href: "https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&display=swap" },
+"texto": { letra: "'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif", href: "https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700&display=swap" },
 };
 const SECTORES_TIPO = [
   { var: "--font-titulos", key: "titulos" },
@@ -941,10 +981,11 @@ const SECTORES_TIPO = [
   { var: "--font-precios", key: "precios" },
   { var: "--font-texto",  key: "texto" }
 ];
+const TIPO_DEFAULT = { titulos: "fraunces", nombres: "fraunces", precios: "fraunces", texto: "manrope" };
 function tipografiaNormalizar(t){
-  const base = { titulos: "clasica", nombres: "clasica", precios: "clasica", texto: "texto" };
+  const base = Object.assign({}, TIPO_DEFAULT);
   if (!t) return base;
-  if (typeof t === "string"){ return { titulos: t, nombres: t, precios: t, texto: "texto" }; }
+  if (typeof t === "string"){ return { titulos: t, nombres: t, precios: t, texto: "manrope" }; }
   const o = {};
   SECTORES_TIPO.forEach(sec => o[sec.key] = (TIPOGRAFIAS[t[sec.key]] ? t[sec.key] : base[sec.key]));
   return o;
@@ -952,15 +993,17 @@ function tipografiaNormalizar(t){
 function tipografiaLinkCargado(href){
   return !!document.querySelector('link[data-tipo="' + href + '"]');
 }
+function cargarFuenteTipografia(href){
+  if (!href || tipografiaLinkCargado(href)) return;
+  const l = document.createElement("link");
+  l.rel = "stylesheet"; l.href = href; l.setAttribute("data-tipo", href);
+  document.head.appendChild(l);
+}
 function aplicarTipografia(t){
   const sel = tipografiaNormalizar(t);
   SECTORES_TIPO.forEach(sec => {
-    const f = TIPOGRAFIAS[sel[sec.key]] || TIPOGRAFIAS.clasica;
-    if (f.href && !tipografiaLinkCargado(f.href)){
-      const l = document.createElement("link");
-      l.rel = "stylesheet"; l.href = f.href; l.setAttribute("data-tipo", f.href);
-      document.head.appendChild(l);
-    }
+    const f = TIPOGRAFIAS[sel[sec.key]] || TIPOGRAFIAS.fraunces;
+    cargarFuenteTipografia(f.href);
     document.documentElement.style.setProperty(sec.var, f.letra);
   });
 }
