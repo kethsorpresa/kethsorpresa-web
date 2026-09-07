@@ -229,6 +229,7 @@
     <div class="campo"><label>Aviso arriba de la página (promos, envíos, feriados)</label><input id="a_promo" placeholder="Ej: Envíos a todo Quilmes · 10% off pagando por transferencia"><div class="nota">Vacío = no se muestra.</div></div>
     <div class="campo"><label>Título de portada</label><textarea id="a_heroTitulo" rows="2" placeholder="El regalo *ideal*, con tu nombre."></textarea><div class="nota">Enter = renglón nuevo. Lo que va entre *asteriscos* sale en cursiva rosa (ej: El regalo *ideal*).</div></div>
     <div class="campo"><label>Texto de portada</label><textarea id="a_heroTexto" rows="3" placeholder="Vasos y souvenirs personalizados. Elegí el color, escribí el texto y confirma tu pedido"></textarea><div class="nota">Enter = renglón nuevo. Lo que va entre *asteriscos* sale en cursiva. Ej: *Vasos y souvenirs personalizados.*</div></div>
+    <div class="campo"><label>Tipografía de la página</label><select id="a_tipografia" style="width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:8px;font:inherit;background:#fff"><option value="clasica">Clásica (actual)</option><option value="elegante">Elegante</option><option value="moderna">Moderna</option><option value="redonda">Divertida</option></select><div class="nota">Cambia la letra de los títulos de toda la tienda. Guardá y publicá para verlo.</div></div>
     <div class="fila">
       <div class="campo"><label>WhatsApp</label><input id="a_whatsapp" inputmode="numeric" placeholder="5491127118602"><div class="nota">Con 54 9 adelante, sin + ni espacios.</div></div>
       <div class="campo"><label>Instagram</label><input id="a_instagram" placeholder="kethsorpresa"></div>
@@ -384,7 +385,7 @@ async function recargar(){
     const r = await store.load();
     PRODUCTOS = (r.productos || []).map(normalizar);
     ORIGINAL = JSON.parse(JSON.stringify(PRODUCTOS));
-    AJUSTES = Object.assign({ promo: "", heroTitulo: "", heroTexto: "", whatsapp: "", instagram: "", tiktok: "", cupones: [], banners: [] }, r.ajustes || {});
+    AJUSTES = Object.assign({ promo: "", heroTitulo: "", heroTexto: "", tipografia: "clasica", whatsapp: "", instagram: "", tiktok: "", cupones: [], banners: [] }, r.ajustes || {});
     AJUSTES_ORIG = JSON.parse(JSON.stringify(AJUSTES));
     fotosPendientes = [];
     renderChips(); render();
@@ -394,7 +395,7 @@ async function recargar(){
 
 // ---------- Ajustes de la tienda ----------
 function abrirAjustes(){
-  ["promo", "heroTitulo", "heroTexto", "whatsapp", "instagram", "tiktok"].forEach(k => $("a_" + k).value = AJUSTES[k] || "");
+  ["promo", "heroTitulo", "heroTexto", "tipografia", "whatsapp", "instagram", "tiktok"].forEach(k => $("a_" + k).value = AJUSTES[k] || (k === "tipografia" ? "clasica" : ""));
   if (!Array.isArray(AJUSTES.cupones)) AJUSTES.cupones = [];
   if (!Array.isArray(AJUSTES.banners)) AJUSTES.banners = [];
   renderCupones();
@@ -470,7 +471,7 @@ function guardarAjustes(){
     valor: Math.max(0, Number(c.valor) || 0),
     activo: c.activo !== false
   }));
-  AJUSTES = { promo: $("a_promo").value.trim(), heroTitulo: $("a_heroTitulo").value.trim(), heroTexto: $("a_heroTexto").value.trim(), whatsapp: wa, instagram: $("a_instagram").value.trim().replace(/^@/, ""), tiktok: $("a_tiktok").value.trim().replace(/^@/, ""), cupones, banners: (AJUSTES.banners || []).filter(b => b && b.imagen) };
+  AJUSTES = { promo: $("a_promo").value.trim(), heroTitulo: $("a_heroTitulo").value.trim(), heroTexto: $("a_heroTexto").value.trim(), tipografia: $("a_tipografia").value || "clasica", whatsapp: wa, instagram: $("a_instagram").value.trim().replace(/^@/, ""), tiktok: $("a_tiktok").value.trim().replace(/^@/, ""), cupones, banners: (AJUSTES.banners || []).filter(b => b && b.imagen) };
   cerrarAjustes(); render(); toast("Ajustes aplicados. Recordá “Guardar y publicar”.");
 }
 $("ovAjustes").addEventListener("click", e => { if (e.target === $("ovAjustes")) cerrarAjustes(); });
