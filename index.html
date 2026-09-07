@@ -72,6 +72,7 @@
   .hero h1{font-size:clamp(1.9rem,4.5vw,3rem);line-height:1.1;margin:0 auto 12px;max-width:18ch;opacity:0;animation:fade .7s .15s forwards}
   .hero h1 em{font-style:italic;color:var(--acento-deep)}
   .hero p{font-size:1rem;color:var(--ink-2);max-width:44ch;margin:0 auto 26px;opacity:0;animation:fade .7s .25s forwards}
+  .hero p em{font-style:italic}
   .hero-cta{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;font-weight:600;font-size:.92rem;padding:13px 26px;border-radius:999px;transition:transform .18s,opacity .2s;opacity:0;animation:fade .7s .35s forwards}
   .hero-cta:hover{transform:translateY(-1px)}
   .hero h1,.hero p,.hero-cta{transform:translateY(10px)}
@@ -925,8 +926,8 @@ fetch("productos.json", {cache: "no-cache"}).then(r => r.ok ? r.json() : null).t
 function aplicarAjustes(a){
   if (!a || typeof a !== "object") return;
   const tb = $("topbar"); if (a.promo && String(a.promo).trim()){ tb.textContent = a.promo; tb.hidden = false; } else tb.hidden = true;
-  if (a.heroTitulo) $("heroTitle").innerHTML = esc(a.heroTitulo).replace(/\*([^*]+)\*/g, "<em>$1</em>");
-  if (a.heroTexto) $("heroText").textContent = a.heroTexto;
+  if (a.heroTitulo) $("heroTitle").innerHTML = esc(a.heroTitulo).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\n/g, "<br>");
+  if (a.heroTexto) $("heroText").innerHTML = esc(a.heroTexto).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\n/g, "<br>");
   if (a.whatsapp && /^\d{10,15}$/.test(String(a.whatsapp).replace(/\D/g, ""))) WHATSAPP = String(a.whatsapp).replace(/\D/g, "");
   if (a.instagram){ INSTAGRAM = String(a.instagram).replace(/^@/, ""); $("igLink").href = $("igFoot").href = "https://www.instagram.com/" + INSTAGRAM; }
   if (a.tiktok){ TIKTOK = String(a.tiktok).replace(/^@/, ""); const tf = document.getElementById("ttFoot"); if (tf) tf.href = "https://www.tiktok.com/@" + TIKTOK; const tl = document.getElementById("ttLink"); if (tl) tl.href = "https://www.tiktok.com/@" + TIKTOK; }
