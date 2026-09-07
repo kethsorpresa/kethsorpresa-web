@@ -33,14 +33,16 @@
     --r:10px;
     --spring:cubic-bezier(.34,1.56,.64,1);
     --header-h:64px;
-    --font-head:'Fraunces',Georgia,serif;
-    --font-body:'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --font-titulos:'Fraunces',Georgia,serif;
+    --font-nombres:'Fraunces',Georgia,serif;
+    --font-precios:'Fraunces',Georgia,serif;
+    --font-texto:'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:var(--font-body,'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif);background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+  body{font-family:var(--font-texto,'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif);background:var(--bg);color:var(--ink);line-height:1.55;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
   body.lock{overflow:hidden}
-  h1,h2,h3,h4{font-family:var(--font-head,'Fraunces',Georgia,serif);font-weight:400;letter-spacing:-.01em}
+  h1,h2,h3,h4{font-family:var(--font-titulos,'Fraunces',Georgia,serif);font-weight:400;letter-spacing:-.01em}
   a{text-decoration:none;color:inherit}
   button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
   img{display:block;max-width:100%}
@@ -55,7 +57,7 @@
   .nav{max-width:1080px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:16px}
   .brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
   .brand img{width:56px;height:56px;border-radius:50%;object-fit:cover}
-  .brand span{font-family:var(--font-head,'Fraunces');font-size:1.45rem;color:var(--ink);font-style:italic;white-space:nowrap;letter-spacing:.01em}
+  .brand span{font-family:var(--font-titulos,'Fraunces');font-size:1.45rem;color:var(--ink);font-style:italic;white-space:nowrap;letter-spacing:.01em}
   .search{flex:1;max-width:360px;margin:0 auto;position:relative}
   .search input{width:100%;border:1px solid var(--line);background:#fff;border-radius:999px;padding:9px 16px 9px 38px;font:inherit;font-size:.9rem;color:var(--ink);outline:none;transition:border-color .2s}
   .search input:focus{border-color:var(--acento)}
@@ -123,12 +125,12 @@
   .tag{position:absolute;top:10px;left:10px;font-size:.68rem;font-weight:700;padding:4px 9px;border-radius:999px;background:#fff;color:var(--ink);letter-spacing:.02em}
   .body{padding:12px 2px 0;display:flex;flex-direction:column;gap:3px;flex:1}
   .cat{font-size:.72rem;color:var(--ink-3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
-  .name{font-family:var(--font-head,'Fraunces');font-size:1.05rem;line-height:1.2}
+  .name{font-family:var(--font-nombres,'Fraunces');font-size:1.05rem;line-height:1.2}
   .dots{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
   .dot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.08)}
   .dot.txt{width:auto;height:auto;border-radius:4px;font-size:.66rem;font-weight:600;padding:1px 6px;background:var(--marca-suave);color:var(--ink-2);border:none}
   .foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:8px;gap:8px}
-  .precio{font-weight:600;font-size:.98rem}
+  .precio{font-family:var(--font-precios,'Fraunces');font-weight:600;font-size:.98rem}
   .add{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);font-size:1.2rem;line-height:1;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:all .18s;flex-shrink:0}
   .add:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
   .add:disabled{opacity:.35;cursor:not-allowed}
@@ -141,8 +143,8 @@
   .como h2{font-size:1.5rem;margin-bottom:6px}
   .como .sub{color:var(--ink-2);font-size:.95rem}
   .pasos{display:grid;grid-template-columns:1fr 1fr;gap:22px 28px}
-  .paso .num{font-family:var(--font-head,'Fraunces');font-size:1.3rem;color:var(--acento-deep);margin-bottom:4px}
-  .paso h4{font-family:var(--font-body,'Manrope');font-weight:700;font-size:.95rem;margin-bottom:3px}
+  .paso .num{font-family:var(--font-titulos,'Fraunces');font-size:1.3rem;color:var(--acento-deep);margin-bottom:4px}
+  .paso h4{font-family:var(--font-texto,'Manrope');font-weight:700;font-size:.95rem;margin-bottom:3px}
   .paso p{font-size:.88rem;color:var(--ink-2)}
   .faq{max-width:1080px;margin:40px auto 0;border-top:1px solid var(--line)}
   .faq details{border-bottom:1px solid var(--line)}
@@ -155,7 +157,7 @@
   /* Footer */
   footer{border-top:1px solid var(--line);padding:36px 20px 40px}
   .foot-inner{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:.88rem;color:var(--ink-2)}
-  .foot-inner b{font-family:var(--font-head,'Fraunces');font-weight:400;font-size:1.05rem;color:var(--ink)}
+  .foot-inner b{font-family:var(--font-titulos,'Fraunces');font-weight:400;font-size:1.05rem;color:var(--ink)}
   .foot-links{display:flex;gap:20px}
   .foot-links a,.foot-links button{color:var(--ink-2);font-weight:600;transition:color .2s}
   .foot-links a:hover,.foot-links button:hover{color:var(--ink)}
@@ -188,7 +190,7 @@
   .item .ico{width:56px;height:56px;border-radius:8px;overflow:hidden;background:var(--marca-suave);flex-shrink:0}
   .item .ico img{width:100%;height:100%;object-fit:cover}
   .item .info{flex:1;min-width:0}
-  .item .info .n{font-family:var(--font-head,'Fraunces');font-size:1rem;line-height:1.2}
+  .item .info .n{font-family:var(--font-nombres,'Fraunces');font-size:1rem;line-height:1.2}
   .item .info .d{font-size:.8rem;color:var(--ink-2);margin-top:2px;line-height:1.4}
   .item .info .p{font-size:.82rem;color:var(--ink-3);margin-top:3px}
   .item .right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
@@ -198,7 +200,7 @@
   .qty span{min-width:22px;text-align:center;font-weight:600;font-size:.88rem}
   .del{font-size:.72rem;color:var(--ink-3);text-decoration:underline;text-underline-offset:2px}
   .datos{padding:18px 22px;border-top:1px solid var(--line)}
-  .datos h4{font-family:var(--font-body,'Manrope');font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:10px}
+  .datos h4{font-family:var(--font-texto,'Manrope');font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:10px}
   .pay-fijo{font-size:.86rem;color:var(--ink-2);background:var(--marca-suave);border-radius:var(--r);padding:10px 12px;margin-bottom:12px}
   .datos .entrega-opt{display:flex;align-items:center;gap:8px;font-size:.9rem;color:var(--ink);padding:9px 0;cursor:pointer}
   .datos .entrega-opt input{width:auto;margin:0;accent-color:var(--acento)}
@@ -212,7 +214,7 @@
   .drawer-foot{padding:16px 22px 22px;border-top:1px solid var(--line);flex-shrink:0}
   .total-row{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
   .total-row .lbl{font-size:.95rem;color:var(--ink-2)}
-  .total-row .val{font-family:var(--font-head,'Fraunces');font-size:1.6rem}
+  .total-row .val{font-family:var(--font-precios,'Fraunces');font-size:1.6rem}
   .checkout{width:100%;background:var(--wa);color:#fff;font-weight:700;font-size:.98rem;padding:14px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;gap:9px;transition:filter .2s}
   .checkout svg{width:19px;height:19px}
   .checkout:hover{filter:brightness(.95)}
@@ -243,8 +245,8 @@
   .modal-cat{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-bottom:8px}
   .modal-info h3{font-size:1.6rem;line-height:1.15;margin-bottom:8px}
   .modal-desc{font-size:.92rem;color:var(--ink-2);margin-bottom:14px}
-  .modal-price{font-family:var(--font-head,'Fraunces');font-size:1.5rem;margin-bottom:18px;line-height:1}
-  .modal-price small{font-family:var(--font-body,'Manrope');font-size:.76rem;color:var(--ink-3);display:block;margin-top:5px}
+  .modal-price{font-family:var(--font-precios,'Fraunces');font-size:1.5rem;margin-bottom:18px;line-height:1}
+  .modal-price small{font-family:var(--font-texto,'Manrope');font-size:.76rem;color:var(--ink-3);display:block;margin-top:5px}
   .var-block{margin-bottom:16px}
   .var-label{font-size:.74rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:8px;display:flex;justify-content:space-between}
   .var-label .sel{color:var(--ink);text-transform:none;letter-spacing:0}
@@ -925,26 +927,42 @@ fetch("productos.json", {cache: "no-cache"}).then(r => r.ok ? r.json() : null).t
   if (Array.isArray(lista) && lista.length){ PRODUCTOS = lista; arrancar(); }
 }).catch(() => {});
 // Ajustes del negocio: ajustes.json (textos, promo, WhatsApp, Instagram; se editan desde admin.html)
-// ---------- Tipografía (elegida desde el admin) ----------
+// ---------- Tipografía por sector (elegida desde el admin) ----------
 const TIPOGRAFIAS = {
-  clasica:  { head: "'Fraunces',Georgia,serif", href: "" },
-  elegante: { head: "'Playfair Display',Georgia,serif", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" },
-  moderna:  { head: "'Poppins',sans-serif", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" },
-  redonda:  { head: "'Baloo 2',cursive", href: "https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&display=swap" }
+  clasica:  { letra: "'Fraunces',Georgia,serif", href: "" },
+  elegante: { letra: "'Playfair Display',Georgia,serif", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" },
+  moderna:  { letra: "'Poppins',sans-serif", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" },
+  redonda:  { letra: "'Baloo 2',cursive", href: "https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&display=swap" },
+  texto:    { letra: "'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif", href: "" }
 };
+const SECTORES_TIPO = [
+  { var: "--font-titulos", key: "titulos" },
+  { var: "--font-nombres", key: "nombres" },
+  { var: "--font-precios", key: "precios" },
+  { var: "--font-texto",  key: "texto" }
+];
+function tipografiaNormalizar(t){
+  const base = { titulos: "clasica", nombres: "clasica", precios: "clasica", texto: "texto" };
+  if (!t) return base;
+  if (typeof t === "string"){ return { titulos: t, nombres: t, precios: t, texto: "texto" }; }
+  const o = {};
+  SECTORES_TIPO.forEach(sec => o[sec.key] = (TIPOGRAFIAS[t[sec.key]] ? t[sec.key] : base[sec.key]));
+  return o;
+}
 function tipografiaLinkCargado(href){
   return !!document.querySelector('link[data-tipo="' + href + '"]');
 }
-function aplicarTipografia(clave){
-  const t = TIPOGRAFIAS[clave] || TIPOGRAFIAS.clasica;
-  if (t.href && !tipografiaLinkCargado(t.href)){
-    const l = document.createElement("link");
-    l.rel = "stylesheet"; l.href = t.href; l.setAttribute("data-tipo", t.href);
-    document.head.appendChild(l);
-  }
-  const root = document.documentElement.style;
-  root.setProperty("--font-head", t.head);
-  root.setProperty("--font-body", "'Manrope',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif");
+function aplicarTipografia(t){
+  const sel = tipografiaNormalizar(t);
+  SECTORES_TIPO.forEach(sec => {
+    const f = TIPOGRAFIAS[sel[sec.key]] || TIPOGRAFIAS.clasica;
+    if (f.href && !tipografiaLinkCargado(f.href)){
+      const l = document.createElement("link");
+      l.rel = "stylesheet"; l.href = f.href; l.setAttribute("data-tipo", f.href);
+      document.head.appendChild(l);
+    }
+    document.documentElement.style.setProperty(sec.var, f.letra);
+  });
 }
 function aplicarAjustes(a){
   if (!a || typeof a !== "object") return;
