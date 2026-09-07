@@ -2,7 +2,12 @@
   "promo": "USA ESTE CUPON DE DESCUENTO HASTA FIN DE MES DE 10% OFF \"WEB10\"",
   "heroTitulo": "El regalo *ideal*",
   "heroTexto": "*Vasos y souvenirs personalizados.\nElegí el color, escribí el texto y confirma tu pedido*",
-  "tipografia": "elegante",
+  "tipografia": {
+    "titulos": "satisfy",
+    "nombres": "fraunces",
+    "precios": "fraunces",
+    "texto": "manrope"
+  },
   "whatsapp": "5491127118602",
   "instagram": "kethsorpresa",
   "tiktok": "",
