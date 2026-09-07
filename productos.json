@@ -223,9 +223,9 @@
     "destacado": true,
     "agotado": false,
     "stock": null,
-    "personalizable": false,
+    "personalizable": true,
     "textoEtiqueta": "Escribí tu texto",
-    "textoMax": 12,
+    "textoMax": 200,
     "precioPersonalizacion": 0,
     "variantes": [
       {
