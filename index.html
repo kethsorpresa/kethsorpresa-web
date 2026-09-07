@@ -425,6 +425,13 @@
       <div id="retiroInfo" class="retiro-info" style="display:none">Retirás por el local: <strong>Av. Mitre 6469, Wilde</strong> — te confirmamos por WhatsApp cuándo está listo.</div>
       <label class="sr-only" for="nota">Nota para el pedido</label>
       <textarea id="nota" rows="2" placeholder="Nota (opcional): fecha del evento, más detalles…"></textarea>
+      <h4>¿Cómo nos enviás el pedido?</h4>
+      <label class="entrega-opt"><input type="radio" name="canal" value="whatsapp" checked onchange="canalCambio()"> Por WhatsApp</label>
+      <label class="entrega-opt"><input type="radio" name="canal" value="mail" onchange="canalCambio()"> Por mail</label>
+      <div id="mailDatos" style="display:none">
+        <input id="cliMail" placeholder="Tu mail (para responderte)" aria-label="Tu mail" inputmode="email" autocomplete="email" autocapitalize="none">
+        <p class="envio-hint">Elegiste avisarnos por mail: te llega una copia de tu pedido y te respondemos ahí.</p>
+      </div>
     </div>
   </div>
   <div class="drawer-foot">
@@ -439,8 +446,9 @@
     <div class="desc-row" id="descRow" style="display:none"><span id="descLbl">Cupón</span><span id="descVal"></span></div>
     <div class="total-row"><span class="lbl">Total</span><span class="val" id="total">$0</span></div>
     <button class="checkout ios-press" id="checkout" onclick="enviarPedido()" disabled>
-      <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.003 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.257.59 4.463 1.71 6.408L3.2 28.8l6.56-1.71a12.74 12.74 0 0 0 6.24 1.59h.005c7.06 0 12.8-5.74 12.8-12.8 0-3.42-1.332-6.635-3.75-9.052A12.716 12.716 0 0 0 16.003 3.2Zm0 23.36h-.004a10.63 10.63 0 0 1-5.42-1.485l-.388-.23-4.028 1.055 1.075-3.928-.253-.403a10.6 10.6 0 0 1-1.626-5.67c0-5.867 4.774-10.64 10.646-10.64a10.57 10.57 0 0 1 7.522 3.122 10.57 10.57 0 0 1 3.116 7.526c0 5.868-4.774 10.646-10.64 10.646Zm5.837-7.972c-.32-.16-1.893-.934-2.186-1.04-.293-.107-.507-.16-.72.16-.213.32-.826 1.04-1.013 1.253-.187.213-.373.24-.693.08-.32-.16-1.35-.498-2.573-1.588-.951-.848-1.593-1.895-1.78-2.215-.187-.32-.02-.493.14-.652.144-.143.32-.373.48-.56.16-.187.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.539-.72-.549l-.613-.011c-.213 0-.56.08-.853.4-.293.32-1.12 1.094-1.12 2.667 0 1.573 1.146 3.093 1.306 3.307.16.213 2.253 3.44 5.46 4.823.763.33 1.358.526 1.822.674.766.243 1.463.209 2.014.127.614-.092 1.893-.774 2.16-1.52.267-.747.267-1.387.187-1.52-.08-.133-.293-.213-.613-.373Z"/></svg>
-      Enviar pedido por WhatsApp
+      <span id="btnWaIco"><svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M16.003 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.257.59 4.463 1.71 6.408L3.2 28.8l6.56-1.71a12.74 12.74 0 0 0 6.24 1.59h.005c7.06 0 12.8-5.74 12.8-12.8 0-3.42-1.332-6.635-3.75-9.052A12.716 12.716 0 0 0 16.003 3.2Zm0 23.36h-.004a10.63 10.63 0 0 1-5.42-1.485l-.388-.23-4.028 1.055 1.075-3.928-.253-.403a10.6 10.6 0 0 1-1.626-5.67c0-5.867 4.774-10.64 10.646-10.64a10.57 10.57 0 0 1 7.522 3.122 10.57 10.57 0 0 1 3.116 7.526c0 5.868-4.774 10.646-10.64 10.646Zm5.837-7.972c-.32-.16-1.893-.934-2.186-1.04-.293-.107-.507-.16-.72.16-.213.32-.826 1.04-1.013 1.253-.187.213-.373.24-.693.08-.32-.16-1.35-.498-2.573-1.588-.951-.848-1.593-1.895-1.78-2.215-.187-.32-.02-.493.14-.652.144-.143.32-.373.48-.56.16-.187.213-.32.32-.533.107-.213.053-.4-.027-.56-.08-.16-.72-1.734-.986-2.374-.26-.624-.524-.539-.72-.549l-.613-.011c-.213 0-.56.08-.853.4-.293.32-1.12 1.094-1.12 2.667 0 1.573 1.146 3.093 1.306 3.307.16.213 2.253 3.44 5.46 4.823.763.33 1.358.526 1.822.674.766.243 1.463.209 2.014.127.614-.092 1.893-.774 2.16-1.52.267-.747.267-1.387.187-1.52-.08-.133-.293-.213-.613-.373Z"/></svg></span>
+      <span id="btnMailIco" style="display:none"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+      <span id="btnEnviarTxt">Enviar pedido por WhatsApp</span>
     </button>
     <div class="pago-nota" id="pagoNota">Te confirmamos el costo del envío a esa sucursal por WhatsApp.</div>
   </div>
@@ -828,13 +836,29 @@ function pintarCupon(count, subtotal, descuento){
   if (descuento > 0){ $("descLbl").textContent = "Cupón " + cuponAplicado.codigo; $("descVal").textContent = "−" + fmt(descuento); descRow.style.display = ""; }
   else descRow.style.display = "none";
 }
+function canalActual(){ return document.querySelector('input[name=canal]:checked')?.value === 'mail' ? 'mail' : 'whatsapp'; }
+function canalCambio(){
+  const mail = canalActual() === 'mail';
+  $("mailDatos").style.display = mail ? "" : "none";
+  $("btnWaIco").style.display = mail ? "none" : "";
+  $("btnMailIco").style.display = mail ? "" : "none";
+  $("btnEnviarTxt").textContent = mail ? "Enviar pedido por mail" : "Enviar pedido por WhatsApp";
+  const retiro = document.querySelector('input[name=entrega]:checked')?.value === 'retiro';
+  if (retiro) return;
+  $("pagoNota").textContent = mail
+    ? "Te confirmamos el costo del envío a esa sucursal por mail."
+    : "Te confirmamos el costo del envío a esa sucursal por WhatsApp.";
+}
 function toggleEntrega(){
   const retiro = document.querySelector('input[name=entrega]:checked')?.value === 'retiro';
   $("envioDatos").style.display = retiro ? "none" : "";
   $("retiroInfo").style.display = retiro ? "" : "none";
+  const mail = canalActual() === 'mail';
   $("pagoNota").textContent = retiro
     ? "Te esperamos en Av. Mitre 6469, Wilde — sin costo de envío."
-    : "Te confirmamos el costo del envío a esa sucursal por WhatsApp.";
+    : (mail
+      ? "Te confirmamos el costo del envío a esa sucursal por mail."
+      : "Te confirmamos el costo del envío a esa sucursal por WhatsApp.");
 }
 
 function enviarPedido(){
@@ -842,19 +866,31 @@ function enviarPedido(){
   if (!items.length) return toast("Agregá algo al pedido primero");
   if (!/^\d{10,15}$/.test(WHATSAPP)){ toast("Falta configurar el número de WhatsApp"); return; }
   const retiro = document.querySelector('input[name=entrega]:checked')?.value === 'retiro';
-  const cli = { nombre: $("cliNombre").value.trim(), tel: $("cliTel").value.replace(/[^\d+]/g, "") };
+  const porMail = canalActual() === 'mail';
+  const cli = { nombre: $("cliNombre").value.trim(), tel: $("cliTel").value.replace(/[^\d+]/g, ""), mail: $("cliMail") ? $("cliMail").value.trim() : "" };
   const dir = { sucursal: $("dirSucursal").value.trim() };
   let falta = false;
-  [[$("cliNombre"), cli.nombre], [$("cliTel"), cli.tel]].forEach(([el, v]) => {
+  [[$("cliNombre"), cli.nombre]].forEach(([el, v]) => {
     if (!v){ el.classList.add("err"); falta = true; } else el.classList.remove("err");
   });
-  if (cli.tel && !/^\+?\d{8,15}$/.test(cli.tel)){ $("cliTel").classList.add("err"); falta = true; toast("El WhatsApp no parece válido"); return; }
+  if (!porMail){
+    const elTel = $("cliTel");
+    const vTel = cli.tel;
+    if (!vTel){ elTel.classList.add("err"); falta = true; } else elTel.classList.remove("err");
+    if (vTel && !/^\+?\d{8,15}$/.test(vTel)){ elTel.classList.add("err"); falta = true; toast("El WhatsApp no parece válido"); return; }
+  } else {
+    const elMail = $("cliMail");
+    const okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cli.mail);
+    if (!okMail){ elMail.classList.add("err"); falta = true; } else elMail.classList.remove("err");
+  }
   if (!retiro){
     const el = $("dirSucursal");
     if (!dir.sucursal){ el.classList.add("err"); falta = true; } else el.classList.remove("err");
-    if (falta) return toast("Completá tu nombre, WhatsApp y la calle y altura de la sucursal elegida");
+    if (falta) return toast(porMail
+      ? "Completá tu nombre, tu mail y la calle y altura de la sucursal elegida"
+      : "Completá tu nombre, WhatsApp y la calle y altura de la sucursal elegida");
   }
-  if (falta) return toast("Completá tu nombre y WhatsApp");
+  if (falta) return toast(porMail ? "Completá tu nombre y tu mail" : "Completá tu nombre y WhatsApp");
   const subtotal = items.reduce((s, i) => s + i.qty * i.precio, 0);
   const descuento = cuponAplicado ? descuentoDe(subtotal) : 0;
   const total = subtotal - descuento;
@@ -882,6 +918,28 @@ function enviarPedido(){
   const nota = $("nota").value.trim();
   if (nota) msg += `\nNota: ${nota}\n`;
   msg += `\n¡Gracias!`;
+  const payload = {
+    items,
+    descuento,
+    cupon: cuponAplicado ? cuponAplicado.codigo : "",
+    cliente: cli,
+    entrega: retiro ? "retiro" : "envio",
+    direccion: retiro ? { sucursal: "Retiro por el local — Av. Mitre 6469, Wilde" } : { sucursal: dir.sucursal },
+    nota,
+    canal: porMail ? "mail" : "whatsapp"
+  };
+  if (porMail){
+    // Enviar el pedido por mail (al negocio; el cliente dejó su mail para la respuesta)
+    fetch("https://kethsorpresa-pedidos.vercel.app/api/pedido", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(r => r.json()).then(j => {
+      if (j && j.ok){ toast("¡Pedido enviado por mail! Te respondemos a " + cli.mail); cerrarCarrito(); carrito = {}; cuponAplicado = null; actualizar(); }
+      else { toast("No se pudo enviar el mail: " + ((j && j.error) || "intentá de nuevo")); }
+    }).catch(() => { toast("No se pudo enviar el mail — probá por WhatsApp"); });
+    return;
+  }
   window.open(waUrl(msg), "_blank", "noopener");
 
   // Copia del pedido al backend (mail automático al negocio)
@@ -889,15 +947,7 @@ function enviarPedido(){
     fetch("https://kethsorpresa-pedidos.vercel.app/api/pedido", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        items,
-        descuento,
-        cupon: cuponAplicado ? cuponAplicado.codigo : "",
-        cliente: cli,
-        entrega: retiro ? "retiro" : "envio",
-        direccion: retiro ? { sucursal: "Retiro por el local — Av. Mitre 6469, Wilde" } : { sucursal: dir.sucursal },
-        nota
-      })
+      body: JSON.stringify(payload)
     }).catch(() => {});
   } catch (e) { /* silencioso: el pedido ya va por WhatsApp */ }
 }
