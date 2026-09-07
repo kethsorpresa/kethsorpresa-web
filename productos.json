@@ -265,6 +265,11 @@
             "valor": "Dorado",
             "color": "#ce9e5a",
             "imagen": "assets/products/vasos-glitter-475-ml-dorado-mtqmq1lk.webp"
+          },
+          {
+            "valor": "Negro",
+            "color": "#0d0d0d",
+            "imagen": "assets/products/vasos-glitter-475-ml-7-mtqmqzmr.webp"
           }
         ]
       }
