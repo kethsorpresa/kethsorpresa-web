@@ -622,5 +622,56 @@
         ]
       }
     ]
+  },
+  {
+    "id": "copas-acrilicas-deluxe",
+    "nombre": "Copas acrilicas Deluxe",
+    "categoria": "Copas",
+    "descripcion": "Copas acrilicas Deluxe de excelente calidad",
+    "precio": 4000,
+    "imagen": "assets/products/copas-acrilicas-deluxe-mttimwc8.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Rosa",
+            "imagen": "assets/products/copas-acrilicas-deluxe-0-mttin50u.webp",
+            "color": "#ffcfd8"
+          },
+          {
+            "valor": "Blanco",
+            "imagen": "assets/products/copas-acrilicas-deluxe-blanco-mttinho2.webp",
+            "color": "#ffffff",
+            "fotos": [
+              "assets/products/copas-acrilicas-deluxe-blanco-mttinho2.webp",
+              "assets/products/copas-acrilicas-deluxe-blanco-mttinjqo.webp"
+            ]
+          },
+          {
+            "valor": "Transparente",
+            "imagen": "assets/products/copas-acrilicas-deluxe-transparente-mttint2r.webp",
+            "color": "#a3a3a3"
+          },
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/copas-acrilicas-deluxe-negro-mttinz2m.webp",
+            "color": "#080808"
+          },
+          {
+            "valor": "Rojo",
+            "imagen": "",
+            "color": "#ff002f"
+          }
+        ]
+      }
+    ]
   }
 ]
