@@ -71,6 +71,22 @@
     ]
   },
   {
+    "id": "vaso-glitter-deluxe-copia",
+    "nombre": "Vaso Tipo Starbucks Tapa Rosca",
+    "categoria": "Vasos",
+    "descripcion": "Vaso Tipo Starbucks, tapa a rosca y sorbete. Elegí el color y contanos qué nombre o frase querés (ej. Martu · Mis XV).",
+    "precio": 8000,
+    "imagen": "assets/products/vaso-tipo-starbucks-mtthc34w.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Nombre o frase (ej. Martu · Mis XV)",
+    "textoMax": 24,
+    "precioPersonalizacion": 0,
+    "variantes": []
+  },
+  {
     "id": "caja-sorpresa",
     "nombre": "Caja Sorpresa",
     "categoria": "Regalos",
