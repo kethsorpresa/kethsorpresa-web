@@ -129,7 +129,7 @@
     "agotado": false,
     "stock": null,
     "personalizable": true,
-    "textoEtiqueta": "Dedicatoria (va en la tarjeta)",
+    "textoEtiqueta": "Indicarnos Fecha, frase y nombre",
     "textoMax": 200,
     "precioPersonalizacion": 0,
     "variantes": [
