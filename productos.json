@@ -366,6 +366,37 @@
     ]
   },
   {
+    "id": "vaso-glitter-750-ml-personalizados-copia-2",
+    "nombre": "Vaso Traslucido 750 ML personalizados",
+    "categoria": "Vasos",
+    "descripcion": "Vaso Traslucidos de 750 ML 18 cm de alto por 9.5cm de ancho\nTu pedido podria estar listo entre 3 a 10 dias hábiles",
+    "precio": 4500,
+    "imagen": "assets/products/vaso-traslucido-750-ml-personalizados-mtthxpv5.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Traslucido",
+            "imagen": "assets/products/vaso-traslucido-750-ml-personalizados-traslucido-mtthy1qs.webp",
+            "color": "#ffffff",
+            "fotos": [
+              "assets/products/vaso-traslucido-750-ml-personalizados-traslucido-mtthy1qs.webp",
+              "assets/products/vaso-traslucido-750-ml-personalizados-traslucido-mtthy3r5.webp"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "vaso-glitter-750-ml-personalizados-copia",
     "nombre": "Vaso Negro 750 ML personalizados",
     "categoria": "Vasos",
