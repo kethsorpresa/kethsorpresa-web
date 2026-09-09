@@ -19,48 +19,48 @@
         "opciones": [
           {
             "valor": "Rosa",
-            "color": "#f4a6bd",
-            "imagen": "assets/products/vaso-glitter-personalizado-rosa-mtqgzs6s.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-rosa-mtqgzs6s.webp",
+            "color": "#f4a6bd"
           },
           {
             "valor": "Violeta",
-            "color": "#a35fd6",
-            "imagen": "assets/products/vaso-glitter-personalizado-violeta-mtqgzv56.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-violeta-mtqgzv56.webp",
+            "color": "#a35fd6"
           },
           {
             "valor": "Azul",
-            "color": "#2d4fd6",
-            "imagen": "assets/products/vaso-glitter-personalizado-azul-mtqgzzl3.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-azul-mtqgzzl3.webp",
+            "color": "#2d4fd6"
           },
           {
             "valor": "Plateado",
-            "color": "#c9c9cf",
-            "imagen": "assets/products/vaso-glitter-personalizado-plateado-mtqh04dg.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-plateado-mtqh04dg.webp",
+            "color": "#c9c9cf"
           },
           {
             "valor": "Negro",
-            "color": "#2b2b2e",
-            "imagen": "assets/products/vaso-glitter-personalizado-negro-mtqh079m.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-negro-mtqh079m.webp",
+            "color": "#2b2b2e"
           },
           {
             "valor": "Dorado",
-            "color": "#c49736",
-            "imagen": "assets/products/vaso-glitter-personalizado-dorado-mtqh0nvc.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-dorado-mtqh0nvc.webp",
+            "color": "#c49736"
           },
           {
             "valor": "Celeste",
-            "color": "#90d9f9",
-            "imagen": "assets/products/vaso-glitter-personalizado-celeste-mtqh149v.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-celeste-mtqh149v.webp",
+            "color": "#90d9f9"
           },
           {
             "valor": "Verde",
-            "color": "#107e31",
-            "imagen": "assets/products/vaso-glitter-personalizado-verde-mtqh1v41.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-verde-mtqh1v41.webp",
+            "color": "#107e31"
           },
           {
             "valor": "Rojo",
-            "color": "#db0f35",
-            "imagen": "assets/products/vaso-glitter-personalizado-rojo-mtqh27mg.webp"
+            "imagen": "assets/products/vaso-glitter-personalizado-rojo-mtqh27mg.webp",
+            "color": "#db0f35"
           }
         ]
       }
@@ -85,10 +85,12 @@
         "nombre": "Tamaño",
         "opciones": [
           {
-            "valor": "Chica"
+            "valor": "Chica",
+            "imagen": ""
           },
           {
-            "valor": "Grande"
+            "valor": "Grande",
+            "imagen": ""
           }
         ]
       }
@@ -114,6 +116,7 @@
         "opciones": [
           {
             "valor": "Blanco",
+            "imagen": "",
             "color": "#ffffff"
           }
         ]
@@ -156,58 +159,58 @@
         "opciones": [
           {
             "valor": "Rosa",
-            "color": "#ffcfd8",
-            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-rosa-mtqfom03.webp"
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-rosa-mtqfom03.webp",
+            "color": "#ffcfd8"
           },
           {
             "valor": "Transparente",
-            "color": "#c7c7c7",
-            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-transparente-mtqfp1o2.webp"
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-transparente-mtqfp1o2.webp",
+            "color": "#c7c7c7"
           },
           {
             "valor": "Lila",
-            "color": "#deafe4",
-            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-lila-mtqfp8g5.webp"
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-lila-mtqfp8g5.webp",
+            "color": "#deafe4"
           },
           {
             "valor": "Blanco",
-            "color": "#ffffff",
-            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-blanco-mtqg014y.webp"
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-blanco-mtqg014y.webp",
+            "color": "#ffffff"
           },
           {
             "valor": "Rojo",
-            "color": "#eb002b",
-            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-rojo-mtqg0b08.webp"
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-rojo-mtqg0b08.webp",
+            "color": "#eb002b"
           },
           {
             "valor": "Azul",
-            "color": "#22107a",
-            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-5-mtqg0fgh.webp"
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-5-mtqg0fgh.webp",
+            "color": "#22107a"
           },
           {
             "valor": "Violeta",
-            "color": "#9725b6",
-            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-violeta-mtqg6s2j.webp"
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-violeta-mtqg6s2j.webp",
+            "color": "#9725b6"
           },
           {
             "valor": "Dorado",
-            "color": "#d5b930",
-            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-dorado-mtqg75cj.webp"
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-dorado-mtqg75cj.webp",
+            "color": "#d5b930"
           },
           {
             "valor": "Negro",
-            "color": "#0a0002",
-            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-negro-mtqg7d4j.webp"
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-negro-mtqg7d4j.webp",
+            "color": "#0a0002"
           },
           {
             "valor": "Verde",
-            "color": "#58f320",
-            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-verde-mtqghf96.webp"
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-verde-mtqghf96.webp",
+            "color": "#58f320"
           },
           {
             "valor": "Verde Agua",
-            "color": "#03fcdf",
-            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-verde-agua-mtqgsu35.webp"
+            "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-verde-agua-mtqgsu35.webp",
+            "color": "#03fcdf"
           }
         ]
       }
@@ -233,43 +236,43 @@
         "opciones": [
           {
             "valor": "Rosa",
-            "color": "#ffcfd8",
-            "imagen": "assets/products/vasos-glitter-475-ml-rosa-mtqmmvlg.webp"
+            "imagen": "assets/products/vasos-glitter-475-ml-rosa-mtqmmvlg.webp",
+            "color": "#ffcfd8"
           },
           {
             "valor": "Blanco",
-            "color": "#fbf9f9",
-            "imagen": "assets/products/vasos-glitter-475-ml-blanco-mtqmmy47.webp"
+            "imagen": "assets/products/vasos-glitter-475-ml-blanco-mtqmmy47.webp",
+            "color": "#fbf9f9"
           },
           {
             "valor": "Lila",
-            "color": "#da9fdb",
-            "imagen": "assets/products/vasos-glitter-475-ml-lila-mtqmnx62.webp"
+            "imagen": "assets/products/vasos-glitter-475-ml-lila-mtqmnx62.webp",
+            "color": "#da9fdb"
           },
           {
             "valor": "Azul",
-            "color": "#3a13fb",
-            "imagen": "assets/products/vasos-glitter-475-ml-azul-mtqmow4m.webp"
+            "imagen": "assets/products/vasos-glitter-475-ml-azul-mtqmow4m.webp",
+            "color": "#3a13fb"
           },
           {
             "valor": "Rojo",
-            "color": "#f1042f",
-            "imagen": "assets/products/vasos-glitter-475-ml-rojo-mtqmp5fw.webp"
+            "imagen": "assets/products/vasos-glitter-475-ml-rojo-mtqmp5fw.webp",
+            "color": "#f1042f"
           },
           {
             "valor": "Fucsia",
-            "color": "#f7508a",
-            "imagen": "assets/products/vasos-glitter-475-ml-5-mtqmpd1d.webp"
+            "imagen": "assets/products/vasos-glitter-475-ml-5-mtqmpd1d.webp",
+            "color": "#f7508a"
           },
           {
             "valor": "Dorado",
-            "color": "#ce9e5a",
-            "imagen": "assets/products/vasos-glitter-475-ml-dorado-mtqmq1lk.webp"
+            "imagen": "assets/products/vasos-glitter-475-ml-dorado-mtqmq1lk.webp",
+            "color": "#ce9e5a"
           },
           {
             "valor": "Negro",
-            "color": "#0d0d0d",
-            "imagen": "assets/products/vasos-glitter-475-ml-7-mtqmqzmr.webp"
+            "imagen": "assets/products/vasos-glitter-475-ml-7-mtqmqzmr.webp",
+            "color": "#0d0d0d"
           }
         ]
       }
