@@ -311,7 +311,9 @@
     .como-in{grid-template-columns:1fr;gap:28px}
     .modal-ov{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
     .modal{display:flex;flex-direction:column;max-height:none;overflow:visible;margin:auto}
-    .modal-img{flex:0 0 auto;min-height:0;height:32vh}
+    .modal-img{flex:0 0 auto;min-height:0;height:auto;align-self:stretch}
+    .modal-img > img{position:static;width:100%;height:auto;display:block}
+    .modal-thumbs{position:absolute;left:10px;right:10px;bottom:10px}
     .modal-close{position:sticky;top:8px;align-self:flex-end;margin:8px 8px -34px 0;z-index:3}
     .modal-info{flex:0 0 auto;overflow:visible;min-height:0;padding:18px 18px 22px}
     .modal-info h3{font-size:calc(1.35rem * var(--escala-titulos))}
