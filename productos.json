@@ -425,6 +425,33 @@
     ]
   },
   {
+    "id": "vaso-negro-500-ml-personalizados-copia",
+    "nombre": "Vaso Skinny Negro 500 ML personalizados",
+    "categoria": "Vasos",
+    "descripcion": "Vaso Skinny 500 ML\n Tu pedido podria estar listo entre 3 a 10 dias hábiles",
+    "precio": 4500,
+    "imagen": "assets/products/vaso-negro-500-ml-personalizados-copia-mtths8ee.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/vaso-negro-500-ml-personalizados-copia-negro-mtthsed8.webp",
+            "color": "#000000"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "vasos-glitter-420-ml-plasticos",
     "nombre": "Vasos Glitter 420 ML \"Plasticos\"",
     "categoria": "Vasos",
