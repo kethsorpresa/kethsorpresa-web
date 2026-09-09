@@ -87,6 +87,38 @@
     "variantes": []
   },
   {
+    "id": "vaso-tipo-starbucks-tapa-rosca-doble-capa-copia",
+    "nombre": "Vaso Tipo Starbucks Simple capa",
+    "categoria": "Vasos",
+    "descripcion": "Vaso Tipo Starbucks simple capa, tapa a rosca y sorbete. Elegí el color y contanos qué nombre o frase querés (ej. Martu · Mis XV). Tu pedido podria estar listo entre 3 a 10 dias hábiles",
+    "precio": 5000,
+    "imagen": "assets/products/vaso-tipo-starbucks-simple-capa-mtti1j3w.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Nombre o frase (ej. Martu · Mis XV)",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Transparente",
+            "imagen": "assets/products/vaso-tipo-starbucks-simple-capa-transparente-mtti1x25.webp",
+            "color": "#bfbfbf",
+            "fotos": [
+              "assets/products/vaso-tipo-starbucks-simple-capa-transparente-mtti1x25.webp",
+              "assets/products/vaso-tipo-starbucks-simple-capa-transparente-mtti1zow.webp",
+              "assets/products/vaso-tipo-starbucks-simple-capa-transparente-mtti221g.webp"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "caja-sorpresa",
     "nombre": "Caja Sorpresa",
     "categoria": "Regalos",
