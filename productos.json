@@ -160,7 +160,7 @@
     "precio": 3500,
     "imagen": "",
     "destacado": false,
-    "agotado": false,
+    "agotado": true,
     "stock": null,
     "personalizable": false,
     "textoEtiqueta": "Escribí tu texto",
