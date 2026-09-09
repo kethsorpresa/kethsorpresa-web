@@ -375,5 +375,37 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vaso-negro-750-ml-personalizados-copia",
+    "nombre": "Vaso Negro 500 ML personalizados",
+    "categoria": "Vasos",
+    "descripcion": "Vaso Negro solido 500ML 14 cm de alto por 8.5cm de ancho",
+    "precio": 2800,
+    "imagen": "assets/products/vaso-negro-750-ml-personalizados-copia-mttgigt9.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/vaso-negro-750-ml-personalizados-copia-negro-mttgi7zr.webp",
+            "color": "#000000",
+            "fotos": [
+              "assets/products/vaso-negro-750-ml-personalizados-copia-negro-mttgi7zr.webp",
+              "assets/products/vaso-negro-750-ml-personalizados-copia-negro-mttgiai2.webp",
+              "assets/products/vaso-negro-750-ml-personalizados-copia-negro-mttgicrq.webp"
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]
