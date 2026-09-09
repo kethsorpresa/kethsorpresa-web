@@ -168,8 +168,12 @@
   .envio-hint{font-size:.76rem;color:var(--ink-3);line-height:1.4;margin:-2px 0 6px}
   .foot-admin{font-size:.78rem;color:var(--ink-3);text-align:center;margin-top:18px}
   .foot-admin a:hover{color:var(--ink)}
-  .topbar{background:var(--marca-suave);color:var(--ink);text-align:center;font-size:.82rem;font-weight:600;padding:9px 16px;border-bottom:1px solid var(--line)}
+  .topbar{background:var(--marca-suave);color:var(--ink);font-size:.82rem;font-weight:600;padding:9px 0;border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap}
   .topbar[hidden]{display:none}
+  .topbar-track{display:inline-flex;will-change:transform;animation:topbarMove 18s linear infinite}
+  .topbar-track span{padding-right:4rem;display:inline-block}
+  @keyframes topbarMove{to{transform:translateX(var(--tx,-50%))}}
+  @media (prefers-reduced-motion:reduce){.topbar-track span:not(:first-child){display:none}}
 
   /* WhatsApp */
   .wa-float{position:fixed;bottom:22px;right:22px;z-index:55;background:var(--wa);color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.15);transition:transform .2s}
@@ -242,6 +246,11 @@
   @keyframes springIn{from{transform:scale(.94) translateY(12px);opacity:0}to{transform:none;opacity:1}}
   .modal-img{background:var(--marca-suave);position:relative;overflow:hidden;min-height:0;flex:0 0 46%;align-self:stretch}
   .modal-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+  .modal-thumbs{position:absolute;left:10px;right:10px;bottom:10px;display:flex;gap:8px;justify-content:center;z-index:2;pointer-events:none}
+  .modal-thumbs .th{pointer-events:auto;width:52px;height:52px;border-radius:10px;overflow:hidden;border:2px solid rgba(255,255,255,.85);background:#fff;padding:0;cursor:pointer;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+  .modal-thumbs .th img{width:100%;height:100%;object-fit:cover;position:static;display:block}
+  .modal-thumbs .th.on{border-color:var(--acento-deep);box-shadow:0 0 0 2px var(--acento-deep)}
+  .modal-thumbs .th:focus-visible{outline:2px solid var(--acento-deep);outline-offset:1px}
   .modal-info{padding:32px 28px;display:flex;flex-direction:column;overflow-y:auto;min-height:0;gap:4px;flex:1 1 auto}
   .modal-close{position:absolute;top:12px;right:12px;background:#fff;width:34px;height:34px;border-radius:50%;font-size:1.3rem;color:var(--ink-2);z-index:2;display:flex;align-items:center;justify-content:center}
   .modal-cat{font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);margin-bottom:8px}
@@ -515,13 +524,21 @@ function enOpcion(p, sel){
 }
 const reducedMotion = () => window.matchMedia && matchMedia("(prefers-reduced-motion:reduce)").matches;
 
-function imagenDe(p, sel){
+function fotosDeOpcion(p, sel){
+  // Devuelve la lista de fotos de la opción elegida (o la foto principal del producto)
   for (const v of p.variantes || []){
     const val = sel && sel[v.nombre];
     const op = (v.opciones || []).find(o => o.valor === val);
-    if (op && op.imagen) return op.imagen;
+    if (op){
+      if (Array.isArray(op.fotos) && op.fotos.length) return op.fotos;
+      if (op.imagen) return [op.imagen];
+    }
   }
-  return p.imagen || "";
+  return p.imagen ? [p.imagen] : [];
+}
+function imagenDe(p, sel){
+  const fs = fotosDeOpcion(p, sel);
+  return fs[0] || "";
 }
 function seleccionInicial(p){
   const sel = {};
@@ -633,6 +650,10 @@ function abrirModal(id){
 function renderModal(){
   const p = PRODUCTOS.find(x => x.id === modalSel.id); if (!p) return;
   const img = imagenDe(p, modalSel.sel);
+  const fotos = fotosDeOpcion(p, modalSel.sel);
+  const thumbsHtml = fotos.length > 1
+    ? '<div class="modal-thumbs" role="group" aria-label="Fotos del producto">' + fotos.map((f, fi) => '<button type="button" class="th' + (fi === 0 ? ' on' : '') + '" data-foto="' + esc(f) + '" aria-label="Foto ' + (fi + 1) + ' de ' + fotos.length + '"><img src="' + esc(f) + '" alt=""></button>').join('') + '</div>'
+    : '';
   const extra = Number(p.precioPersonalizacion) || 0;
   const vars = (p.variantes || []).map(v => `
     <div class="var-block">
@@ -666,7 +687,7 @@ function renderModal(){
     </div>`;
   $("modalBox").innerHTML = `
     <button class="modal-close" onclick="cerrarModal()" aria-label="Cerrar">×</button>
-    <div class="modal-img">${img ? `<img id="modalImg" src="${esc(img)}" alt="${esc(p.nombre)}">` : ""}</div>
+        <div class="modal-img">${img ? `<img id="modalImg" src="${esc(img)}" alt="${esc(p.nombre)}">` : ""}${thumbsHtml}</div>
     <div class="modal-info">
       <div class="modal-cat">${esc(p.categoria || "Otros")}</div>
       <h3 id="modalTitle">${esc(p.nombre)}</h3>
@@ -688,6 +709,11 @@ function renderModal(){
   }
   if (qmenos) qmenos.addEventListener("click", () => setQ(modalQty - 1));
   if (qmas) qmas.addEventListener("click", () => setQ(modalQty + 1));
+  $("modalBox").querySelectorAll(".modal-thumbs .th").forEach(b => b.addEventListener("click", () => {
+    const main = $("modalImg"); if (!main) return;
+    main.src = b.dataset.foto;
+    $("modalBox").querySelectorAll(".modal-thumbs .th").forEach(x => x.classList.toggle("on", x === b));
+  }));
   $("modalBox").querySelectorAll(".swatch:not(.sin-stock)").forEach(b => b.addEventListener("click", () => {
     modalSel.sel[b.dataset.var] = b.dataset.val;
     const inp = $("persoInput"); if (inp) modalSel.texto = inp.value;
@@ -1005,6 +1031,61 @@ const TIPOGRAFIAS = {
 "yellowtail": { letra: "'Yellowtail',cursive", href: "https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" },
 "amatic-sc": { letra: "'Amatic SC',cursive", href: "https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" },
 "la-belle-aurore": { letra: "'La Belle Aurore',cursive", href: "https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap" },
+"pinyon-script": { letra: '"Pinyon Script",cursive', href: "https://fonts.googleapis.com/css2?family=Pinyon%20Script&display=swap" },
+"tangerine": { letra: '"Tangerine",cursive', href: "https://fonts.googleapis.com/css2?family=Tangerine&display=swap" },
+"italianno": { letra: '"Italianno",cursive', href: "https://fonts.googleapis.com/css2?family=Italianno&display=swap" },
+"windsong": { letra: '"WindSong",cursive', href: "https://fonts.googleapis.com/css2?family=WindSong&display=swap" },
+"qwigley": { letra: '"Qwigley",cursive', href: "https://fonts.googleapis.com/css2?family=Qwigley&display=swap" },
+"rochester": { letra: '"Rochester",cursive', href: "https://fonts.googleapis.com/css2?family=Rochester&display=swap" },
+"monsieur-la-doulaise": { letra: '"Monsieur La Doulaise",cursive', href: "https://fonts.googleapis.com/css2?family=Monsieur%20La%20Doulaise&display=swap" },
+"mea-culpa": { letra: '"Mea Culpa",cursive', href: "https://fonts.googleapis.com/css2?family=Mea%20Culpa&display=swap" },
+"mrs-saint-delafield": { letra: '"Mrs Saint Delafield",cursive', href: "https://fonts.googleapis.com/css2?family=Mrs%20Saint%20Delafield&display=swap" },
+"petit-formal-script": { letra: '"Petit Formal Script",cursive', href: "https://fonts.googleapis.com/css2?family=Petit%20Formal%20Script&display=swap" },
+"rouge-script": { letra: '"Rouge Script",cursive', href: "https://fonts.googleapis.com/css2?family=Rouge%20Script&display=swap" },
+"sassy-frass": { letra: '"Sassy Frass",cursive', href: "https://fonts.googleapis.com/css2?family=Sassy%20Frass&display=swap" },
+"reenie-beanie": { letra: '"Reenie Beanie",cursive', href: "https://fonts.googleapis.com/css2?family=Reenie%20Beanie&display=swap" },
+"homemade-apple": { letra: '"Homemade Apple",cursive', href: "https://fonts.googleapis.com/css2?family=Homemade%20Apple&display=swap" },
+"nothing-you-could-do": { letra: '"Nothing You Could Do",cursive', href: "https://fonts.googleapis.com/css2?family=Nothing%20You%20Could%20Do&display=swap" },
+"zeyada": { letra: '"Zeyada",cursive', href: "https://fonts.googleapis.com/css2?family=Zeyada&display=swap" },
+"over-the-rainbow": { letra: '"Over the Rainbow",cursive', href: "https://fonts.googleapis.com/css2?family=Over%20the%20Rainbow&display=swap" },
+"just-another-hand": { letra: '"Just Another Hand",cursive', href: "https://fonts.googleapis.com/css2?family=Just%20Another%20Hand&display=swap" },
+"bad-script": { letra: '"Bad Script",cursive', href: "https://fonts.googleapis.com/css2?family=Bad%20Script&display=swap" },
+"marck-script": { letra: '"Marck Script",cursive', href: "https://fonts.googleapis.com/css2?family=Marck%20Script&display=swap" },
+"imperial-script": { letra: '"Imperial Script",cursive', href: "https://fonts.googleapis.com/css2?family=Imperial%20Script&display=swap" },
+"aguafina-script": { letra: '"Aguafina Script",cursive', href: "https://fonts.googleapis.com/css2?family=Aguafina%20Script&display=swap" },
+"arizonia": { letra: '"Arizonia",cursive', href: "https://fonts.googleapis.com/css2?family=Arizonia&display=swap" },
+"berkshire-swash": { letra: '"Berkshire Swash",cursive', href: "https://fonts.googleapis.com/css2?family=Berkshire%20Swash&display=swap" },
+"bilbo": { letra: '"Bilbo",cursive', href: "https://fonts.googleapis.com/css2?family=Bilbo&display=swap" },
+"bilbo-swash-caps": { letra: '"Bilbo Swash Caps",cursive', href: "https://fonts.googleapis.com/css2?family=Bilbo%20Swash%20Caps&display=swap" },
+"cookie": { letra: '"Cookie",cursive', href: "https://fonts.googleapis.com/css2?family=Cookie&display=swap" },
+"damion": { letra: '"Damion",cursive', href: "https://fonts.googleapis.com/css2?family=Damion&display=swap" },
+"dr-sugiyama": { letra: '"Dr Sugiyama",cursive', href: "https://fonts.googleapis.com/css2?family=Dr%20Sugiyama&display=swap" },
+"euphoria-script": { letra: '"Euphoria Script",cursive', href: "https://fonts.googleapis.com/css2?family=Euphoria%20Script&display=swap" },
+"felipa": { letra: '"Felipa",cursive', href: "https://fonts.googleapis.com/css2?family=Felipa&display=swap" },
+"give-you-glory": { letra: '"Give You Glory",cursive', href: "https://fonts.googleapis.com/css2?family=Give%20You%20Glory&display=swap" },
+"herr-von-muellerhoff": { letra: '"Herr Von Muellerhoff",cursive', href: "https://fonts.googleapis.com/css2?family=Herr%20Von%20Muellerhoff&display=swap" },
+"jim-nightshade": { letra: '"Jim Nightshade",cursive', href: "https://fonts.googleapis.com/css2?family=Jim%20Nightshade&display=swap" },
+"kristi": { letra: '"Kristi",cursive', href: "https://fonts.googleapis.com/css2?family=Kristi&display=swap" },
+"lovers-quarrel": { letra: '"Lovers Quarrel",cursive', href: "https://fonts.googleapis.com/css2?family=Lovers%20Quarrel&display=swap" },
+"meddon": { letra: '"Meddon",cursive', href: "https://fonts.googleapis.com/css2?family=Meddon&display=swap" },
+"meie-script": { letra: '"Meie Script",cursive', href: "https://fonts.googleapis.com/css2?family=Meie%20Script&display=swap" },
+"niconne": { letra: '"Niconne",cursive', href: "https://fonts.googleapis.com/css2?family=Niconne&display=swap" },
+"norican": { letra: '"Norican",cursive', href: "https://fonts.googleapis.com/css2?family=Norican&display=swap" },
+"waterfall": { letra: '"Waterfall",cursive', href: "https://fonts.googleapis.com/css2?family=Waterfall&display=swap" },
+"sofia": { letra: '"Sofia",cursive', href: "https://fonts.googleapis.com/css2?family=Sofia&display=swap" },
+"devonshire": { letra: '"Devonshire",cursive', href: "https://fonts.googleapis.com/css2?family=Devonshire&display=swap" },
+"seaweed-script": { letra: '"Seaweed Script",cursive', href: "https://fonts.googleapis.com/css2?family=Seaweed%20Script&display=swap" },
+"walter-turncoat": { letra: '"Walter Turncoat",cursive', href: "https://fonts.googleapis.com/css2?family=Walter%20Turncoat&display=swap" },
+"fondamento": { letra: '"Fondamento",cursive', href: "https://fonts.googleapis.com/css2?family=Fondamento&display=swap" },
+"miltonian": { letra: '"Miltonian",cursive', href: "https://fonts.googleapis.com/css2?family=Miltonian&display=swap" },
+"miltonian-tattoo": { letra: '"Miltonian Tattoo",cursive', href: "https://fonts.googleapis.com/css2?family=Miltonian%20Tattoo&display=swap" },
+"miniver": { letra: '"Miniver",cursive', href: "https://fonts.googleapis.com/css2?family=Miniver&display=swap" },
+"emilys-candy": { letra: '"Emilys Candy",cursive', href: "https://fonts.googleapis.com/css2?family=Emilys%20Candy&display=swap" },
+"rancho": { letra: '"Rancho",cursive', href: "https://fonts.googleapis.com/css2?family=Rancho&display=swap" },
+"sedgwick-ave": { letra: '"Sedgwick Ave",cursive', href: "https://fonts.googleapis.com/css2?family=Sedgwick%20Ave&display=swap" },
+"sedgwick-ave-display": { letra: '"Sedgwick Ave Display",cursive', href: "https://fonts.googleapis.com/css2?family=Sedgwick%20Ave%20Display&display=swap" },
+"birthstone": { letra: '"Birthstone",cursive', href: "https://fonts.googleapis.com/css2?family=Birthstone&display=swap" },
+"birthstone-bounce": { letra: '"Birthstone Bounce",cursive', href: "https://fonts.googleapis.com/css2?family=Birthstone%20Bounce&display=swap" },
 "fraunces": { letra: "'Fraunces',Georgia,serif", href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&display=swap" },
 "playfair-display": { letra: "'Playfair Display',Georgia,serif", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" },
 "poppins": { letra: "'Poppins',sans-serif", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" },
@@ -1072,9 +1153,30 @@ function aplicarTamano(t){
     document.documentElement.style.setProperty("--escala-" + sec.key, esc);
   });
 }
+function armarTopbar(promo){
+  const tb = $("topbar");
+  if (!promo || !String(promo).trim()){ tb.hidden = true; tb.innerHTML = ""; return; }
+  const txt = esc(String(promo).trim());
+  // Probe: medir ancho real de una copia (con su espaciado)
+  const probe = document.createElement("div");
+  probe.style.cssText = "position:absolute;visibility:hidden;white-space:nowrap;font:inherit;left:-9999px";
+  probe.innerHTML = `<span style="padding-right:4rem">${txt}</span>`;
+  document.body.appendChild(probe);
+  const w = probe.firstElementChild.getBoundingClientRect().width;
+  document.body.removeChild(probe);
+  const vw = window.innerWidth || 1200;
+  const copias = Math.max(2, Math.ceil((vw + w) / Math.max(w, 1)) + 1);
+  const spans = Array.from({ length: copias }, (_, i) => `<span${i ? " aria-hidden=\"true\"" : ""}>${txt}</span>`).join("");
+  tb.innerHTML = `<div class="topbar-track">${spans}</div>`;
+  tb.hidden = false;
+  const tr = tb.querySelector(".topbar-track");
+  tr.style.setProperty("--tx", "-" + w + "px");
+  // velocidad: ~60px/s de desplazamiento
+  tr.style.animationDuration = Math.max(8, Math.round(w / 60)) + "s";
+}
 function aplicarAjustes(a){
   if (!a || typeof a !== "object") return;
-  const tb = $("topbar"); if (a.promo && String(a.promo).trim()){ tb.textContent = a.promo; tb.hidden = false; } else tb.hidden = true;
+  armarTopbar(a.promo);
   if (a.heroTitulo) $("heroTitle").innerHTML = esc(a.heroTitulo).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\n/g, "<br>");
   if (a.heroTexto) $("heroText").innerHTML = esc(a.heroTexto).replace(/\*([^*]+)\*/g, "<em>$1</em>").replace(/\n/g, "<br>");
   aplicarTipografia(a.tipografia);

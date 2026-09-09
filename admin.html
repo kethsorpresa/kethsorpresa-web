@@ -81,16 +81,20 @@
   .grupo{border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:10px;background:#fff}
   .grupo .g-head{display:flex;gap:8px;align-items:center;margin-bottom:8px}
   .grupo .g-head input{flex:1;padding:8px 10px;border:1px solid var(--line);border-radius:8px}
-  .opcion{display:grid;grid-template-columns:1fr auto auto auto auto;gap:6px;align-items:center;margin-bottom:6px}
+  .opcion{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto auto;gap:6px;align-items:start;margin-bottom:6px}
+  .opcion .stock{margin-top:4px}
+  .opcion .color{margin-top:2px}
   .opcion .stock input{width:56px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;font-size:.85rem;text-align:center;background:#fff}
   .opcion input[type=text]{padding:7px 10px;border:1px solid var(--line);border-radius:8px;min-width:0}
   .opcion .color{display:flex;align-items:center;gap:4px;font-size:.72rem;color:var(--ink-2)}
   .opcion input[type=color]{width:34px;height:30px;border:1px solid var(--line);border-radius:8px;padding:2px;background:#fff;cursor:pointer}
-  .opcion .mini{width:52px;height:44px;border:1px dashed var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem;cursor:pointer;overflow:hidden;background:#fff;position:relative}
+  .opc-fotos{display:flex;flex-wrap:wrap;gap:5px;max-width:185px}
+  .opcion .mini{width:44px;height:40px;border:1px dashed var(--line);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:.8rem;cursor:pointer;overflow:hidden;background:#fff;position:relative;flex-shrink:0}
   .opcion .mini img{width:100%;height:100%;object-fit:cover}
   .opcion .mini input{position:absolute;inset:0;opacity:0;cursor:pointer}
-  .opcion .mini-x{position:absolute;top:2px;right:2px;z-index:2;width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:12px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;padding:0}
+  .opcion .mini-x{position:absolute;top:1px;right:1px;z-index:2;width:16px;height:16px;border-radius:50%;background:rgba(0,0,0,.55);color:#fff;font-size:10px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;border:none;padding:0}
   .opcion .mini-x:hover{background:var(--err)}
+  .opcion .mini.add{border-style:solid;border-color:var(--chicle);color:var(--chicle-dark);font-weight:700}
   .opcion .x{color:var(--err);font-weight:800;padding:4px 8px}
   .modal .acc-modal{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
   .toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:12px;font-size:.9rem;z-index:100;display:none;box-shadow:0 4px 16px rgba(0,0,0,.3);max-width:90%;text-align:center}
@@ -423,6 +427,61 @@ const TIPO_ADMIN = [
   { id: "yellowtail", nombre: "Yellowtail", css: "'Yellowtail',cursive", href: "https://fonts.googleapis.com/css2?family=Yellowtail&display=swap", grupo: "Cursivas" },
   { id: "amatic-sc", nombre: "Amatic SC", css: "'Amatic SC',cursive", href: "https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap", grupo: "Cursivas" },
   { id: "la-belle-aurore", nombre: "La Belle Aurore", css: "'La Belle Aurore',cursive", href: "https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap", grupo: "Cursivas" },
+  { id: "pinyon-script", nombre: "Pinyon Script", css: '"Pinyon Script",cursive', href: "https://fonts.googleapis.com/css2?family=Pinyon%20Script&display=swap", grupo: "Cursivas" },
+  { id: "tangerine", nombre: "Tangerine", css: '"Tangerine",cursive', href: "https://fonts.googleapis.com/css2?family=Tangerine&display=swap", grupo: "Cursivas" },
+  { id: "italianno", nombre: "Italianno", css: '"Italianno",cursive', href: "https://fonts.googleapis.com/css2?family=Italianno&display=swap", grupo: "Cursivas" },
+  { id: "windsong", nombre: "WindSong", css: '"WindSong",cursive', href: "https://fonts.googleapis.com/css2?family=WindSong&display=swap", grupo: "Cursivas" },
+  { id: "qwigley", nombre: "Qwigley", css: '"Qwigley",cursive', href: "https://fonts.googleapis.com/css2?family=Qwigley&display=swap", grupo: "Cursivas" },
+  { id: "rochester", nombre: "Rochester", css: '"Rochester",cursive', href: "https://fonts.googleapis.com/css2?family=Rochester&display=swap", grupo: "Cursivas" },
+  { id: "monsieur-la-doulaise", nombre: "Monsieur La Doulaise", css: '"Monsieur La Doulaise",cursive', href: "https://fonts.googleapis.com/css2?family=Monsieur%20La%20Doulaise&display=swap", grupo: "Cursivas" },
+  { id: "mea-culpa", nombre: "Mea Culpa", css: '"Mea Culpa",cursive', href: "https://fonts.googleapis.com/css2?family=Mea%20Culpa&display=swap", grupo: "Cursivas" },
+  { id: "mrs-saint-delafield", nombre: "Mrs Saint Delafield", css: '"Mrs Saint Delafield",cursive', href: "https://fonts.googleapis.com/css2?family=Mrs%20Saint%20Delafield&display=swap", grupo: "Cursivas" },
+  { id: "petit-formal-script", nombre: "Petit Formal Script", css: '"Petit Formal Script",cursive', href: "https://fonts.googleapis.com/css2?family=Petit%20Formal%20Script&display=swap", grupo: "Cursivas" },
+  { id: "rouge-script", nombre: "Rouge Script", css: '"Rouge Script",cursive', href: "https://fonts.googleapis.com/css2?family=Rouge%20Script&display=swap", grupo: "Cursivas" },
+  { id: "sassy-frass", nombre: "Sassy Frass", css: '"Sassy Frass",cursive', href: "https://fonts.googleapis.com/css2?family=Sassy%20Frass&display=swap", grupo: "Cursivas" },
+  { id: "reenie-beanie", nombre: "Reenie Beanie", css: '"Reenie Beanie",cursive', href: "https://fonts.googleapis.com/css2?family=Reenie%20Beanie&display=swap", grupo: "Cursivas" },
+  { id: "homemade-apple", nombre: "Homemade Apple", css: '"Homemade Apple",cursive', href: "https://fonts.googleapis.com/css2?family=Homemade%20Apple&display=swap", grupo: "Cursivas" },
+  { id: "nothing-you-could-do", nombre: "Nothing You Could Do", css: '"Nothing You Could Do",cursive', href: "https://fonts.googleapis.com/css2?family=Nothing%20You%20Could%20Do&display=swap", grupo: "Cursivas" },
+  { id: "zeyada", nombre: "Zeyada", css: '"Zeyada",cursive', href: "https://fonts.googleapis.com/css2?family=Zeyada&display=swap", grupo: "Cursivas" },
+  { id: "over-the-rainbow", nombre: "Over the Rainbow", css: '"Over the Rainbow",cursive', href: "https://fonts.googleapis.com/css2?family=Over%20the%20Rainbow&display=swap", grupo: "Cursivas" },
+  { id: "just-another-hand", nombre: "Just Another Hand", css: '"Just Another Hand",cursive', href: "https://fonts.googleapis.com/css2?family=Just%20Another%20Hand&display=swap", grupo: "Cursivas" },
+  { id: "bad-script", nombre: "Bad Script", css: '"Bad Script",cursive', href: "https://fonts.googleapis.com/css2?family=Bad%20Script&display=swap", grupo: "Cursivas" },
+  { id: "marck-script", nombre: "Marck Script", css: '"Marck Script",cursive', href: "https://fonts.googleapis.com/css2?family=Marck%20Script&display=swap", grupo: "Cursivas" },
+  { id: "imperial-script", nombre: "Imperial Script", css: '"Imperial Script",cursive', href: "https://fonts.googleapis.com/css2?family=Imperial%20Script&display=swap", grupo: "Cursivas" },
+  { id: "aguafina-script", nombre: "Aguafina Script", css: '"Aguafina Script",cursive', href: "https://fonts.googleapis.com/css2?family=Aguafina%20Script&display=swap", grupo: "Cursivas" },
+  { id: "arizonia", nombre: "Arizonia", css: '"Arizonia",cursive', href: "https://fonts.googleapis.com/css2?family=Arizonia&display=swap", grupo: "Cursivas" },
+  { id: "berkshire-swash", nombre: "Berkshire Swash", css: '"Berkshire Swash",cursive', href: "https://fonts.googleapis.com/css2?family=Berkshire%20Swash&display=swap", grupo: "Cursivas" },
+  { id: "bilbo", nombre: "Bilbo", css: '"Bilbo",cursive', href: "https://fonts.googleapis.com/css2?family=Bilbo&display=swap", grupo: "Cursivas" },
+  { id: "bilbo-swash-caps", nombre: "Bilbo Swash Caps", css: '"Bilbo Swash Caps",cursive', href: "https://fonts.googleapis.com/css2?family=Bilbo%20Swash%20Caps&display=swap", grupo: "Cursivas" },
+  { id: "cookie", nombre: "Cookie", css: '"Cookie",cursive', href: "https://fonts.googleapis.com/css2?family=Cookie&display=swap", grupo: "Cursivas" },
+  { id: "damion", nombre: "Damion", css: '"Damion",cursive', href: "https://fonts.googleapis.com/css2?family=Damion&display=swap", grupo: "Cursivas" },
+  { id: "dr-sugiyama", nombre: "Dr Sugiyama", css: '"Dr Sugiyama",cursive', href: "https://fonts.googleapis.com/css2?family=Dr%20Sugiyama&display=swap", grupo: "Cursivas" },
+  { id: "euphoria-script", nombre: "Euphoria Script", css: '"Euphoria Script",cursive', href: "https://fonts.googleapis.com/css2?family=Euphoria%20Script&display=swap", grupo: "Cursivas" },
+  { id: "felipa", nombre: "Felipa", css: '"Felipa",cursive', href: "https://fonts.googleapis.com/css2?family=Felipa&display=swap", grupo: "Cursivas" },
+  { id: "give-you-glory", nombre: "Give You Glory", css: '"Give You Glory",cursive', href: "https://fonts.googleapis.com/css2?family=Give%20You%20Glory&display=swap", grupo: "Cursivas" },
+  { id: "herr-von-muellerhoff", nombre: "Herr Von Muellerhoff", css: '"Herr Von Muellerhoff",cursive', href: "https://fonts.googleapis.com/css2?family=Herr%20Von%20Muellerhoff&display=swap", grupo: "Cursivas" },
+  { id: "jim-nightshade", nombre: "Jim Nightshade", css: '"Jim Nightshade",cursive', href: "https://fonts.googleapis.com/css2?family=Jim%20Nightshade&display=swap", grupo: "Cursivas" },
+  { id: "kristi", nombre: "Kristi", css: '"Kristi",cursive', href: "https://fonts.googleapis.com/css2?family=Kristi&display=swap", grupo: "Cursivas" },
+  { id: "lovers-quarrel", nombre: "Lovers Quarrel", css: '"Lovers Quarrel",cursive', href: "https://fonts.googleapis.com/css2?family=Lovers%20Quarrel&display=swap", grupo: "Cursivas" },
+  { id: "meddon", nombre: "Meddon", css: '"Meddon",cursive', href: "https://fonts.googleapis.com/css2?family=Meddon&display=swap", grupo: "Cursivas" },
+  { id: "meie-script", nombre: "Meie Script", css: '"Meie Script",cursive', href: "https://fonts.googleapis.com/css2?family=Meie%20Script&display=swap", grupo: "Cursivas" },
+  { id: "niconne", nombre: "Niconne", css: '"Niconne",cursive', href: "https://fonts.googleapis.com/css2?family=Niconne&display=swap", grupo: "Cursivas" },
+  { id: "norican", nombre: "Norican", css: '"Norican",cursive', href: "https://fonts.googleapis.com/css2?family=Norican&display=swap", grupo: "Cursivas" },
+  { id: "waterfall", nombre: "Waterfall", css: '"Waterfall",cursive', href: "https://fonts.googleapis.com/css2?family=Waterfall&display=swap", grupo: "Cursivas" },
+  { id: "sofia", nombre: "Sofia", css: '"Sofia",cursive', href: "https://fonts.googleapis.com/css2?family=Sofia&display=swap", grupo: "Cursivas" },
+  { id: "devonshire", nombre: "Devonshire", css: '"Devonshire",cursive', href: "https://fonts.googleapis.com/css2?family=Devonshire&display=swap", grupo: "Cursivas" },
+  { id: "seaweed-script", nombre: "Seaweed Script", css: '"Seaweed Script",cursive', href: "https://fonts.googleapis.com/css2?family=Seaweed%20Script&display=swap", grupo: "Cursivas" },
+  { id: "walter-turncoat", nombre: "Walter Turncoat", css: '"Walter Turncoat",cursive', href: "https://fonts.googleapis.com/css2?family=Walter%20Turncoat&display=swap", grupo: "Cursivas" },
+  { id: "fondamento", nombre: "Fondamento", css: '"Fondamento",cursive', href: "https://fonts.googleapis.com/css2?family=Fondamento&display=swap", grupo: "Cursivas" },
+  { id: "miltonian", nombre: "Miltonian", css: '"Miltonian",cursive', href: "https://fonts.googleapis.com/css2?family=Miltonian&display=swap", grupo: "Cursivas" },
+  { id: "miltonian-tattoo", nombre: "Miltonian Tattoo", css: '"Miltonian Tattoo",cursive', href: "https://fonts.googleapis.com/css2?family=Miltonian%20Tattoo&display=swap", grupo: "Cursivas" },
+  { id: "miniver", nombre: "Miniver", css: '"Miniver",cursive', href: "https://fonts.googleapis.com/css2?family=Miniver&display=swap", grupo: "Cursivas" },
+  { id: "emilys-candy", nombre: "Emilys Candy", css: '"Emilys Candy",cursive', href: "https://fonts.googleapis.com/css2?family=Emilys%20Candy&display=swap", grupo: "Cursivas" },
+  { id: "rancho", nombre: "Rancho", css: '"Rancho",cursive', href: "https://fonts.googleapis.com/css2?family=Rancho&display=swap", grupo: "Cursivas" },
+  { id: "sedgwick-ave", nombre: "Sedgwick Ave", css: '"Sedgwick Ave",cursive', href: "https://fonts.googleapis.com/css2?family=Sedgwick%20Ave&display=swap", grupo: "Cursivas" },
+  { id: "sedgwick-ave-display", nombre: "Sedgwick Ave Display", css: '"Sedgwick Ave Display",cursive', href: "https://fonts.googleapis.com/css2?family=Sedgwick%20Ave%20Display&display=swap", grupo: "Cursivas" },
+  { id: "birthstone", nombre: "Birthstone", css: '"Birthstone",cursive', href: "https://fonts.googleapis.com/css2?family=Birthstone&display=swap", grupo: "Cursivas" },
+  { id: "birthstone-bounce", nombre: "Birthstone Bounce", css: '"Birthstone Bounce",cursive', href: "https://fonts.googleapis.com/css2?family=Birthstone%20Bounce&display=swap", grupo: "Cursivas" },
   { id: "fraunces", nombre: "Fraunces", css: "'Fraunces',Georgia,serif", href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&display=swap", grupo: "Imprenta" },
   { id: "playfair-display", nombre: "Playfair Display", css: "'Playfair Display',Georgia,serif", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap", grupo: "Imprenta" },
   { id: "poppins", nombre: "Poppins", css: "'Poppins',sans-serif", href: "https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap", grupo: "Imprenta" },
@@ -542,8 +601,17 @@ function guardarAjustes(){
 $("ovAjustes").addEventListener("click", e => { if (e.target === $("ovAjustes")) cerrarAjustes(); });
 function normalizar(p){
   const stock = (p.stock === null || p.stock === undefined || p.stock === "") ? null : Math.max(0, parseInt(p.stock) || 0);
+  const normOpcion = o => {
+    const fotos = Array.isArray(o.fotos) ? o.fotos.filter(Boolean).slice(0, 3) : (o.imagen ? [o.imagen] : []);
+    const op = { valor: o.valor || "", imagen: fotos[0] || o.imagen || "" };
+    if (o.color) op.color = o.color;
+    if (fotos.length > 1) op.fotos = fotos;
+    if (o.stock !== null && o.stock !== undefined && o.stock !== "") op.stock = Math.max(0, parseInt(o.stock) || 0);
+    return op;
+  };
+  const normVar = v => ({ nombre: v.nombre || "Opción", opciones: (v.opciones || []).map(normOpcion) });
   return Object.assign({ id: "", nombre: "", categoria: "Otros", descripcion: "", precio: 0, imagen: "", destacado: false, agotado: false, stock: null, personalizable: false, textoEtiqueta: "", textoMax: 12, precioPersonalizacion: 0, variantes: [] }, p, { stock,
-    variantes: Array.isArray(p.variantes) ? p.variantes.map(v => ({ nombre: v.nombre || "Opción", opciones: (v.opciones || []).map(o => ({ valor: o.valor || "", ...(o.color ? { color: o.color } : {}), ...(o.imagen ? { imagen: o.imagen } : {}), ...(o.stock !== null && o.stock !== undefined && o.stock !== "" ? { stock: Math.max(0, parseInt(o.stock) || 0) } : {}) })) })) : []
+    variantes: Array.isArray(p.variantes) ? p.variantes.map(normVar) : []
   });
 }
 
@@ -647,28 +715,44 @@ function renderGrupos(){
     <div class="grupo">
       <div class="g-head"><span style="font-size:.75rem;color:var(--ink-3)">Grupo</span><input placeholder="Ej: Tapa, Color, Tamaño" value="${esc(g.nombre)}" oninput="editGrupos[${gi}].nombre=this.value">
         <button type="button" class="btn btn-d btn-sm" onclick="editGrupos.splice(${gi},1);renderGrupos()">Quitar grupo</button></div>
-      ${(g.opciones || []).map((o, oi) => `
-        <div class="opcion">
+      ${(g.opciones || []).map((o, oi) => {
+        const fotos = Array.isArray(o.fotos) ? o.fotos.filter(Boolean) : (o.imagen ? [o.imagen] : []);
+        const minis = fotos.map((f, fi) => `<label class="mini" title="${f === (o.imagen || fotos[0]) ? "Foto principal (se ve al elegir este color)" : "Foto extra"}"><img src="${esc(src(f))}" alt="Foto ${fi + 1} de ${esc(o.valor)}"><input type="file" accept="image/*" onchange="fotoOpcion(${gi},${oi},${fi},this.files[0])"><button type="button" class="mini-x" title="Quitar esta foto" onclick="event.preventDefault();event.stopPropagation();quitarFotoOpcion(${gi},${oi},${fi})">×</button></label>`).join("");
+        const addBtn = fotos.length < 3 ? `<label class="mini add" title="Agregar otra foto de este color (máx 3)">+<input type="file" accept="image/*" onchange="fotoOpcion(${gi},${oi},${fotos.length},this.files[0])"></label>` : "";
+        return `<div class="opcion">
           <input type="text" placeholder="Opción (ej: Rosa)" value="${esc(o.valor)}" oninput="editGrupos[${gi}].opciones[${oi}].valor=this.value">
           <span class="stock" title="Stock de esta opción (vacío = sin control)"><input type="number" min="0" placeholder="∞" value="${o.stock === null || o.stock === undefined || o.stock === "" ? "" : o.stock}" oninput="editGrupos[${gi}].opciones[${oi}].stock = this.value === '' ? null : Math.max(0, parseInt(this.value) || 0)"></span>
           <span class="color"><input type="color" value="${esc(o.color || "#ffcfd8")}" title="Color de la muestra" oninput="editGrupos[${gi}].opciones[${oi}].color=this.value"><button type="button" title="${o.color ? "Quitar color" : "Sin color (solo texto)"}" style="font-size:.7rem;color:${o.color ? "var(--err)" : "var(--ink-3)"}" onclick="toggleColor(${gi},${oi})">${o.color ? "×" : "sin color"}</button></span>
-          <label class="mini" title="${o.imagen ? "Cambiar foto de esta opción (se ve en la web al elegirla)" : "Subir foto de esta opción (se ve en la web al elegirla)"}">${o.imagen ? `<img src="${esc(src(o.imagen))}" alt="Foto de ${esc(o.valor)}">` : "📷"}<input type="file" accept="image/*" onchange="fotoOpcion(${gi},${oi},this.files[0])">${o.imagen ? `<button type="button" class="mini-x" title="Quitar foto" onclick="event.preventDefault();event.stopPropagation();quitarFotoOpcion(${gi},${oi})">×</button>` : ""}</label>
+          <span class="opc-fotos" title="Fotos de este color (la primera es la principal, máx 3)">${minis}${addBtn}</span>
           <button type="button" class="x" title="Quitar opción" onclick="editGrupos[${gi}].opciones.splice(${oi},1);renderGrupos()">×</button>
-        </div>`).join("")}
+        </div>`;
+      }).join("")}
       <button type="button" class="btn btn-c btn-sm" onclick="editGrupos[${gi}].opciones.push({valor:'',color:'#ffcfd8',stock:null});renderGrupos()">+ Agregar opción</button>
     </div>`).join("") || `<div style="font-size:.8rem;color:var(--ink-3)">Sin variantes. Este producto se pide tal cual.</div>`;
 }
 function agregarGrupo(){ editGrupos.push({ nombre: editGrupos.length ? "" : "Color", opciones: [{ valor: "", color: "#ffcfd8", stock: null }] }); renderGrupos(); }
 function toggleColor(gi, oi){ const o = editGrupos[gi].opciones[oi]; if (o.color) delete o.color; else o.color = "#ffcfd8"; renderGrupos(); }
-async function fotoOpcion(gi, oi, file){
+async function fotoOpcion(gi, oi, fi, file){
   if (!file) return;
-  try{ const path = await procesarFoto(file, ($("f_nombre").value || "opcion") + "-" + (editGrupos[gi].opciones[oi].valor || oi)); editGrupos[gi].opciones[oi].imagen = path; renderGrupos(); toast("Foto lista — se publica al guardar"); }
-  catch(e){ toast("No pude procesar la foto: " + e.message); }
-}
-function quitarFotoOpcion(gi, oi){
   const o = editGrupos[gi] && editGrupos[gi].opciones[oi];
   if (!o) return;
-  delete o.imagen;
+  try{
+    const path = await procesarFoto(file, ($("f_nombre").value || "opcion") + "-" + (o.valor || oi));
+    const fotos = Array.isArray(o.fotos) ? o.fotos.filter(Boolean) : (o.imagen ? [o.imagen] : []);
+    fotos[fi] = path;
+    o.fotos = fotos.slice(0, 3);
+    o.imagen = o.fotos[0] || ""; // la primera es la que se ve en cards y al elegir el color
+    renderGrupos();
+    toast("Foto lista — se publica al guardar");
+  }catch(e){ toast("No pude procesar la foto: " + e.message); }
+}
+function quitarFotoOpcion(gi, oi, fi){
+  const o = editGrupos[gi] && editGrupos[gi].opciones[oi];
+  if (!o) return;
+  const fotos = Array.isArray(o.fotos) ? o.fotos.filter(Boolean) : (o.imagen ? [o.imagen] : []);
+  fotos.splice(fi, 1);
+  o.fotos = fotos.slice(0, 3);
+  o.imagen = o.fotos[0] || "";
   renderGrupos();
   toast("Foto quitada — se publica al guardar");
 }
@@ -718,7 +802,11 @@ function guardarProducto(){
   if (!nombre || !cat) return toast("Nombre y categoría son obligatorios");
   const precio = Math.max(0, parseInt($("f_precio").value) || 0);
   if (!precio) return toast("Poné un precio");
-  const variantes = editGrupos.map(g => ({ nombre: (g.nombre || "").trim() || "Opción", opciones: (g.opciones || []).map(o => ({ valor: (o.valor || "").trim(), ...(o.color ? { color: o.color } : {}), ...(o.imagen ? { imagen: o.imagen } : {}), ...(o.stock !== null && o.stock !== undefined && o.stock !== "" ? { stock: Math.max(0, parseInt(o.stock) || 0) } : {}) })).filter(o => o.valor) })).filter(g => g.opciones.length);
+  const variantes = editGrupos.map(g => ({ nombre: (g.nombre || "").trim() || "Opción", opciones: (g.opciones || []).map(o => {
+    const fotos = Array.isArray(o.fotos) ? o.fotos.filter(Boolean).slice(0, 3) : (o.imagen ? [o.imagen] : []);
+    return { valor: (o.valor || "").trim(), ...(o.color ? { color: o.color } : {}), imagen: fotos[0] || "", ...(fotos.length ? { fotos } : {}), ...(o.stock !== null && o.stock !== undefined && o.stock !== "" ? { stock: Math.max(0, parseInt(o.stock) || 0) } : {}) };
+  }).filter(o => o.valor)
+  })).filter(g => g.opciones.length);
   const id = $("f_id").value || nuevoId(nombre);
   const existente = PRODUCTOS.find(x => x.id === id);
   const obj = normalizar(Object.assign({}, existente || {}, {
@@ -750,7 +838,7 @@ document.addEventListener("keydown", e => { if (e.key === "Escape") cerrarModal(
 // ---------- Guardar / publicar ----------
 function fotosUsadas(){
   const usadas = new Set();
-  PRODUCTOS.forEach(p => { if (p.imagen) usadas.add(p.imagen); (p.variantes || []).forEach(v => (v.opciones || []).forEach(o => { if (o.imagen) usadas.add(o.imagen); })); });
+  PRODUCTOS.forEach(p => { if (p.imagen) usadas.add(p.imagen); (p.variantes || []).forEach(v => (v.opciones || []).forEach(o => { if (o.imagen) usadas.add(o.imagen); if (Array.isArray(o.fotos)) o.fotos.forEach(f => { if (f) usadas.add(f); }); })); });
   (AJUSTES.banners || []).forEach(b => { if (b.imagen) usadas.add(b.imagen); });
   return fotosPendientes.filter(f => usadas.has(f.dir + "/" + f.filename));
 }
