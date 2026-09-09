@@ -106,7 +106,7 @@
     "categoria": "Vasos",
     "descripcion": "Vasos Tumbler de 1 litro",
     "precio": 6500,
-    "imagen": "assets/products/vasos-tumbler-1-litro-mtqbpjdu.webp",
+    "imagen": "assets/products/vasos-tumbler-1-litro-mttg654e.webp",
     "destacado": true,
     "agotado": false,
     "stock": 100,
@@ -120,8 +120,33 @@
         "opciones": [
           {
             "valor": "Blanco",
-            "imagen": "",
+            "imagen": "assets/products/vasos-tumbler-1-litro-blanco-mttg6bfv.webp",
             "color": "#ffffff"
+          },
+          {
+            "valor": "Rosa",
+            "imagen": "assets/products/vasos-tumbler-1-litro-rosa-mttg6j3a.webp",
+            "color": "#ffcfd8"
+          },
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/vasos-tumbler-1-litro-negro-mttg6q2y.webp",
+            "color": "#000000"
+          },
+          {
+            "valor": "Fucsia",
+            "imagen": "assets/products/vasos-tumbler-1-litro-fucsia-mttg6ypp.webp",
+            "color": "#fb0e8d"
+          },
+          {
+            "valor": "Dorado",
+            "imagen": "assets/products/vasos-tumbler-1-litro-dorado-mttg7dhj.webp",
+            "color": "#db8d33"
+          },
+          {
+            "valor": "Azul",
+            "imagen": "assets/products/vasos-tumbler-1-litro-azul-mttg7si4.webp",
+            "color": "#0f15bd"
           }
         ]
       }
