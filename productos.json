@@ -145,6 +145,32 @@
     ]
   },
   {
+    "id": "caja-desayuno-sorpresa-copia",
+    "nombre": "Bandeja desayuno Deluxe",
+    "categoria": "Regalos",
+    "descripcion": "Bandeja desayuno deluxe que incluye; \n* 1 Peluche mediano a eleccion\n* 2 medialunas de JYQ\n* 1 Porcion de torta \n* 1 Yogurt\n* 1 Nutella chica\n* 3 bombones Rocher\n* 1 Vaso personalizado\nColores Frase y edad a eleccion de cliente.\n ¡El regalo ideal para sorprender!",
+    "precio": 120000,
+    "imagen": "assets/products/caja-desayuno-sorpresa-copia-mttj0t4o.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Indicarnos Fecha, frase y nombre",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Tamaño",
+        "opciones": [
+          {
+            "valor": "Grande",
+            "imagen": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "vasos-tumbler-1-litro",
     "nombre": "Vasos Tumbler 1 litro",
     "categoria": "Vasos",
