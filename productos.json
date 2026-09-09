@@ -407,5 +407,57 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vasos-glitter-420-ml-plasticos",
+    "nombre": "Vasos Glitter 420 ML \"Plasticos\"",
+    "categoria": "Vasos",
+    "descripcion": "Medidas(cm): DIAMETRO 8.5CM ALTO 12.5\nMateriales: POLIPROPILENO",
+    "precio": 2000,
+    "imagen": "assets/products/vasos-glitter-420-ml-plasticos-mttgx10i.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Rosa",
+            "imagen": "assets/products/vasos-glitter-420-ml-plasticos-0-mttgxdl8.webp",
+            "color": "#ffcfd8"
+          },
+          {
+            "valor": "Transparente",
+            "imagen": "assets/products/vasos-glitter-420-ml-plasticos-transparente-mttgxuj2.webp",
+            "color": "#cfcfcf"
+          },
+          {
+            "valor": "Blanco",
+            "imagen": "assets/products/vasos-glitter-420-ml-plasticos-blanco-mttgy13q.webp",
+            "color": "#ffffff"
+          },
+          {
+            "valor": "Azul",
+            "imagen": "assets/products/vasos-glitter-420-ml-plasticos-azul-mttgycce.webp",
+            "color": "#003dcc"
+          },
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/vasos-glitter-420-ml-plasticos-negro-mttgym2m.webp",
+            "color": "#000000"
+          },
+          {
+            "valor": "Lila",
+            "imagen": "assets/products/vasos-glitter-420-ml-plasticos-lila-mttgyz4z.webp",
+            "color": "#e685f9"
+          }
+        ]
+      }
+    ]
   }
 ]
