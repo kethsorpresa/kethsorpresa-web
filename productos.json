@@ -78,7 +78,7 @@
     "precio": 9800,
     "imagen": "assets/products/caja-sorpresa.svg",
     "destacado": false,
-    "agotado": false,
+    "agotado": true,
     "stock": null,
     "personalizable": true,
     "textoEtiqueta": "Dedicatoria (va en la tarjeta)",
