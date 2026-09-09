@@ -481,6 +481,11 @@
             "valor": "Rojo",
             "imagen": "assets/products/vasos-glitter-420-ml-plasticos-rojo-mtth8ceg.webp",
             "color": "#ff002f"
+          },
+          {
+            "valor": "Celeste",
+            "imagen": "assets/products/vasos-glitter-420-ml-plasticos-celeste-mtthlu4i.webp",
+            "color": "#2fb9f4"
           }
         ]
       }
