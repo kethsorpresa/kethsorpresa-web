@@ -208,6 +208,7 @@
   .datos{padding:18px 22px;border-top:1px solid var(--line)}
   .datos h4{font-family:var(--font-texto,'Manrope');font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-3);margin-bottom:10px}
   .pay-fijo{font-size:.86rem;color:var(--ink-2);background:var(--marca-suave);border-radius:var(--r);padding:10px 12px;margin-bottom:12px}
+  .pay-urg{font-size:.8rem;color:#b3402a;background:#fff4f0;border:1px solid #ffd9d0;border-radius:var(--r);padding:8px 12px;margin:-4px 0 12px;line-height:1.45}
   .datos .entrega-opt{display:flex;align-items:center;gap:8px;font-size:.9rem;color:var(--ink);padding:9px 0;cursor:pointer}
   .datos .entrega-opt input{width:auto;margin:0;accent-color:var(--acento)}
   .retiro-info{font-size:.86rem;color:var(--ink-2);background:var(--marca-suave);border-radius:var(--r);padding:10px 12px;margin-bottom:12px}
@@ -384,7 +385,7 @@
     </div>
   </div>
   <div class="faq">
-    <details><summary>¿Cómo pago?</summary><p>Por transferencia bancaria: alias <strong>Kethsorpresa</strong>, titular <strong>Rossimar Marcano</strong>. Envianos el comprobante por WhatsApp para confirmar tu pedido.</p></details>
+    <details><summary>¿Cómo pago?</summary><p>Por transferencia bancaria: alias <strong>Kethsorpresa</strong>, titular <strong>Rossimar Marcano</strong>. Envianos el comprobante por WhatsApp para confirmar tu pedido. <strong>Importante:</strong> el pedido se toma en cuenta solo si acreditás la transferencia dentro de las <strong>24 horas</strong> de hacerlo.</p></details>
     <details><summary>¿Cuánto tarda un producto personalizado?</summary><p>Depende del producto y la cantidad. Te confirmamos el tiempo de entrega por WhatsApp apenas recibimos el pedido.</p></details>
     <details><summary>¿Hacen envíos?</summary><p>Sí. Enviamos por <strong>Correo Argentino o Vía Cargo a la sucursal</strong> que elijas: cuando confirmás el pedido te pedimos la calle y altura de esa sucursal y coordinamos el costo por WhatsApp. También podés retirar sin cargo por el local: <strong>Av. Mitre 6469, Wilde</strong>.</p></details>
     <details><summary>¿Puedo pedir algo que no está en el catálogo?</summary><p>Sí. Escribinos por WhatsApp, Instagram o TikTok y lo vemos.</p></details>
@@ -424,6 +425,7 @@
       <input id="cliTel" placeholder="Tu WhatsApp (11 1234-5678)" aria-label="Tu WhatsApp" inputmode="tel" autocomplete="tel">
       <h4>Forma de pago</h4>
       <p class="pay-fijo">Transferencia bancaria a alias <strong>Kethsorpresa</strong> (titular: Rossimar Marcano). Envianos el comprobante por WhatsApp para confirmar tu pedido.</p>
+      <p class="pay-urg">⚠️ Tenés <strong>24 horas</strong> desde que enviás el pedido para acreditar la transferencia. Si no, el pedido no se toma en cuenta.</p>
       <h4>¿Cómo lo recibís?</h4>
       <label class="entrega-opt"><input type="radio" name="entrega" value="envio" checked onchange="toggleEntrega()"> Envío a sucursal (Correo Argentino / Vía Cargo)</label>
       <label class="entrega-opt"><input type="radio" name="entrega" value="retiro" onchange="toggleEntrega()"> Retiro por el local</label>
@@ -935,6 +937,7 @@ function enviarPedido(){
   msg += `Soy: ${cli.nombre} — ${cli.tel}\n\n`;
   msg += `Datos para transferir:\nAlias: Kethsorpresa\nTitular: Rossimar Marcano\n\n`;
   msg += `Después de pagar, envianos el comprobante por este WhatsApp para confirmar tu pedido.\n\n`;
+  msg += `Aviso: el pedido se toma en cuenta solo si la transferencia se acredita dentro de las 24 horas de hecho.\n\n`;
   if (retiro){
     msg += `Retiro por el local: Av. Mitre 6469, Wilde\n\n`;
   } else {
