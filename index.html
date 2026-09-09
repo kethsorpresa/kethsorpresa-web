@@ -439,9 +439,9 @@
       <h4>¿Cómo nos enviás el pedido?</h4>
       <label class="entrega-opt"><input type="radio" name="canal" value="whatsapp" checked onchange="canalCambio()"> Por WhatsApp</label>
       <label class="entrega-opt"><input type="radio" name="canal" value="mail" onchange="canalCambio()"> Por mail</label>
-      <div id="mailDatos" style="display:none">
-        <input id="cliMail" placeholder="Tu mail (para responderte)" aria-label="Tu mail" inputmode="email" autocomplete="email" autocapitalize="none">
-        <p class="envio-hint">Elegiste avisarnos por mail: te llega una copia de tu pedido y te respondemos ahí.</p>
+      <div id="mailDatos">
+        <input id="cliMail" placeholder="Tu mail (opcional, para el recordatorio de pago)" aria-label="Tu mail" inputmode="email" autocomplete="email" autocapitalize="none">
+        <p class="envio-hint" id="mailHint">Opcional: te mandamos por mail el recordatorio con los datos para pagar — tenés 24 hs para transferir.</p>
       </div>
     </div>
   </div>
@@ -867,7 +867,10 @@ function pintarCupon(count, subtotal, descuento){
 function canalActual(){ return document.querySelector('input[name=canal]:checked')?.value === 'mail' ? 'mail' : 'whatsapp'; }
 function canalCambio(){
   const mail = canalActual() === 'mail';
-  $("mailDatos").style.display = mail ? "" : "none";
+  $("cliMail").placeholder = mail ? "Tu mail (para responderte)" : "Tu mail (opcional, para el recordatorio de pago)";
+  $("mailHint").textContent = mail
+    ? "Elegiste avisarnos por mail: te llega el recordatorio y te respondemos ahí."
+    : "Opcional: te mandamos por mail el recordatorio con los datos para pagar — tenés 24 hs para transferir.";
   $("btnWaIco").style.display = mail ? "none" : "";
   $("btnMailIco").style.display = mail ? "" : "none";
   $("btnEnviarTxt").textContent = mail ? "Enviar pedido por mail" : "Enviar pedido por WhatsApp";
@@ -906,11 +909,12 @@ function enviarPedido(){
     const vTel = cli.tel;
     if (!vTel){ elTel.classList.add("err"); falta = true; } else elTel.classList.remove("err");
     if (vTel && !/^\+?\d{8,15}$/.test(vTel)){ elTel.classList.add("err"); falta = true; toast("El WhatsApp no parece válido"); return; }
-  } else {
-    const elMail = $("cliMail");
-    const okMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cli.mail);
-    if (!okMail){ elMail.classList.add("err"); falta = true; } else elMail.classList.remove("err");
   }
+  const elMail = $("cliMail");
+  const vMail = cli.mail;
+  if (porMail && !vMail){ elMail.classList.add("err"); falta = true; }
+  else if (vMail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(vMail)){ elMail.classList.add("err"); falta = true; toast("El mail no parece válido"); return; }
+  else elMail.classList.remove("err");
   if (!retiro){
     const el = $("dirSucursal");
     if (!dir.sucursal){ el.classList.add("err"); falta = true; } else el.classList.remove("err");
@@ -955,7 +959,8 @@ function enviarPedido(){
     entrega: retiro ? "retiro" : "envio",
     direccion: retiro ? { sucursal: "Retiro por el local — Av. Mitre 6469, Wilde" } : { sucursal: dir.sucursal },
     nota,
-    canal: porMail ? "mail" : "whatsapp"
+    canal: porMail ? "mail" : "whatsapp",
+    whatsapp: WHATSAPP
   };
   if (porMail){
     // Enviar el pedido por mail (al negocio; el cliente dejó su mail para la respuesta)
