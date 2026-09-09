@@ -281,5 +281,47 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vaso-glitter-750-ml-personalizados",
+    "nombre": "Vaso Glitter 750 ML personalizados",
+    "categoria": "Vasos",
+    "descripcion": "Vaso Glitter 750 ML 18 cm de alto por 9.5cm de ancho",
+    "precio": 4500,
+    "imagen": "assets/products/vaso-glitter-750-ml-mttfzo1e.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Rosa",
+            "imagen": "",
+            "color": "#ffcfd8"
+          },
+          {
+            "valor": "Celeste",
+            "imagen": "",
+            "color": "#6fb6eb"
+          },
+          {
+            "valor": "Verde agua",
+            "imagen": "",
+            "color": "#00f5d8"
+          },
+          {
+            "valor": "Lila",
+            "imagen": "",
+            "color": "#c87dca"
+          }
+        ]
+      }
+    ]
   }
 ]
