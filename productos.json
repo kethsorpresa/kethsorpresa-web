@@ -455,6 +455,16 @@
             "valor": "Lila",
             "imagen": "assets/products/vasos-glitter-420-ml-plasticos-lila-mtth7ec6.webp",
             "color": "#e685f9"
+          },
+          {
+            "valor": "Turquesa",
+            "imagen": "assets/products/vasos-glitter-420-ml-plasticos-turquesa-mtth85jt.webp",
+            "color": "#00f0c8"
+          },
+          {
+            "valor": "Rojo",
+            "imagen": "assets/products/vasos-glitter-420-ml-plasticos-rojo-mtth8ceg.webp",
+            "color": "#ff002f"
           }
         ]
       }
