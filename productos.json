@@ -120,28 +120,24 @@
   },
   {
     "id": "caja-sorpresa",
-    "nombre": "Caja Sorpresa",
+    "nombre": "Caja Desayuno Sorpresa",
     "categoria": "Regalos",
-    "descripcion": "Caja regalo con cotillón variado y golosinas. ¡El regalo ideal para sorprender!",
-    "precio": 9800,
-    "imagen": "assets/products/caja-sorpresa.svg",
+    "descripcion": "Caja desayuno sorpresa contenido; 2 medialunas con JYQ, 1 porcion de torta, peluche mediano, un jugo, un yogurt, taza de ceramica personalizada, un alfajor y globo personalizados ¡El regalo ideal para sorprender!",
+    "precio": 70000,
+    "imagen": "assets/products/caja-sorpresa-mttisy69.webp",
     "destacado": false,
-    "agotado": true,
+    "agotado": false,
     "stock": null,
     "personalizable": true,
     "textoEtiqueta": "Dedicatoria (va en la tarjeta)",
-    "textoMax": 30,
+    "textoMax": 200,
     "precioPersonalizacion": 0,
     "variantes": [
       {
         "nombre": "Tamaño",
         "opciones": [
           {
-            "valor": "Chica",
-            "imagen": ""
-          },
-          {
-            "valor": "Grande",
+            "valor": "Mediana",
             "imagen": ""
           }
         ]
