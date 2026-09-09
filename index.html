@@ -128,8 +128,9 @@
   .body{padding:12px 2px 0;display:flex;flex-direction:column;gap:3px;flex:1}
   .cat{font-size:.72rem;color:var(--ink-3);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
   .name{font-family:var(--font-nombres,'Fraunces');font-size:calc(1.05rem * var(--escala-nombres));line-height:1.2}
-  .dots{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
-  .dot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.08)}
+  .dots{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap;align-items:center}
+  .dot{width:12px;height:12px;border-radius:50%;border:1px solid rgba(0,0,0,.08);flex-shrink:0}
+  .dot.foto{width:16px;height:16px;border-radius:6px;background-size:cover;background-position:center}
   .dot.txt{width:auto;height:auto;border-radius:4px;font-size:.66rem;font-weight:600;padding:1px 6px;background:var(--marca-suave);color:var(--ink-2);border:none}
   .foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:8px;gap:8px}
   .precio{font-family:var(--font-precios,'Fraunces');font-weight:600;font-size:calc(.98rem * var(--escala-precios))}
@@ -578,7 +579,8 @@ function cardHTML(p){
   const agotado = agotadoTotal(p);
   const dots = (p.variantes || []).flatMap(v => (v.opciones || []).map(o =>
     o.color ? `<span class="dot" style="background:${esc(o.color)}" title="${esc(o.valor)}"></span>`
-            : `<span class="dot txt">${esc(o.valor)}</span>`)).slice(0, 8).join("");
+            : (o.imagen ? `<span class="dot foto" style="background-image:url('${esc(o.imagen)}')" title="${esc(o.valor)}"></span>`
+                         : `<span class="dot txt">${esc(o.valor)}</span>`))).join("");
   return `<article class="card" data-id="${esc(p.id)}" tabindex="0" role="button" aria-label="${esc(p.nombre)}, ${fmt(p.precio)}">
     <div class="thumb">
       ${p.imagen ? `<img src="${esc(p.imagen)}" alt="${esc(p.nombre)}" loading="lazy">` : ""}
