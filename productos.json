@@ -348,5 +348,32 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vaso-glitter-750-ml-personalizados-copia",
+    "nombre": "Vaso Negro 750 ML personalizados",
+    "categoria": "Vasos",
+    "descripcion": "Vaso Negro solido 750 ML 18 cm de alto por 9.5cm de ancho",
+    "precio": 4000,
+    "imagen": "assets/products/vaso-negro-750-ml-personalizados-mttgdi61.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/vaso-negro-750-ml-personalizados-negro-mttgdux7.webp",
+            "color": "#000000"
+          }
+        ]
+      }
+    ]
   }
 ]
