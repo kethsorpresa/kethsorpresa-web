@@ -87,6 +87,32 @@
     "variantes": []
   },
   {
+    "id": "caja-sorpresa",
+    "nombre": "Caja Desayuno Sorpresa",
+    "categoria": "Regalos",
+    "descripcion": "Caja desayuno sorpresa contenido; 2 medialunas con JYQ, 1 porcion de torta, peluche mediano, un jugo, un yogurt, taza de ceramica personalizada, un alfajor y globo personalizados ¡El regalo ideal para sorprender!",
+    "precio": 70000,
+    "imagen": "assets/products/caja-sorpresa-mttisy69.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Indicarnos Fecha, frase y nombre",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Tamaño",
+        "opciones": [
+          {
+            "valor": "Mediana",
+            "imagen": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "vaso-tipo-starbucks-tapa-rosca-doble-capa-copia",
     "nombre": "Vaso Tipo Starbucks Simple capa",
     "categoria": "Vasos",
@@ -119,32 +145,6 @@
     ]
   },
   {
-    "id": "caja-sorpresa",
-    "nombre": "Caja Desayuno Sorpresa",
-    "categoria": "Regalos",
-    "descripcion": "Caja desayuno sorpresa contenido; 2 medialunas con JYQ, 1 porcion de torta, peluche mediano, un jugo, un yogurt, taza de ceramica personalizada, un alfajor y globo personalizados ¡El regalo ideal para sorprender!",
-    "precio": 70000,
-    "imagen": "assets/products/caja-sorpresa-mttisy69.webp",
-    "destacado": false,
-    "agotado": false,
-    "stock": null,
-    "personalizable": true,
-    "textoEtiqueta": "Indicarnos Fecha, frase y nombre",
-    "textoMax": 200,
-    "precioPersonalizacion": 0,
-    "variantes": [
-      {
-        "nombre": "Tamaño",
-        "opciones": [
-          {
-            "valor": "Mediana",
-            "imagen": ""
-          }
-        ]
-      }
-    ]
-  },
-  {
     "id": "caja-desayuno-sorpresa-copia",
     "nombre": "Bandeja desayuno Deluxe",
     "categoria": "Regalos",
@@ -169,6 +169,22 @@
         ]
       }
     ]
+  },
+  {
+    "id": "copas",
+    "nombre": "Copas",
+    "categoria": "Souvenirs",
+    "descripcion": "",
+    "precio": 3500,
+    "imagen": "",
+    "destacado": false,
+    "agotado": true,
+    "stock": null,
+    "personalizable": false,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
+    "variantes": []
   },
   {
     "id": "vasos-tumbler-1-litro",
@@ -221,22 +237,6 @@
         ]
       }
     ]
-  },
-  {
-    "id": "copas",
-    "nombre": "Copas",
-    "categoria": "Souvenirs",
-    "descripcion": "",
-    "precio": 3500,
-    "imagen": "",
-    "destacado": false,
-    "agotado": true,
-    "stock": null,
-    "personalizable": false,
-    "textoEtiqueta": "Escribí tu texto",
-    "textoMax": 12,
-    "precioPersonalizacion": 0,
-    "variantes": []
   },
   {
     "id": "vasos-acrilicos-475ml-personalizados",
@@ -582,7 +582,7 @@
     "id": "vasos-glitter-420-ml-plasticos",
     "nombre": "Vasos Glitter 420 ML \"Plasticos\"",
     "categoria": "Vasos",
-    "descripcion": "Medidas(cm): DIAMETRO 8.5CM ALTO 12.5\nMateriales: POLIPROPILENO\nTu pedido podria estar listo entre 3 a 10 dias hábiles",
+    "descripcion": "Compra minima 10 unidades\nMedidas(cm): DIAMETRO 8.5CM ALTO 12.5\nMateriales: POLIPROPILENO\nTu pedido podria estar listo entre 3 a 10 dias hábiles",
     "precio": 2000,
     "imagen": "assets/products/vasos-glitter-420-ml-plasticos-mttgx10i.webp",
     "destacado": true,
