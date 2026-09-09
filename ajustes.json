@@ -23,6 +23,12 @@
       "tipo": "porcentaje",
       "valor": 10,
       "activo": true
+    },
+    {
+      "codigo": "KETH10",
+      "tipo": "porcentaje",
+      "valor": 10,
+      "activo": true
     }
   ],
   "banners": [
