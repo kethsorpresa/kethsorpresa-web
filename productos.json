@@ -71,6 +71,85 @@
     ]
   },
   {
+    "id": "vaso-glitter-deluxe-tapa-rosca-copia",
+    "nombre": "Vaso glitter deluxe tapa rosca con luces",
+    "categoria": "Vasos",
+    "descripcion": "Vaso de acrílico con glitter, tapa y sorbete y luces led. Elegí el color y contanos qué nombre o frase querés (ej. Martu · Mis XV). Tapa roscable antiderrame  Tu pedido podria estar listo entre 3 a 10 dias hábiles",
+    "precio": 12000,
+    "imagen": "assets/products/vaso-glitter-deluxe-tapa-rosca-con-luces-mtwddk59.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Nombre o frase (ej. Martu · Mis XV)",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Rosa",
+            "imagen": "assets/products/vaso-glitter-personalizado-rosa-mtqgzs6s.webp",
+            "color": "#f4a6bd",
+            "fotos": [
+              "assets/products/vaso-glitter-personalizado-rosa-mtqgzs6s.webp",
+              "assets/products/vaso-glitter-deluxe-tapa-rosca-con-luces-rosa-mtwddnft.webp"
+            ]
+          },
+          {
+            "valor": "Violeta",
+            "imagen": "assets/products/vaso-glitter-personalizado-violeta-mtqgzv56.webp",
+            "color": "#a35fd6"
+          },
+          {
+            "valor": "Azul",
+            "imagen": "assets/products/vaso-glitter-personalizado-azul-mtqgzzl3.webp",
+            "color": "#2d4fd6"
+          },
+          {
+            "valor": "Plateado",
+            "imagen": "assets/products/vaso-glitter-personalizado-plateado-mtqh04dg.webp",
+            "color": "#c9c9cf",
+            "fotos": [
+              "assets/products/vaso-glitter-personalizado-plateado-mtqh04dg.webp",
+              "assets/products/vaso-glitter-deluxe-plateado-mttf190v.webp"
+            ]
+          },
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/vaso-glitter-personalizado-negro-mtqh079m.webp",
+            "color": "#2b2b2e"
+          },
+          {
+            "valor": "Dorado",
+            "imagen": "assets/products/vaso-glitter-personalizado-dorado-mtqh0nvc.webp",
+            "color": "#c49736"
+          },
+          {
+            "valor": "Celeste",
+            "imagen": "assets/products/vaso-glitter-personalizado-celeste-mtqh149v.webp",
+            "color": "#90d9f9"
+          },
+          {
+            "valor": "Verde",
+            "imagen": "assets/products/vaso-glitter-personalizado-verde-mtqh1v41.webp",
+            "color": "#107e31"
+          },
+          {
+            "valor": "Rojo",
+            "imagen": "assets/products/vaso-glitter-personalizado-rojo-mtqh27mg.webp",
+            "color": "#db0f35",
+            "fotos": [
+              "assets/products/vaso-glitter-personalizado-rojo-mtqh27mg.webp",
+              "assets/products/vaso-glitter-deluxe-tapa-rosca-con-luces-rojo-mtwddrr7.webp"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "vaso-glitter-deluxe-copia",
     "nombre": "Vaso Tipo Starbucks Tapa Rosca doble capa",
     "categoria": "Vasos",
