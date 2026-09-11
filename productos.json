@@ -762,5 +762,67 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vasos-acrilicos-750ml-con-luces",
+    "nombre": "Vasos Acrilicos 750ml con luces",
+    "categoria": "Vasos",
+    "descripcion": "Vasos Acrilicos 750ml con luces\nTu pedido podria estar listo entre 3 a 10 dias hábiles",
+    "precio": 6500,
+    "imagen": "assets/products/vasos-acrilicos-750ml-con-luces-mtwdb8ta.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "rosa",
+            "imagen": "",
+            "color": "#ffcfd8"
+          },
+          {
+            "valor": "blanco",
+            "imagen": "",
+            "color": "#ffffff"
+          },
+          {
+            "valor": "azul",
+            "imagen": "",
+            "color": "#1411d4"
+          },
+          {
+            "valor": "negro",
+            "imagen": "",
+            "color": "#000000"
+          },
+          {
+            "valor": "rojo",
+            "imagen": "",
+            "color": "#e70d35"
+          },
+          {
+            "valor": "lila",
+            "imagen": "",
+            "color": "#fba2f4"
+          },
+          {
+            "valor": "violeta",
+            "imagen": "",
+            "color": "#830b93"
+          },
+          {
+            "valor": "transparente",
+            "imagen": "",
+            "color": "#c2c2c2"
+          }
+        ]
+      }
+    ]
   }
 ]
