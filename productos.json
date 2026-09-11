@@ -695,5 +695,72 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vasos-acrilicos-500ml-con-luces",
+    "nombre": "Vasos Acrilicos 500ml con luces",
+    "categoria": "Vasos",
+    "descripcion": "Vasos Acrilicos 500ml con luces",
+    "precio": 4000,
+    "imagen": "assets/products/vasos-acrilicos-500ml-con-luces-mtwd62t0.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Rosa",
+            "imagen": "assets/products/vasos-acrilicos-500ml-con-luces-rosa-mtwd6e0h.webp",
+            "color": "#ffcfd8"
+          },
+          {
+            "valor": "Blanco",
+            "imagen": "assets/products/vasos-acrilicos-500ml-con-luces-blanco-mtwd6m0o.webp",
+            "color": "#fafafa"
+          },
+          {
+            "valor": "Azul",
+            "imagen": "",
+            "color": "#0022a8"
+          },
+          {
+            "valor": "Rojo",
+            "imagen": "",
+            "color": "#f5002d"
+          },
+          {
+            "valor": "Negro",
+            "imagen": "",
+            "color": "#000000"
+          },
+          {
+            "valor": "Fucsia",
+            "imagen": "",
+            "color": "#f42f8e"
+          },
+          {
+            "valor": "Lila",
+            "imagen": "",
+            "color": "#fcd1ff"
+          },
+          {
+            "valor": "Violeta",
+            "imagen": "",
+            "color": "#8c14b8"
+          },
+          {
+            "valor": "Transparente",
+            "imagen": "",
+            "color": "#e6e6e6"
+          }
+        ]
+      }
+    ]
   }
 ]
