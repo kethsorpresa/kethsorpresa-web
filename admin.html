@@ -251,7 +251,7 @@
     </div>
     <div class="seccion" style="margin-top:16px">
       <h3>Cupones de descuento <button type="button" class="btn btn-c btn-sm" onclick="agregarCupon()">+ Agregar cupón</button></h3>
-      <div class="desc">El cliente escribe el código en el carrito y el descuento se aplica solo. % = porcentaje del total, $ = monto fijo. Código vacío = no se muestra.</div>
+      <div class="desc">El cliente escribe el código en el carrito y el descuento se aplica solo. % = porcentaje del total, $ = monto fijo. Código vacío = no se muestra.<br><b>Mostrar en la web:</b> si lo destildás, el cupón es privado (ej. para un cliente puntual): funciona igual si el cliente escribe el código, pero NO aparece en la cuponera pública.</div>
       <div id="cuponesList"></div>
     </div>
     <div class="seccion" style="margin-top:16px">
@@ -540,8 +540,9 @@ function renderCupones(){
         </select>
       </div>
       <div class="campo"><label>Valor</label><input type="number" min="0" value="${Number(c.valor) || 0}" oninput="cuponCampo(${i},'valor',this.value)"><div class="nota">10 = 10% o $10</div></div>
-      <div class="campo" style="min-width:110px">
+      <div class="campo" style="min-width:140px">
         <label><input type="checkbox" ${c.activo === false ? "" : "checked"} onchange="cuponCampo(${i},'activo',this.checked)"> Activo</label>
+        <label style="margin-top:4px"><input type="checkbox" ${c.publico === false ? "" : "checked"} onchange="cuponCampo(${i},'publico',this.checked)"> Mostrar en la web</label>
         <button type="button" class="btn btn-d btn-sm" onclick="quitarCupon(${i})" style="margin-top:6px">🗑 Quitar</button>
       </div>
     </div>`).join("") : `<div class="nota">Todavía no hay cupones. Tocá “+ Agregar cupón”.</div>`;
@@ -549,9 +550,9 @@ function renderCupones(){
 function cuponCampo(i, k, v){
   const cs = AJUSTES.cupones || (AJUSTES.cupones = []);
   if (!cs[i]) return;
-  cs[i][k] = k === "valor" ? (Number(v) || 0) : (k === "activo" ? !!v : String(v).trim().toUpperCase());
+  cs[i][k] = k === "valor" ? (Number(v) || 0) : ((k === "activo" || k === "publico") ? !!v : String(v).trim().toUpperCase());
 }
-function agregarCupon(){ (AJUSTES.cupones || (AJUSTES.cupones = [])).push({ codigo: "", tipo: "porcentaje", valor: 10, activo: true }); renderCupones(); }
+function agregarCupon(){ (AJUSTES.cupones || (AJUSTES.cupones = [])).push({ codigo: "", tipo: "porcentaje", valor: 10, activo: true, publico: true }); renderCupones(); }
 function quitarCupon(i){ AJUSTES.cupones.splice(i, 1); renderCupones(); }
 function renderBanners(){
   const bs = AJUSTES.banners || (AJUSTES.banners = []);
@@ -593,7 +594,8 @@ function guardarAjustes(){
     codigo: String(c.codigo).trim().toUpperCase(),
     tipo: c.tipo === "monto" ? "monto" : "porcentaje",
     valor: Math.max(0, Number(c.valor) || 0),
-    activo: c.activo !== false
+    activo: c.activo !== false,
+    publico: c.publico !== false
   }));
   AJUSTES = { promo: $("a_promo").value.trim(), heroTitulo: $("a_heroTitulo").value.trim(), heroTexto: $("a_heroTexto").value.trim(), tipografia: { titulos: $("a_tipografia_titulos").value || "fraunces", nombres: $("a_tipografia_nombres").value || "fraunces", precios: $("a_tipografia_precios").value || "fraunces", texto: $("a_tipografia_texto").value || "manrope" }, tamano: { titulos: parseFloat($("a_tamano_titulos").value) || 1, nombres: parseFloat($("a_tamano_nombres").value) || 1, precios: parseFloat($("a_tamano_precios").value) || 1, texto: parseFloat($("a_tamano_texto").value) || 1 }, whatsapp: wa, instagram: $("a_instagram").value.trim().replace(/^@/, ""), tiktok: $("a_tiktok").value.trim().replace(/^@/, ""), cupones, banners: (AJUSTES.banners || []).filter(b => b && b.imagen) };
   cerrarAjustes(); render(); toast("Ajustes aplicados. Recordá “Guardar y publicar”.");

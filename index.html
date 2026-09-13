@@ -879,7 +879,7 @@ function quitarCupon(){ cuponAplicado = null; actualizar(); }
 function pintarCuponera(){
   const sec = $("cuponera"), grid = $("cupGrid");
   if (!sec || !grid) return;
-  const activos = (CUPONES || []).filter(c => c && c.activo !== false && String(c.codigo || "").trim());
+  const activos = (CUPONES || []).filter(c => c && c.activo !== false && c.publico !== false && String(c.codigo || "").trim());
   if (!activos.length){ sec.hidden = true; grid.innerHTML = ""; return; }
   grid.innerHTML = activos.map(c => {
     const cod = String(c.codigo).trim().toUpperCase();
