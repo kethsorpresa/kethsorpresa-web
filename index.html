@@ -102,6 +102,21 @@
   .banners-dots button{width:9px;height:9px;border-radius:50%;border:none;padding:0;background:#ecc9d6;cursor:pointer;transition:background .2s,transform .2s}
   .banners-dots button.on{background:var(--acento);transform:scale(1.25)}
   @media(max-width:600px){.banners-track img.t-chico{aspect-ratio:16/6}.banners-track img.t-mediano{aspect-ratio:16/10}.banners-track img.t-grande{aspect-ratio:1/1}}
+  /* Cuponera pública */
+  .cuponera{max-width:1080px;margin:0 auto;padding:22px 20px 0}
+  .cuponera[hidden]{display:none}
+  .cup-head{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .cup-head h2{font-size:calc(1.15rem * var(--escala-titulos));margin:0}
+  .cup-head span{font-size:.82rem;color:var(--ink-3)}
+  .cup-grid{display:flex;gap:12px;overflow-x:auto;padding:2px 2px 8px;scroll-snap-type:x proximity}
+  .cup-card{flex:0 0 auto;display:flex;align-items:center;gap:12px;background:#fff;border:1px dashed var(--acento);border-radius:14px;padding:10px 14px;scroll-snap-align:start;box-shadow:0 2px 10px rgba(194,54,100,.07)}
+  .cup-val{font-weight:800;font-size:1.25rem;color:var(--acento-deep);line-height:1;white-space:nowrap;text-align:center}
+  .cup-val small{display:block;font-size:.58rem;font-weight:700;letter-spacing:.05em;margin-top:3px;text-transform:uppercase}
+  .cup-mid{min-width:0}
+  .cup-code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:800;font-size:.95rem;letter-spacing:.06em;color:var(--ink)}
+  .cup-note{font-size:.72rem;color:var(--ink-3)}
+  .cup-use{background:var(--acento);color:#fff;border:0;border-radius:10px;padding:9px 14px;font-weight:700;font-size:.82rem;cursor:pointer;flex-shrink:0}
+  .cup-use:hover{filter:brightness(1.1)}
   .pill{white-space:nowrap;font-size:.86rem;font-weight:600;color:var(--ink-3);padding:14px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;flex-shrink:0}
   .pill:hover{color:var(--ink)}
   .pill.on{color:var(--ink);border-bottom-color:var(--acento)}
@@ -366,6 +381,11 @@
   <div class="banners-viewport"><div class="banners-track" id="bannersTrack"></div></div>
   <div class="banners-dots" id="bannersDots"></div>
 </div>
+
+<section class="cuponera" id="cuponera" hidden aria-labelledby="cupTitle">
+  <div class="cup-head"><h2 id="cupTitle">🎟️ Cuponera</h2><span>tocá un cupón y se aplica en tu pedido</span></div>
+  <div class="cup-grid" id="cupGrid"></div>
+</section>
 
 <section class="section destacados" id="destacados" aria-labelledby="destTitle">
   <div class="sec-head"><h2 id="destTitle">Destacados</h2></div>
@@ -856,6 +876,29 @@ function aplicarCupon(){
   toast("Cupón aplicado 🎉");
 }
 function quitarCupon(){ cuponAplicado = null; actualizar(); }
+function pintarCuponera(){
+  const sec = $("cuponera"), grid = $("cupGrid");
+  if (!sec || !grid) return;
+  const activos = (CUPONES || []).filter(c => c && c.activo !== false && String(c.codigo || "").trim());
+  if (!activos.length){ sec.hidden = true; grid.innerHTML = ""; return; }
+  grid.innerHTML = activos.map(c => {
+    const cod = String(c.codigo).trim().toUpperCase();
+    const esMonto = c.tipo === "monto";
+    const val = Math.max(0, Number(c.valor) || 0);
+    return `<div class="cup-card">
+      <div class="cup-val">${esMonto ? fmt(val) : val + "%"}<small>${esMonto ? "de desc." : "OFF"}</small></div>
+      <div class="cup-mid"><div class="cup-code">${esc(cod)}</div><div class="cup-note">en todo el pedido</div></div>
+      <button class="cup-use ios-press" data-cod="${esc(cod)}" type="button">Usar</button>
+    </div>`;
+  }).join("");
+  grid.querySelectorAll(".cup-use").forEach(b => b.addEventListener("click", () => usarCupon(b.dataset.cod)));
+  sec.hidden = false;
+}
+function usarCupon(cod){
+  const inp = $("cuponInput"); if (inp) inp.value = cod;
+  if (Object.values(carrito).length){ aplicarCupon(); abrirCarrito(); }
+  else toast("Cupón " + cod + " listo: se aplica cuando agregues productos 🎟️");
+}
 function pintarCupon(count, subtotal, descuento){
   const area = $("cuponArea"); if (!area) return;
   area.style.display = count ? "" : "none";
@@ -1197,6 +1240,7 @@ function aplicarAjustes(a){
   if (a.instagram){ INSTAGRAM = String(a.instagram).replace(/^@/, ""); $("igLink").href = $("igFoot").href = "https://www.instagram.com/" + INSTAGRAM; }
   if (a.tiktok){ TIKTOK = String(a.tiktok).replace(/^@/, ""); const tf = document.getElementById("ttFoot"); if (tf) tf.href = "https://www.tiktok.com/@" + TIKTOK; const tl = document.getElementById("ttLink"); if (tl) tl.href = "https://www.tiktok.com/@" + TIKTOK; }
   if (Array.isArray(a.cupones)) CUPONES = a.cupones;
+  pintarCuponera();
   const banners = $("banners");
   if (banners){
     const bs = Array.isArray(a.banners) ? a.banners.filter(b => b && b.imagen) : [];
