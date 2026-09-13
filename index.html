@@ -72,7 +72,7 @@
 
   /* Hero */
   .hero-wrap{background:var(--marca)}
-  .hero{max-width:1080px;margin:0 auto;padding:clamp(28px,3.5vw,40px) 20px clamp(36px,4.5vw,54px);text-align:center}
+  .hero{max-width:1080px;margin:0 auto;padding:14px 20px 22px;text-align:center}
 
   .hero h1{font-size:calc(clamp(1.9rem,4.5vw,3rem) * var(--escala-titulos));line-height:1.1;margin:0 auto 12px;max-width:18ch;opacity:0;animation:fade .7s .15s forwards}
   .hero h1 em{font-style:italic;color:var(--acento-deep)}
@@ -375,8 +375,8 @@
 <div class="hero-wrap">
   <video class="hero-video" src="assets/hero/portada.mp4?v=3" poster="assets/hero/portada-poster.jpg?v=3" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>
   <section class="hero" aria-labelledby="heroTitle">
-    <h1 id="heroTitle">El regalo <em>ideal</em>, con tu nombre.</h1>
-    <p id="heroText">Vasos y tazas personalizadas, cotillón y decoración. Elegí el color, escribí el texto y pedí por WhatsApp.</p>
+    <h1 id="heroTitle" class="sr-only">El regalo <em>ideal</em>, con tu nombre.</h1>
+    <p id="heroText" class="sr-only">Vasos y tazas personalizadas, cotillón y decoración. Elegí el color, escribí el texto y pedí por WhatsApp.</p>
     <a href="#catalogo" class="hero-cta ios-press">Ver catálogo →</a>
   </section>
 </div>
