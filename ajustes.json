@@ -1,31 +1,25 @@
 {
-  "promo": "USA ESTE CUPON DE DESCUENTO HASTA FIN DE MES DE 10% OFF \"WEB10\"  - ENVIOS A TODO EL PAIS 🚚",
-  "heroTitulo": "El regalo *ideal*",
-  "heroTexto": "Vasos y souvenirs personalizados.\nElegí el color, escribí el texto y confirma tu pedido",
+  "promo": "",
+  "heroTitulo": "",
+  "heroTexto": "",
   "tipografia": {
-    "titulos": "sofia",
+    "titulos": "fraunces",
     "nombres": "fraunces",
     "precios": "fraunces",
-    "texto": "fraunces"
+    "texto": "manrope"
   },
   "tamano": {
-    "titulos": 1.3,
+    "titulos": 1,
     "nombres": 1,
     "precios": 1,
     "texto": 1
   },
-  "whatsapp": "5491127118602",
-  "instagram": "kethsorpresa",
+  "whatsapp": "",
+  "instagram": "",
   "tiktok": "",
   "cupones": [
     {
       "codigo": "WEB10",
-      "tipo": "porcentaje",
-      "valor": 10,
-      "activo": true
-    },
-    {
-      "codigo": "KETH10",
       "tipo": "porcentaje",
       "valor": 10,
       "activo": true
