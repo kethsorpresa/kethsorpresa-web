@@ -20,9 +20,17 @@
   "cupones": [
     {
       "codigo": "WEB10",
-      "tipo": "PORCENTAJE",
+      "tipo": "porcentaje",
       "valor": 10,
-      "activo": true
+      "activo": true,
+      "publico": true
+    },
+    {
+      "codigo": "KETH10",
+      "tipo": "porcentaje",
+      "valor": 10,
+      "activo": true,
+      "publico": false
     }
   ],
   "banners": [
