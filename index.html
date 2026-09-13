@@ -182,6 +182,11 @@
   .foot-redes{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
   .foot-redes>span{font-size:.76rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3)}
   .envio-hint{font-size:.76rem;color:var(--ink-3);line-height:1.4;margin:-2px 0 6px}
+  .foot-local{max-width:1080px;margin:20px auto 0;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 24px;text-align:center;font-size:.86rem;color:var(--ink-2)}
+  .foot-local span{display:inline-flex;align-items:center;gap:6px}
+  .foot-local b{color:var(--ink);font-weight:700}
+  .foot-local a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
+  .foot-local a:hover{color:var(--ink);border-color:var(--ink-3)}
   .foot-admin{font-size:.78rem;color:var(--ink-3);text-align:center;margin-top:18px}
   .foot-admin a:hover{color:var(--ink)}
   .topbar{background:var(--marca-suave);color:var(--ink);font-size:.82rem;font-weight:600;padding:9px 0;border-bottom:1px solid var(--line);overflow:hidden;white-space:nowrap}
@@ -426,6 +431,10 @@
         <button type="button" onclick="waConsulta()">WhatsApp</button>
       </div>
     </div>
+  </div>
+  <div class="foot-local">
+    <span>📍 <b><a href="https://maps.google.com/?q=Av.+Mitre+6469,+Wilde,+Buenos+Aires" target="_blank" rel="noopener">Av. Mitre 6469</a></b> — Local KethSorpresa, Wilde</span>
+    <span>🕒 Lunes a viernes de 11 a 18 hs</span>
   </div>
   <div class="foot-admin"><a href="admin.html">Administrar tienda</a></div>
 </footer>
