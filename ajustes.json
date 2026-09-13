@@ -20,7 +20,7 @@
   "cupones": [
     {
       "codigo": "WEB10",
-      "tipo": "porcentaje",
+      "tipo": "PORCENTAJE",
       "valor": 10,
       "activo": true
     }
