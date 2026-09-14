@@ -415,7 +415,7 @@
   </div>
   <div class="faq">
     <details><summary>¿Cómo pago?</summary><p>Por transferencia bancaria: alias <strong>Kethsorpresa</strong>, titular <strong>Rossimar Marcano</strong>. Envianos el comprobante por WhatsApp para confirmar tu pedido. <strong>Importante:</strong> el pedido se toma en cuenta solo si acreditás la transferencia dentro de las <strong>24 horas</strong> de hacerlo.</p></details>
-    <details><summary>¿Cuánto tarda un producto personalizado?</summary><p>Depende del producto y la cantidad. Te confirmamos el tiempo de entrega por WhatsApp apenas recibimos el pedido.</p></details>
+    <details><summary>¿Cuánto tarda un producto personalizado?</summary><p>Depende de la cantidad de vasos: <strong>hasta 10 vasos, 2 días</strong>; <strong>más de 10 vasos, una semana</strong>. Al hacer el pedido elegís el día de entrega o retiro en el calendario, desde la fecha más próxima que te habilita.</p></details>
     <details><summary>¿Hacen envíos?</summary><p>Sí. Enviamos por <strong>Correo Argentino o Vía Cargo a la sucursal</strong> que elijas: cuando confirmás el pedido te pedimos la calle y altura de esa sucursal y coordinamos el costo por WhatsApp. También podés retirar sin cargo por el local: <strong>Av. Mitre 6469, Wilde</strong>.</p></details>
     <details><summary>¿Puedo pedir algo que no está en el catálogo?</summary><p>Sí. Escribinos por WhatsApp, Instagram o TikTok y lo vemos.</p></details>
   </div>
@@ -467,6 +467,9 @@
         <p class="envio-hint">Elegí la sucursal de Correo Argentino o Vía Cargo donde querés retirar y escribinos su calle y altura. Te confirmamos el costo por WhatsApp.</p>
       </div>
       <div id="retiroInfo" class="retiro-info" style="display:none">Retirás por el local: <strong>Av. Mitre 6469, Wilde</strong> — te confirmamos por WhatsApp cuándo está listo.</div>
+      <h4>¿Para cuándo lo necesitás?</h4>
+      <input type="date" id="fechaEntrega" aria-label="Día en que querés que te lo enviemos o lo retirás" onchange="fechaCambio()">
+      <p class="envio-hint" id="fechaHint">Elegí el día de entrega o retiro.</p>
       <label class="sr-only" for="nota">Nota para el pedido</label>
       <textarea id="nota" rows="2" placeholder="Nota (opcional): fecha del evento, más detalles…"></textarea>
       <h4>¿Cómo nos enviás el pedido?</h4>
@@ -836,6 +839,7 @@ function actualizar(){
   pintarCupon(count, subtotal, descuento);
   $("checkout").disabled = count === 0;
   $("datos").style.display = count ? "" : "none";
+  actualizarFecha();
   const cont = $("items");
   if (!items.length){ cont.innerHTML = `<div class="empty">Tu pedido está vacío.</div>`; return; }
   cont.innerHTML = items.map(([k, i]) => {
@@ -949,6 +953,50 @@ function toggleEntrega(){
       : "Te confirmamos el costo del envío a esa sucursal por WhatsApp.");
 }
 
+// ---------- Plazo de entrega ----------
+// Hasta 10 vasos: 2 días. Más de 10 vasos: 1 semana. Después, el cliente elige el día.
+const LIMITE_VASOS = 10;
+const DIAS_PLAZO_CORTO = 2;
+const DIAS_PLAZO_LARGO = 7;
+function vasosEnPedido(){
+  return Object.values(carrito).reduce((s, i) => {
+    const p = PRODUCTOS.find(x => x.id === i.id);
+    const cat = String((p && p.categoria) || "");
+    return s + (/vaso/i.test(cat) ? i.qty : 0);
+  }, 0);
+}
+function plazoDias(){ return vasosEnPedido() > LIMITE_VASOS ? DIAS_PLAZO_LARGO : DIAS_PLAZO_CORTO; }
+function fechaISO(d){
+  const p = n => String(n).padStart(2, "0");
+  return d.getFullYear() + "-" + p(d.getMonth() + 1) + "-" + p(d.getDate());
+}
+function fechaMinima(){
+  const d = new Date(); d.setHours(12, 0, 0, 0); d.setDate(d.getDate() + plazoDias());
+  return fechaISO(d);
+}
+function fechaTexto(iso){
+  const [y, m, d] = String(iso).split("-").map(Number);
+  if (!y || !m || !d) return iso || "";
+  return new Date(y, m - 1, d).toLocaleDateString("es-AR", { weekday: "long", day: "numeric", month: "long" });
+}
+function actualizarFecha(){
+  const inp = $("fechaEntrega"), hint = $("fechaHint");
+  if (!inp) return;
+  const min = fechaMinima();
+  inp.min = min;
+  if (!inp.value || inp.value < min) inp.value = min;
+  if (!hint) return;
+  const vasos = vasosEnPedido();
+  if (vasos > LIMITE_VASOS) hint.textContent = `Con ${vasos} vasos la demora es de una semana (${DIAS_PLAZO_LARGO} días). Podés elegir desde el ${fechaTexto(min)}.`;
+  else if (vasos > 0) hint.textContent = `Con ${vasos} vaso${vasos === 1 ? "" : "s"} la demora es de ${DIAS_PLAZO_CORTO} días. Podés elegir desde el ${fechaTexto(min)}.`;
+  else hint.textContent = `Elegí el día de entrega o retiro — el más próximo es el ${fechaTexto(min)}.`;
+}
+function fechaCambio(){
+  const inp = $("fechaEntrega"); if (!inp) return;
+  if (!inp.value || inp.value < inp.min){ inp.value = inp.min; toast("El día más temprano es " + fechaTexto(inp.min)); }
+  inp.classList.remove("err");
+}
+
 function enviarPedido(){
   const items = Object.values(carrito);
   if (!items.length) return toast("Agregá algo al pedido primero");
@@ -980,6 +1028,12 @@ function enviarPedido(){
       : "Completá tu nombre, WhatsApp y la calle y altura de la sucursal elegida");
   }
   if (falta) return toast(porMail ? "Completá tu nombre y tu mail" : "Completá tu nombre y WhatsApp");
+  const elFecha = $("fechaEntrega");
+  const fechaIso = elFecha ? elFecha.value : "";
+  if (!fechaIso){ if (elFecha) elFecha.classList.add("err"); return toast("Elegí para qué día lo necesitás"); }
+  if (fechaIso < elFecha.min){ if (elFecha) elFecha.classList.add("err"); return toast("El día más temprano es " + fechaTexto(elFecha.min)); }
+  elFecha.classList.remove("err");
+  const fechaTxt = fechaTexto(fechaIso);
   const subtotal = items.reduce((s, i) => s + i.qty * i.precio, 0);
   const descuento = cuponAplicado ? descuentoDe(subtotal) : 0;
   const total = subtotal - descuento;
@@ -999,6 +1053,7 @@ function enviarPedido(){
   msg += `Datos para transferir:\nAlias: Kethsorpresa\nTitular: Rossimar Marcano\n\n`;
   msg += `Después de pagar, envianos el comprobante por este WhatsApp para confirmar tu pedido.\n\n`;
   msg += `Aviso: el pedido se toma en cuenta solo si la transferencia se acredita dentro de las 24 horas de hecho.\n\n`;
+  msg += `📅 Día de ${retiro ? "retiro" : "entrega"}: ${fechaTxt}\n\n`;
   if (retiro){
     msg += `Retiro por el local: Av. Mitre 6469, Wilde\n\n`;
   } else {
@@ -1015,6 +1070,7 @@ function enviarPedido(){
     cliente: cli,
     entrega: retiro ? "retiro" : "envio",
     direccion: retiro ? { sucursal: "Retiro por el local — Av. Mitre 6469, Wilde" } : { sucursal: dir.sucursal },
+    fecha: { iso: fechaIso, texto: fechaTxt },
     nota,
     canal: porMail ? "mail" : "whatsapp",
     whatsapp: WHATSAPP
