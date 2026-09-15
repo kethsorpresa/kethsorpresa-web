@@ -951,5 +951,21 @@
     "textoMax": 50,
     "precioPersonalizacion": 0,
     "variantes": []
+  },
+  {
+    "id": "oso-de-1-5-metros-2",
+    "nombre": "Oso de 1.5 metros",
+    "categoria": "Peluches",
+    "descripcion": "Oso de 1.5 metros marron",
+    "precio": 150000,
+    "imagen": "assets/products/oso-de-1-5-metros-mu2134om.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": false,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
+    "variantes": []
   }
 ]
