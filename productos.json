@@ -903,5 +903,21 @@
         ]
       }
     ]
+  },
+  {
+    "id": "bandeja-desayuno-brindis",
+    "nombre": "Bandeja desayuno brindis",
+    "categoria": "Regalos",
+    "descripcion": "Bandeja de desayuno Brindes incluye; 2 medialunas JYQ, 1 champan chico, 3 bombones rocher, 1 porcion de torta, mini nutella y un jugo.",
+    "precio": 90000,
+    "imagen": "assets/products/bandeja-desayuno-brindis-mu1zmth6.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": []
   }
 ]
