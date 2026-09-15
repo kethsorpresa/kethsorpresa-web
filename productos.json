@@ -967,5 +967,21 @@
     "textoMax": 12,
     "precioPersonalizacion": 0,
     "variantes": []
+  },
+  {
+    "id": "oso-sentado-con-flor-100-cm",
+    "nombre": "OSO SENTADO CON FLOR 100 CM",
+    "categoria": "Peluches",
+    "descripcion": "OSO SENTADO CON FLOR 100 CM",
+    "precio": 89000,
+    "imagen": "assets/products/oso-sentado-con-flor-100-cm-mu217l8s.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": false,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
+    "variantes": []
   }
 ]
