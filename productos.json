@@ -919,5 +919,21 @@
     "textoMax": 200,
     "precioPersonalizacion": 0,
     "variantes": []
+  },
+  {
+    "id": "oso-gigante-2-5-metros",
+    "nombre": "Oso Gigante 2.5 Metros",
+    "categoria": "Peluches",
+    "descripcion": "Oso Gigante 2 metros y medio",
+    "precio": 450000,
+    "imagen": "assets/products/oso-gigante-2-5-metros-mu20sg0o.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": false,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
+    "variantes": []
   }
 ]
