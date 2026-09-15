@@ -1015,5 +1015,21 @@
         ]
       }
     ]
+  },
+  {
+    "id": "oso-con-mono-100cm",
+    "nombre": "OSO CON MOÑO 100CM",
+    "categoria": "Peluches",
+    "descripcion": "OSO CON MOÑO 100CM",
+    "precio": 90000,
+    "imagen": "assets/products/oso-con-mono-100cm-mu21czgj.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": false,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
+    "variantes": []
   }
 ]
