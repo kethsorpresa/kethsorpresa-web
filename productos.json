@@ -1031,5 +1031,37 @@
     "textoMax": 12,
     "precioPersonalizacion": 0,
     "variantes": []
+  },
+  {
+    "id": "stich-23-cm",
+    "nombre": "Stich 23 cm",
+    "categoria": "Peluches",
+    "descripcion": "Stich 23 cm",
+    "precio": 13997,
+    "imagen": "assets/products/stich-23-cm-mu21iiht.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": false,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Rosa",
+            "imagen": "assets/products/stich-23-cm-rosa-mu21iopf.webp",
+            "color": "#ffcfd8"
+          },
+          {
+            "valor": "Celeste",
+            "imagen": "assets/products/stich-23-cm-celeste-mu21j13c.webp",
+            "color": "#449bf8"
+          }
+        ]
+      }
+    ]
   }
 ]
