@@ -983,5 +983,37 @@
     "textoMax": 12,
     "precioPersonalizacion": 0,
     "variantes": []
+  },
+  {
+    "id": "lotso-1-metro-toy-story",
+    "nombre": "LOTSO 1 METRO (TOY STORY)",
+    "categoria": "Peluches",
+    "descripcion": "LOTSO 1 METRO (TOY STORY)",
+    "precio": 220000,
+    "imagen": "assets/products/lotso-1-metro-toy-story-mu21a0hu.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": false,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Fucsia",
+            "imagen": "assets/products/lotso-1-metro-toy-story-0-mu21ack2.webp",
+            "color": "#fd267c",
+            "fotos": [
+              "assets/products/lotso-1-metro-toy-story-0-mu21ack2.webp",
+              "assets/products/lotso-1-metro-toy-story-0-mu21aej4.webp",
+              "assets/products/lotso-1-metro-toy-story-0-mu21ag67.webp"
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]
