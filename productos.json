@@ -250,22 +250,6 @@
     ]
   },
   {
-    "id": "copas",
-    "nombre": "Copas",
-    "categoria": "Souvenirs",
-    "descripcion": "",
-    "precio": 3500,
-    "imagen": "",
-    "destacado": false,
-    "agotado": true,
-    "stock": null,
-    "personalizable": false,
-    "textoEtiqueta": "Escribí tu texto",
-    "textoMax": 12,
-    "precioPersonalizacion": 0,
-    "variantes": []
-  },
-  {
     "id": "vasos-tumbler-1-litro",
     "nombre": "Vasos Tumbler 1 litro",
     "categoria": "Vasos",
