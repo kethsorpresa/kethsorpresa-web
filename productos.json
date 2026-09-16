@@ -1063,5 +1063,32 @@
     "textoMax": 12,
     "precioPersonalizacion": 0,
     "variantes": []
+  },
+  {
+    "id": "vasos-egresados-2026-500-ml",
+    "nombre": "Vasos Egresados 2026 500 ML",
+    "categoria": "Egresados",
+    "descripcion": "Vasos Egresados 2026 500 ML diseño promo deluxe",
+    "precio": 3200,
+    "imagen": "assets/products/vasos-egresados-2026-500-ml-mu3dvkbp.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/vasos-egresados-2026-500-ml-negro-mu3dw5du.webp",
+            "color": "#000000"
+          }
+        ]
+      }
+    ]
   }
 ]
