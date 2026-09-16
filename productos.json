@@ -1105,6 +1105,27 @@
     "textoEtiqueta": "Escribí tu texto",
     "textoMax": 200,
     "precioPersonalizacion": 0,
-    "variantes": []
+    "variantes": [
+      {
+        "nombre": "TEAM NOVIA",
+        "opciones": [
+          {
+            "valor": "TEAM NOVIA",
+            "imagen": "",
+            "color": "#ffcfd8"
+          }
+        ]
+      },
+      {
+        "nombre": "TEAM BRIDE",
+        "opciones": [
+          {
+            "valor": "TEAM BRIDE",
+            "imagen": "",
+            "color": "#ffcfd8"
+          }
+        ]
+      }
+    ]
   }
 ]
