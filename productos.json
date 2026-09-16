@@ -1090,5 +1090,21 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vasos-despedidida-de-soltera-acrilicos-500ml",
+    "nombre": "Vasos despedidida de soltera acrilicos 500ML",
+    "categoria": "Despedida de Soltera",
+    "descripcion": "Vasos despedidida de soltera Bride y Team Bride, team novia y novia de 500 ML acrilicos \"Podes agregar el nombre de todas tus invitadas\"",
+    "precio": 3200,
+    "imagen": "assets/products/vasos-despedidida-de-soltera-500ml-mu3ea7ku.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": []
   }
 ]
