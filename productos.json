@@ -373,6 +373,15 @@
             "valor": "Verde Agua",
             "imagen": "assets/products/vasos-acrilicos-475ml-personalizados-verde-agua-mtqgsu35.webp",
             "color": "#03fcdf"
+          },
+          {
+            "valor": "Celeste",
+            "imagen": "assets/products/vasos-acrilicos-transparentes-500-ml-celeste-muab0znr.webp",
+            "color": "#4a9bf2",
+            "fotos": [
+              "assets/products/vasos-acrilicos-transparentes-500-ml-celeste-muab0znr.webp",
+              "assets/products/vasos-acrilicos-transparentes-500-ml-celeste-muab11qf.webp"
+            ]
           }
         ]
       }
