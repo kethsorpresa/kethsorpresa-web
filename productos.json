@@ -1214,5 +1214,52 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vaso-traslucido-glitter-con-luces",
+    "nombre": "Vaso traslúcido glitter con luces",
+    "categoria": "Vasos",
+    "descripcion": "Vaso traslúcido glitter con luces de 500 ml",
+    "precio": 4500,
+    "imagen": "assets/products/vaso-traslucido-glitter-con-luces-mubcpk7u.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Rosa",
+            "imagen": "",
+            "color": "#ffcfd8"
+          },
+          {
+            "valor": "Azul",
+            "imagen": "",
+            "color": "#0000ff"
+          },
+          {
+            "valor": "Negro",
+            "imagen": "",
+            "color": "#000000"
+          },
+          {
+            "valor": "Blanco",
+            "imagen": "assets/products/vaso-traslucido-glitter-con-luces-3-mubcq8m6.webp",
+            "color": "#ffffff"
+          },
+          {
+            "valor": "Violeta",
+            "imagen": "assets/products/vaso-traslucido-glitter-con-luces-violeta-mubcqtvr.webp",
+            "color": "#4f1da1"
+          }
+        ]
+      }
+    ]
   }
 ]
