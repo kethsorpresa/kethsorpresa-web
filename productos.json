@@ -571,7 +571,7 @@
     "descripcion": "Vaso Negro solido 750 ML 18 cm de alto por 9.5cm de ancho\nTu pedido podria estar listo entre 3 a 10 dias depende de la cantidad nos adaptamos a tu necesidades",
     "precio": 4000,
     "imagen": "assets/products/vaso-negro-750-ml-personalizados-mttgdi61.webp",
-    "destacado": true,
+    "destacado": false,
     "agotado": false,
     "stock": null,
     "personalizable": true,
