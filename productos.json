@@ -1222,7 +1222,7 @@
     "descripcion": "Vaso traslúcido glitter con luces de 500 ml",
     "precio": 4500,
     "imagen": "assets/products/vaso-traslucido-glitter-con-luces-mubcpk7u.webp",
-    "destacado": false,
+    "destacado": true,
     "agotado": false,
     "stock": null,
     "personalizable": true,
