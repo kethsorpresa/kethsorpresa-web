@@ -920,7 +920,7 @@
     "descripcion": "Oso Gigante 2 metros y medio",
     "precio": 450000,
     "imagen": "assets/products/oso-gigante-2-5-metros-mu20sg0o.webp",
-    "destacado": true,
+    "destacado": false,
     "agotado": false,
     "stock": null,
     "personalizable": false,
