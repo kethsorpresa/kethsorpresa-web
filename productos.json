@@ -1177,5 +1177,42 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vasos-daimond-1-litro-egresados",
+    "nombre": "Vasos Daimond 1 Litro Egresados",
+    "categoria": "Egresados",
+    "descripcion": "Vasos Daimond 1 Litro Egresados ideal para destacar en tu evento",
+    "precio": 6000,
+    "imagen": "assets/products/vasos-daimond-1-litro-egresados-mualuh0j.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 12,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/vasos-daimond-1-litro-egresados-negro-mualutx1.webp",
+            "color": "#000000"
+          },
+          {
+            "valor": "Blanco",
+            "imagen": "assets/products/vasos-daimond-1-litro-egresados-blanco-mualv1u0.webp",
+            "color": "#ffffff"
+          },
+          {
+            "valor": "Dorado",
+            "imagen": "assets/products/vasos-daimond-1-litro-egresados-dorado-mualvjtg.webp",
+            "color": "#948d26"
+          }
+        ]
+      }
+    ]
   }
 ]
