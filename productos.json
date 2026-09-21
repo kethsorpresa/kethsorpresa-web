@@ -1136,5 +1136,46 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vasos-con-strass-deluxe",
+    "nombre": "Vasos con strass deluxe",
+    "categoria": "Vasos",
+    "descripcion": "Vasos con strass deluxe",
+    "precio": 30000,
+    "imagen": "assets/products/vasos-con-strass-deluxe-mualqhkj.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 200,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Rosa",
+            "imagen": "assets/products/vasos-con-strass-deluxe-0-mualqrt6.webp",
+            "color": "#ffcfd8"
+          },
+          {
+            "valor": "Plateado",
+            "imagen": "assets/products/vasos-con-strass-deluxe-plateado-mualrbuj.webp",
+            "color": "#757575",
+            "fotos": [
+              "assets/products/vasos-con-strass-deluxe-plateado-mualrbuj.webp",
+              "assets/products/vasos-con-strass-deluxe-plateado-mualre8q.webp"
+            ]
+          },
+          {
+            "valor": "Dorado",
+            "imagen": "assets/products/vasos-con-strass-deluxe-2-mualrs9f.webp",
+            "color": "#ba9c18"
+          }
+        ]
+      }
+    ]
   }
 ]
