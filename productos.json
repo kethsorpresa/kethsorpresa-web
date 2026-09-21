@@ -256,7 +256,7 @@
     "descripcion": "Vasos Tumbler de 1 litro",
     "precio": 6500,
     "imagen": "assets/products/vasos-tumbler-1-litro-mttg654e.webp",
-    "destacado": true,
+    "destacado": false,
     "agotado": false,
     "stock": 100,
     "personalizable": true,
