@@ -1261,5 +1261,42 @@
         ]
       }
     ]
+  },
+  {
+    "id": "caja-desayuno-sorpresa-oso",
+    "nombre": "Caja Desayuno Sorpresa + Oso",
+    "categoria": "Desayunos",
+    "descripcion": "Incluye;\n* Dos medialunas JYQ\n* 1 mini Nutella\n* 3 bombones roche\n* 1 taza de cerámica \n* 1 jugo\n* Un oso de peluche mediano 22 cm",
+    "precio": 65000,
+    "imagen": "assets/products/caja-desayuno-sorpresa-oso-mucuae7t.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Frase del Globo y nombre",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Rosa",
+            "imagen": "",
+            "color": "#ffcfd8"
+          },
+          {
+            "valor": "Rojo",
+            "imagen": "",
+            "color": "#ff0000"
+          },
+          {
+            "valor": "Azul",
+            "imagen": "",
+            "color": "#0000ff"
+          }
+        ]
+      }
+    ]
   }
 ]
