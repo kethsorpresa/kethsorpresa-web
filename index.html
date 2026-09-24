@@ -85,7 +85,12 @@
   @keyframes fade{to{opacity:1;transform:translateY(0)}}
 
   /* Categorías */
-  .catbar{position:sticky;top:var(--header-h);z-index:40;background:rgba(255,255,255,.9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  /* --- Liquid Glass rosado: barra de categorías --- */
+  .catbar{position:sticky;top:var(--header-h);z-index:40;
+    background:linear-gradient(180deg,rgba(255,243,246,.92),rgba(255,226,236,.78));
+    backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%);
+    border-bottom:1px solid rgba(255,255,255,.75);
+    box-shadow:0 8px 26px -18px rgba(232,84,126,.6),inset 0 1px 0 rgba(255,255,255,.9)}
   .catbar-inner{max-width:1080px;margin:0 auto;padding:0 20px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
   .catbar-inner::-webkit-scrollbar{display:none}
   /* Banners promocionales — carrusel automático */
@@ -118,9 +123,15 @@
   .cup-note{font-size:.72rem;color:var(--ink-3)}
   .cup-use{background:var(--acento-deep);color:#fff;border:0;border-radius:10px;padding:9px 14px;font-weight:700;font-size:.82rem;cursor:pointer;flex-shrink:0}
   .cup-use:hover{filter:brightness(1.1)}
-  .pill{white-space:nowrap;font-size:.86rem;font-weight:600;color:var(--ink-3);padding:14px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s;flex-shrink:0}
+  .pill{white-space:nowrap;font-size:.86rem;font-weight:600;color:var(--ink-3);padding:14px 12px;border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .2s,border-color .2s,background .25s,box-shadow .25s;flex-shrink:0;position:relative;border-radius:12px}
   .pill:hover{color:var(--ink)}
-  .pill.on{color:var(--ink);border-bottom-color:var(--acento)}
+  /* separador entre categorías */
+  .catbar-inner .pill+.pill::before{content:"";position:absolute;left:-2px;top:28%;bottom:28%;width:1px;pointer-events:none;
+    background:linear-gradient(180deg,transparent,rgba(194,54,100,.34),transparent)}
+  /* categoría activa: cápsula de vidrio rosado */
+  .pill.on{color:var(--acento-deep);border-bottom-color:transparent;
+    background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,214,228,.62));
+    box-shadow:0 6px 18px -8px rgba(232,84,126,.6),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.45)}
 
   /* Secciones */
   .section{max-width:1080px;margin:0 auto;padding:0 20px}
@@ -129,7 +140,23 @@
   .sec-head h2{font-size:calc(clamp(1.6rem,2.6vw,2.1rem) * var(--escala-titulos));line-height:1.05;letter-spacing:-.02em}
   .sec-head .count{font-size:.8rem;color:var(--ink-3);font-weight:600}
   .catalogo{max-width:1080px;margin:0 auto;padding:var(--sec-y) 20px var(--sec-y)}
-  .cat-group{margin-bottom:var(--sec-y);scroll-margin-top:140px}
+  .cat-group{position:relative;margin-bottom:var(--sec-y);scroll-margin-top:140px}
+  /* separador rosado entre categorías */
+  .cat-group+.cat-group::before{content:"";position:absolute;left:3%;right:3%;top:calc(var(--sec-y) / -2);height:1px;pointer-events:none;
+    background:linear-gradient(90deg,transparent,rgba(232,84,126,.5) 20%,rgba(255,196,216,.95) 50%,rgba(232,84,126,.5) 80%,transparent);
+    box-shadow:0 0 16px 1px rgba(232,84,126,.25)}
+  /* título de categoría: panel de vidrio rosado */
+  #catalogo .cat-group .sec-head{position:relative;overflow:hidden;align-items:center;
+    padding:clamp(12px,1.7vw,16px) clamp(16px,2.2vw,22px);margin-bottom:26px;border-radius:20px;
+    background:radial-gradient(130% 170% at 10% -10%,rgba(255,255,255,.9),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.62),rgba(255,205,223,.52) 55%,rgba(255,238,244,.4));
+    border:1px solid rgba(255,255,255,.8);
+    backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);
+    box-shadow:0 14px 32px -18px rgba(232,84,126,.55),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.45)}
+  #catalogo .cat-group .sec-head::after{content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(105deg,transparent 34%,rgba(255,255,255,.55) 47%,transparent 59%)}
+  #catalogo .cat-group .sec-head>*{position:relative;z-index:1}
+  #catalogo .cat-group .sec-head .count{background:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.95);
+    color:var(--acento-deep);font-weight:700;padding:2px 10px;border-radius:999px;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
   .no-results{text-align:center;padding:60px 20px;color:var(--ink-3)}
 
   /* Cards */
