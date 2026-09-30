@@ -1058,22 +1058,6 @@
     ]
   },
   {
-    "id": "taza-cafe-mocha-21cm",
-    "nombre": "TAZA CAFE MOCHA 21CM",
-    "categoria": "Peluches",
-    "descripcion": "TAZA CAFE MOCHA 21CM",
-    "precio": 15000,
-    "imagen": "assets/products/taza-cafe-mocha-21cm-mu21mpsn.webp",
-    "destacado": false,
-    "agotado": false,
-    "stock": null,
-    "personalizable": false,
-    "textoEtiqueta": "Escribí tu texto",
-    "textoMax": 12,
-    "precioPersonalizacion": 0,
-    "variantes": []
-  },
-  {
     "id": "vasos-egresados-2026-500-ml",
     "nombre": "Vasos Egresados 2026 500 ML",
     "categoria": "Egresados",
