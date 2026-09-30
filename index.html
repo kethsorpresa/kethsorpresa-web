@@ -444,7 +444,7 @@
     </div>
   </div>
   <div class="faq">
-    <details><summary>¿Cómo pago?</summary><p>Por transferencia bancaria: alias <strong>Kethsorpresa</strong>, titular <strong>Rossimar Marcano</strong>. Envianos el comprobante por WhatsApp para confirmar tu pedido. <strong>Importante:</strong> el pedido se toma en cuenta solo si acreditás la transferencia dentro de las <strong>24 horas</strong> de hacerlo.</p></details>
+    <details><summary>¿Cómo pago?</summary><p>Por transferencia bancaria: alias <strong>keth.sorpresa</strong> (Banco Galicia), titular <strong>Rossimar Marcano</strong>. Envianos el comprobante por WhatsApp para confirmar tu pedido. <strong>Importante:</strong> el pedido se toma en cuenta solo si acreditás la transferencia dentro de las <strong>24 horas</strong> de hacerlo.</p></details>
     <details><summary>¿Cuánto tarda un producto personalizado?</summary><p>Depende de la cantidad de vasos: <strong>hasta 10 vasos, 2 días</strong>; <strong>más de 10 vasos, una semana</strong>. Al hacer el pedido elegís el día de entrega o retiro en el calendario, desde la fecha más próxima que te habilita.</p></details>
     <details><summary>¿Hacen envíos?</summary><p>Sí. Enviamos por <strong>Correo Argentino o Vía Cargo a la sucursal</strong> que elijas: cuando confirmás el pedido te pedimos la calle y altura de esa sucursal y coordinamos el costo por WhatsApp. También podés retirar sin cargo por el local: <strong>Av. Mitre 6469, Wilde</strong>.</p></details>
     <details><summary>¿Puedo pedir algo que no está en el catálogo?</summary><p>Sí. Escribinos por WhatsApp, Instagram o TikTok y lo vemos.</p></details>
@@ -487,7 +487,7 @@
       <input id="cliNombre" placeholder="Tu nombre" aria-label="Tu nombre" autocomplete="name" autocapitalize="words">
       <input id="cliTel" placeholder="Tu WhatsApp (11 1234-5678)" aria-label="Tu WhatsApp" inputmode="tel" autocomplete="tel">
       <h4>Forma de pago</h4>
-      <p class="pay-fijo">Transferencia bancaria a alias <strong>Kethsorpresa</strong> (titular: Rossimar Marcano). Envianos el comprobante por WhatsApp para confirmar tu pedido.</p>
+      <p class="pay-fijo">Transferencia bancaria a alias <strong>keth.sorpresa</strong> (Banco Galicia, titular: Rossimar Marcano). Envianos el comprobante por WhatsApp para confirmar tu pedido.</p>
       <p class="pay-urg">⚠️ Tenés <strong>24 horas</strong> desde que enviás el pedido para acreditar la transferencia. Si no, el pedido no se toma en cuenta.</p>
       <h4>¿Cómo lo recibís?</h4>
       <label class="entrega-opt"><input type="radio" name="entrega" value="envio" checked onchange="toggleEntrega()"> Envío a sucursal (Correo Argentino / Vía Cargo)</label>
@@ -1080,7 +1080,7 @@ function enviarPedido(){
   }
   msg += `\n*Total: ${fmt(total)}*${retiro ? "" : " (sin envío)"}\n\n`;
   msg += `Soy: ${cli.nombre} — ${cli.tel}\n\n`;
-  msg += `Datos para transferir:\nAlias: Kethsorpresa\nTitular: Rossimar Marcano\n\n`;
+  msg += `Datos para transferir:\nAlias: keth.sorpresa\nBanco: Galicia\nTitular: Rossimar Marcano\n\n`;
   msg += `Después de pagar, envianos el comprobante por este WhatsApp para confirmar tu pedido.\n\n`;
   msg += `Aviso: el pedido se toma en cuenta solo si la transferencia se acredita dentro de las 24 horas de hecho.\n\n`;
   msg += `📅 Día de ${retiro ? "retiro" : "entrega"}: ${fechaTxt}\n\n`;
