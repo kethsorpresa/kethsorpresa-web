@@ -19,9 +19,9 @@
   "tiktok": "",
   "cupones": [
     {
-      "codigo": "WEB10",
+      "codigo": "KETH5",
       "tipo": "porcentaje",
-      "valor": 10,
+      "valor": 5,
       "activo": true,
       "publico": true
     },
