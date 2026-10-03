@@ -1356,5 +1356,32 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vaso-negro-sin-tapa-420-ml-personalizado",
+    "nombre": "Vaso negro sin tapa 420 ML personalizado",
+    "categoria": "Vasos",
+    "descripcion": "Vaso negro sin tapa 420 ML personalizado",
+    "precio": 1600,
+    "imagen": "assets/products/vaso-negro-sin-tapa-420-ml-personalizado-musn28dq.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/vaso-negro-sin-tapa-420-ml-personalizado-negro-musn2oyz.webp",
+            "color": "#000000"
+          }
+        ]
+      }
+    ]
   }
 ]
