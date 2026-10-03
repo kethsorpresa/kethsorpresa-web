@@ -1282,5 +1282,21 @@
         ]
       }
     ]
+  },
+  {
+    "id": "kit-casamientio-vasos-y-antejos-personalizados",
+    "nombre": "Kit Casamientio vasos y antejos Personalizados",
+    "categoria": "Souvenirs",
+    "descripcion": "Kit Casamientio vasos glitter tipo starbucks y antejos Personalizados",
+    "precio": 35000,
+    "imagen": "assets/products/kit-casamientio-vasos-y-antejos-personalizados-musmfwph.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": []
   }
 ]
