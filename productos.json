@@ -1298,5 +1298,36 @@
     "textoMax": 120,
     "precioPersonalizacion": 0,
     "variantes": []
+  },
+  {
+    "id": "vasos-negro-420-ml-personalizado",
+    "nombre": "Vasos negro 420 ml personalizado",
+    "categoria": "Vasos",
+    "descripcion": "Vasos negro 420 ml personalizado tapa y sorbete reutilizable",
+    "precio": 2500,
+    "imagen": "assets/products/vasos-negro-420-ml-personalizado-musmw3h1.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/vasos-negro-420-ml-personalizado-negro-musmx39e.webp",
+            "color": "#000000",
+            "fotos": [
+              "assets/products/vasos-negro-420-ml-personalizado-negro-musmx39e.webp",
+              "assets/products/vasos-negro-420-ml-personalizado-negro-musmx6op.webp"
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]
