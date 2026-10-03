@@ -1329,5 +1329,32 @@
         ]
       }
     ]
+  },
+  {
+    "id": "vaso-negro-420-ml-egresados-promo-2026",
+    "nombre": "Vaso negro 420 ml egresados promo 2026",
+    "categoria": "Egresados",
+    "descripcion": "Vaso negro 420 ml egresados promo 2026",
+    "precio": 2500,
+    "imagen": "assets/products/vaso-negro-420-ml-egresados-promo-2026-musmyu85.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/vaso-negro-420-ml-egresados-promo-2026-negro-musmz8ku.webp",
+            "color": "#0d0c0c"
+          }
+        ]
+      }
+    ]
   }
 ]
