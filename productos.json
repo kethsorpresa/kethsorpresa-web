@@ -1383,5 +1383,21 @@
         ]
       }
     ]
+  },
+  {
+    "id": "bolsa-traslucida-personalizada",
+    "nombre": "Bolsa traslucida Personalizada",
+    "categoria": "Souvenirs",
+    "descripcion": "Bolsa traslucida Personalizada miden 24x15x8 cm",
+    "precio": 3000,
+    "imagen": "assets/products/bolsa-traslucida-personalizada-musu4bzl.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": []
   }
 ]
