@@ -1250,5 +1250,37 @@
         ]
       }
     ]
+  },
+  {
+    "id": "anteojos-personalizados-x1",
+    "nombre": "Anteojos Personalizados x1",
+    "categoria": "Souvenirs",
+    "descripcion": "Anteojos Personalizados x1 ideal casamiento, despedida de soltera, 15 años",
+    "precio": 7000,
+    "imagen": "assets/products/anteojos-personalizados-x1-musm86xf.webp",
+    "destacado": false,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Nombre y Fecha",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": [
+      {
+        "nombre": "Color",
+        "opciones": [
+          {
+            "valor": "Negro",
+            "imagen": "assets/products/anteojos-personalizados-x1-negro-musm8vsj.webp",
+            "color": "#000000"
+          },
+          {
+            "valor": "Blanco",
+            "imagen": "assets/products/anteojos-personalizados-x1-blanco-musm8q3x.webp",
+            "color": "#ffffff"
+          }
+        ]
+      }
+    ]
   }
 ]
