@@ -374,6 +374,30 @@
     *{animation:none!important;transition:none!important}
     .hero h1,.hero p,.hero-cta{opacity:1;transform:none}
   }
+/* ===== Raspadita: popup de bienvenida (1 vez cada 24 h por dispositivo) ===== */
+.ks-overlay{position:fixed;inset:0;background:rgba(107,33,56,.35);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:16px;z-index:9999}
+.ks-overlay.open{display:flex}
+.ks-modal{position:relative;width:100%;max-width:410px;background:#fff7f4;border-radius:26px;padding:30px 26px 20px;text-align:center;box-shadow:0 24px 60px rgba(107,33,56,.3);border:3px solid #fff;animation:ks-in .4s cubic-bezier(.2,.9,.3,1.25);font-family:'Manrope',system-ui,sans-serif;color:#3a2430}
+@keyframes ks-in{from{opacity:0;transform:translateY(16px) scale(.94)}}
+.ks-close{position:absolute;top:12px;right:12px;width:32px;height:32px;border:0;border-radius:50%;background:#ffcfd8;color:#6b2138;font-size:15px;cursor:pointer}
+.ks-logo{width:56px;height:56px;border-radius:50%;object-fit:cover;border:3px solid #ffcfd8;margin:-58px auto 10px;display:block;background:#fff;box-shadow:0 4px 12px rgba(107,33,56,.2)}
+.ks-tag{display:inline-block;background:#ffcfd8;color:#6b2138;font-weight:700;font-size:12px;padding:4px 12px;border-radius:99px;margin:0 0 10px}
+.ks-modal h2{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:30px;line-height:1.1;margin:0 0 8px;color:#6b2138}
+.ks-modal h2 em{font-style:italic;font-weight:400;color:#e0587a}
+.ks-sub{font-size:14px;line-height:1.45;margin:0 auto 18px;max-width:290px;color:#7b5a66}
+.ks-card{position:relative;height:132px;border-radius:16px;overflow:hidden;background:#fff;border:2px dashed #e0587a}
+.ks-prize{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.ks-prize small{font-weight:700;font-size:11px;color:#e0587a}
+.ks-prize b{font-family:'Fraunces',Georgia,serif;font-weight:500;font-size:42px;line-height:1;color:#6b2138}
+.ks-prize span{font-size:13px;margin-top:4px}
+.ks-prize code{background:#6b2138;color:#fff;padding:2px 9px;border-radius:6px;font-weight:700;letter-spacing:.05em}
+#ks-canvas{position:absolute;inset:0;width:100%;height:100%;cursor:grab;touch-action:none;transition:opacity .6s}
+#ks-canvas.done{opacity:0;pointer-events:none}
+.ks-cta{display:block;width:100%;margin-top:14px;padding:14px;border:0;border-radius:99px;background:#e0587a;color:#fff;font:700 15px 'Manrope',system-ui,sans-serif;cursor:pointer;opacity:0;transform:translateY(6px);pointer-events:none;transition:.4s}
+.ks-cta.show{opacity:1;transform:none;pointer-events:auto}
+.ks-foot{font-size:12px;color:#a58a94;margin:12px 0 0;min-height:18px}
+#ks-confeti{position:fixed;inset:0;pointer-events:none;z-index:10000}
+@media (prefers-reduced-motion: reduce){.ks-modal{animation:none}}
 </style>
 </head>
 <body>
@@ -1379,5 +1403,140 @@ function bannerAuto(){
 }
 function bannerStop(){ if (bannersTimer){ clearInterval(bannersTimer); bannersTimer = null; } }
 </script>
+
+<!-- ===== RASPADITA: popup de bienvenida (1 vez cada 24 h por dispositivo) ===== -->
+<div class="ks-overlay" id="ks-overlay" role="dialog" aria-modal="true" aria-labelledby="ks-title" aria-hidden="true">
+  <div class="ks-modal">
+    <button class="ks-close" id="ks-close" aria-label="Cerrar">&#10005;</button>
+    <img class="ks-logo" src="assets/logo/logo-redondo.webp" alt="KethSorpresa" onerror="this.style.display='none'">
+    <p class="ks-tag">&#127873; Sorpresa para vos</p>
+    <h2 id="ks-title">Prob&#225; tu <em>suerte</em></h2>
+    <p class="ks-sub">Rasp&#225; la tarjeta con el dedo o el mouse y descubr&#237; tu descuento.</p>
+    <div class="ks-card">
+      <div class="ks-prize">
+        <small>DESCUENTO EN TU PEDIDO</small>
+        <b id="ks-pct"></b>
+        <span>C&#243;digo: <code id="ks-code"></code></span>
+      </div>
+      <canvas id="ks-canvas"></canvas>
+    </div>
+    <button class="ks-cta" id="ks-cta">Usar mi descuento</button>
+    <p class="ks-foot" id="ks-foot">V&#225;lido por 24 hs. Un solo uso por pedido.</p>
+  </div>
+</div>
+<canvas id="ks-confeti"></canvas>
+<script>
+(function(){
+  // Premios: solo codigos que YA existen en la cuponera (ajustes.json).
+  // peso = probabilidad relativa (5% sale 70 de cada 100 veces).
+  var PREMIOS = [
+    {texto:"5% OFF",  codigo:"KETH5",  peso:70},
+    {texto:"10% OFF", codigo:"KETH10", peso:30}
+  ];
+  var DEMORA_MS = 2000;      // aparece 2 s despues de entrar
+  var UMBRAL    = 0.45;      // % raspado para revelar
+  var DESTINO   = "#catalogo";
+  var KEY       = "keth_raspadita"; // guarda la ultima vez que raspo
+
+  var $ = function(id){ return document.getElementById(id); };
+  var overlay = $("ks-overlay"), canvas = $("ks-canvas"), cta = $("ks-cta");
+  var ctx, drawing = false, revealed = false, premio = null, tMedir = 0;
+
+  function sortear(){
+    var total = 0, i;
+    for (i = 0; i < PREMIOS.length; i++) total += PREMIOS[i].peso;
+    var n = Math.random() * total;
+    for (i = 0; i < PREMIOS.length; i++){ n -= PREMIOS[i].peso; if (n < 0) return PREMIOS[i]; }
+    return PREMIOS[0];
+  }
+
+  function pintar(){
+    var r = canvas.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+    canvas.width = Math.round(r.width * d); canvas.height = Math.round(r.height * d);
+    ctx = canvas.getContext("2d"); ctx.setTransform(d, 0, 0, d, 0, 0);
+    ctx.globalCompositeOperation = "source-over";
+    var g = ctx.createLinearGradient(0, 0, r.width, r.height);
+    g.addColorStop(0, "#f6b8c6"); g.addColorStop(.5, "#ffe0e6"); g.addColorStop(1, "#e88aa3");
+    ctx.fillStyle = g; ctx.fillRect(0, 0, r.width, r.height);
+    ctx.fillStyle = "rgba(255,255,255,.7)";
+    for (var i = 0; i < 40; i++){ ctx.beginPath(); ctx.arc(Math.random()*r.width, Math.random()*r.height, Math.random()*2+.5, 0, 7); ctx.fill(); }
+    ctx.fillStyle = "#6b2138"; ctx.textAlign = "center";
+    ctx.font = "700 18px Manrope,sans-serif"; ctx.fillText("RASP\u00c1 AC\u00c1 \u2728", r.width/2, r.height/2 - 6);
+    ctx.font = "600 12px Manrope,sans-serif"; ctx.fillText("para revelar tu descuento", r.width/2, r.height/2 + 16);
+    ctx.globalCompositeOperation = "destination-out";
+  }
+
+  function raspar(e){
+    if (!drawing || revealed) return;
+    var r = canvas.getBoundingClientRect();
+    ctx.beginPath(); ctx.arc(e.clientX - r.left, e.clientY - r.top, 20, 0, 7); ctx.fill();
+    medir();
+  }
+
+  function medir(){
+    var now = Date.now(); if (now - tMedir < 120) return; tMedir = now;
+    if (!canvas.width || !canvas.height) return;
+    var data = ctx.getImageData(0, 0, canvas.width, canvas.height).data, vacios = 0, total = 0;
+    for (var i = 3; i < data.length; i += 64){ total++; if (data[i] < 128) vacios++; }
+    if (total && vacios / total > UMBRAL) revelar();
+  }
+
+  function revelar(){
+    if (revealed) return;
+    revealed = true; canvas.classList.add("done"); cta.classList.add("show");
+    $("ks-foot").textContent = "Peg\u00e1 el c\u00f3digo en \u00abCup\u00f3n\u00bb cuando armes tu pedido.";
+    confeti();
+    try { localStorage.setItem(KEY, String(Date.now())); } catch(e){}
+  }
+
+  function confeti(){
+    var c = $("ks-confeti"), x = c.getContext("2d"), w = c.width = window.innerWidth, h = c.height = window.innerHeight;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var cols = ["#ffcfd8","#e0587a","#ffd36e","#fff","#9ad0ff"], ps = [];
+    for (var i = 0; i < 90; i++) ps.push({x:w/2,y:h/2,vx:(Math.random()-.5)*14,vy:-Math.random()*14-3,s:Math.random()*7+4,c:cols[i%5],r:Math.random()*6});
+    var f = 0;
+    (function loop(){
+      x.clearRect(0, 0, w, h);
+      ps.forEach(function(p){ p.x+=p.vx; p.y+=p.vy; p.vy+=.45; p.r+=.2; x.save(); x.translate(p.x,p.y); x.rotate(p.r); x.fillStyle=p.c; x.fillRect(-p.s/2,-p.s/4,p.s,p.s/2); x.restore(); });
+      if (++f < 110) requestAnimationFrame(loop); else x.clearRect(0, 0, w, h);
+    })();
+  }
+
+  canvas.addEventListener("pointerdown", function(e){ drawing = true; if (canvas.setPointerCapture) canvas.setPointerCapture(e.pointerId); raspar(e); });
+  canvas.addEventListener("pointermove", raspar);
+  canvas.addEventListener("pointerup", function(){ drawing = false; medir(); });
+  canvas.addEventListener("pointercancel", function(){ drawing = false; });
+  canvas.addEventListener("pointerleave", function(){ drawing = false; });
+
+  cta.addEventListener("click", function(){
+    try { navigator.clipboard.writeText(premio.codigo); } catch(e){}
+    var inp = $("cuponInput"); if (inp) inp.value = premio.codigo;
+    cerrar();
+    var d = document.querySelector(DESTINO); if (d) d.scrollIntoView({behavior: "smooth"});
+  });
+
+  function cerrar(){ overlay.classList.remove("open"); overlay.setAttribute("aria-hidden", "true"); }
+  $("ks-close").addEventListener("click", cerrar);
+  overlay.addEventListener("click", function(e){ if (e.target === overlay) cerrar(); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") cerrar(); });
+
+  window.abrirRaspadita = function(forzar){
+    if (!forzar){
+      try { var v = +localStorage.getItem(KEY); if (v && Date.now() - v < 864e5) return; } catch(e){}
+    }
+    premio = sortear();
+    $("ks-pct").textContent = premio.texto;
+    $("ks-code").textContent = premio.codigo;
+    revealed = false; canvas.classList.remove("done"); cta.classList.remove("show");
+    $("ks-foot").textContent = "V\u00e1lido por 24 hs. Un solo uso por pedido.";
+    overlay.classList.add("open"); overlay.setAttribute("aria-hidden", "false");
+    pintar();
+  };
+
+  setTimeout(function(){ abrirRaspadita(false); }, DEMORA_MS);
+  window.addEventListener("resize", function(){ if (overlay.classList.contains("open") && !revealed) pintar(); });
+})();
+</script>
+<!-- ===== fin raspadita ===== -->
 </body>
 </html>
