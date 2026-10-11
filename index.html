@@ -833,7 +833,7 @@ function cerrarModal(e){
 
 // ---------- Carrito ----------
 function agregar(p, sel, texto, n = 1){
-  n = Math.max(1, Math.min(Math.floor(Number(n) || 1), 99));
+  n = Math.max(1, Math.min(Math.floor(Number(n) || 1), 9999)); // sin tope practico: el limite real lo pone el stock
   if (agotadoDe(p)){ toast("Ese producto está agotado"); return; }
   if (agotadoOpcion(p, sel)){ toast("Ese color está agotado por ahora"); return; }
   const clave = p.id + "|" + JSON.stringify(sel || {}) + "|" + (texto || "");
