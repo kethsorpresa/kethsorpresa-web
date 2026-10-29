@@ -1399,5 +1399,21 @@
     "textoMax": 120,
     "precioPersonalizacion": 0,
     "variantes": []
+  },
+  {
+    "id": "kit-casamiento-de-vasos-500-ml-lentes-boda-bride-15-anos",
+    "nombre": "Kit Casamiento De Vasos 500 Ml + Lentes Boda Bride 15 Años",
+    "categoria": "Vasos",
+    "descripcion": "Tu compra incluye 2 vasos Glitter tapta rosa doble capa de maxima calidad y dos par de anteojos personalizados dale un toque diferente a tu evento\n\nEste vaso decorativo está pensado para celebraciones de boda o quince años, con un diseño que acompaña mesas dulces, recepciones y momentos de brindis. Su estilo personalizable ayuda a sumar un detalle cuidado en encuentros especiales.\n\nTiene 500 mL de capacidad, 16 cm de alto y 9,5 cm de diámetro en la boca, un formato cómodo para servir distintas bebidas. Está fabricado en acrílico, un material liviano y resistente para acompañar el uso durante la celebración.",
+    "precio": 38000,
+    "imagen": "assets/products/kit-casamiento-de-vasos-500-ml-lentes-boda-bride-15-anos-mvsy3y3q.webp",
+    "destacado": true,
+    "agotado": false,
+    "stock": null,
+    "personalizable": true,
+    "textoEtiqueta": "Escribí tu texto",
+    "textoMax": 120,
+    "precioPersonalizacion": 0,
+    "variantes": []
   }
 ]
