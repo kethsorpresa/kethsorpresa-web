@@ -1428,11 +1428,9 @@ function bannerStop(){ if (bannersTimer){ clearInterval(bannersTimer); bannersTi
 <canvas id="ks-confeti"></canvas>
 <script>
 (function(){
-  // Premios: solo codigos que YA existen en la cuponera (ajustes.json).
-  // peso = probabilidad relativa (5% sale 70 de cada 100 veces).
+  // La raspadita ofrece siempre el cupon del 5% que existe en la cuponera.
   var PREMIOS = [
-    {texto:"5% OFF",  codigo:"KETH5",  peso:70},
-    {texto:"10% OFF", codigo:"KETH10", peso:30}
+    {texto:"5% OFF", codigo:"KETH5", peso:1}
   ];
   var DEMORA_MS = 2000;      // aparece 2 s despues de entrar
   var UMBRAL    = 0.45;      // % raspado para revelar
