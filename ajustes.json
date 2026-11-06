@@ -1,5 +1,5 @@
 {
-  "promo": "NOVIEMBRE LLEGA CON OFERTAS DEL 2 al 4 10% OFF EN TODA LA TIENDA - 🚚 ENVIAMOS A TODO EL PAIS",
+  "promo": "NOVIEMBRE LLEGA CON OFERTAS 5% OFF EN TODA LA TIENDA - 🚚 ENVIAMOS A TODO EL PAIS",
   "heroTitulo": "",
   "heroTexto": "",
   "tipografia": {
@@ -24,13 +24,6 @@
       "valor": 5,
       "activo": true,
       "publico": true
-    },
-    {
-      "codigo": "CYBERMONDAY",
-      "tipo": "porcentaje",
-      "valor": 10,
-      "activo": true,
-      "publico": true
     }
   ],
   "banners": [
@@ -40,9 +33,6 @@
     },
     {
       "imagen": "assets/banners/banner-mttlesxy.webp"
-    },
-    {
-      "imagen": "assets/banners/banner-mvy4710j.jpg"
     }
   ]
 }
